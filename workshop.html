@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Selection Guide - Partipost Workshop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            color: #718096;
+            font-size: 1.2rem;
+        }
+        
+        .goal-selector {
+            background: #f7fafc;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .selector-title {
+            color: #2d3748;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .goal-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .goal-option {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+            text-align: center;
+        }
+        
+        .goal-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .goal-option.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .goal-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .goal-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .goal-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .templates-section {
+            display: none;
+        }
+        
+        .templates-section.active {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .template-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        
+        .template-card.recommended {
+            border-color: #48bb78;
+            position: relative;
+        }
+        
+        .template-card.recommended::before {
+            content: "RECOMMENDED";
+            position: absolute;
+            top: 15px;
+            right: -25px;
+            background: #48bb78;
+            color: white;
+            padding: 5px 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+            z-index: 2;
+        }
+        
+        .template-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .template-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .template-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .template-content {
+            padding: 25px;
+        }
+        
+        .template-description {
+            color: #4a5568;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .template-tasks {
+            margin-bottom: 20px;
+        }
+        
+        .tasks-title {
+            color: #2d3748;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        
+        .task-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .task-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+            position: relative;
+            padding-left: 20px;
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+        
+        .task-item:before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-size: 0.8rem;
+        }
+        
+        .task-item:last-child {
+            border-bottom: none;
+        }
+        
+        .template-pricing {
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .pricing-item {
+            text-align: center;
+        }
+        
+        .pricing-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .pricing-label {
+            font-size: 0.8rem;
+            color: #718096;
+            margin-top: 5px;
+        }
+        
+        .template-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .metric-item {
+            text-align: center;
+            padding: 10px;
+            background: #fff5f5;
+            border-radius: 6px;
+        }
+        
+        .metric-value {
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .metric-label {
+            font-size: 0.8rem;
+            color: #718096;
+        }
+        
+        .select-template-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .select-template-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        
+        .budget-calculator {
+            background: #fff5f5;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 4px solid #fc8181;
+        }
+        
+        .calculator-title {
+            color: #c53030;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .budget-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .input-group {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .input-label {
+            display: block;
+            color: #4a5568;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .budget-results {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .budget-results.active {
+            display: block;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .result-item {
+            text-align: center;
+            padding: 15px;
+            background: #f7fafc;
+            border-radius: 8px;
+        }
+        
+        .result-value {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .result-label {
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .goal-options {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .budget-inputs {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Campaign Template Selection</h1>
+            <p>Choose the perfect campaign template for your marketing goals</p>
+        </div>
+        
+        <div class="goal-selector">
+            <div class="selector-title">🎯 What's your primary marketing goal?</div>
+            <div class="goal-options">
+                <div class="goal-option" onclick="selectGoal('awareness')">
+                    <div class="goal-icon">🌟</div>
+                    <div class="goal-name">Awareness</div>
+                    <div class="goal-desc">Build brand recognition</div>
+                </div>
+                <div class="goal-option" onclick="selectGoal('traffic')">
+                    <div class="goal-icon">🚗</div>
+                    <div class="goal-name">Traffic</div>
+                    <div class="goal-desc">Drive visits & engagement</div>
+                </div>
+                <div class="goal-option" onclick="selectGoal('credibility')">
+                    <div class="goal-icon">⭐</div>
+                    <div class="goal-name">Credibility</div>
+                    <div class="goal-desc">Build trust & social proof</div>
+                </div>
+                <div class="goal-option" onclick="selectGoal('app')">
+                    <div class="goal-icon">📱</div>
+                    <div class="goal-name">App Promotion</div>
+                    <div class="goal-desc">Drive app downloads</div>
+                </div>
+                <div class="goal-option" onclick="selectGoal('content')">
+                    <div class="goal-icon">🎬</div>
+                    <div class="goal-name">Content</div>
+                    <div class="goal-desc">Create marketing assets</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Awareness Templates -->
+        <div class="templates-section" id="awareness-templates">
+            <h2 style="color: #2d3748; font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; text-align: center;">
+                🌟 Awareness Building Templates
+            </h2>
+            <div class="templates-grid">
+                <div class="template-card recommended">
+                    <div class="template-header">
+                        <div class="template-title">Social Media Discovery</div>
+                        <div class="template-subtitle">Instagram + TikTok Exposure</div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-description">
+                            Perfect for new brands wanting maximum exposure across multiple platforms with authentic user-generated content.
+                        </div>
+                        <div class="template-tasks">
+                            <div class="tasks-title">Campaign Tasks:</div>
+                            <ul class="task-list">
+                                <li class="task-item">Follow brand social accounts</li>
+                                <li class="task-item">Create Instagram Reel showcasing product</li>
+                                <li class="task-item">Create TikTok video with brand hashtags</li>
+                                <li class="task-item">Share Instagram Story mention</li>
+                            </ul>
+                        </div>
+                        <div class="template-pricing">
+                            <div class="pricing-grid">
+                                <div class="pricing-item">
+                                    <div class="pricing-value">$3,000</div>
+                                    <div class="pricing-label">Recommended Budget</div>
+                                </div>
+                                <div class="pricing-item">
+                                    <div class="pricing-value">15-25</div>
+                                    <div class="pricing-label">Influencers</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">50+</div>
+                                <div class="metric-label">Content Pieces</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">200K+</div>
+                                <div class="metric-label">Reach</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">12</div>
+                                <div class="metric-label">Months Usage</div>
+                            </div>
+                        </div>
+                        <button class="select-template-btn" onclick="selectTemplate('Social Media Discovery', 3000)">
+                            Select This Template
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="template-card">
+                    <div class="template-header">
+                        <div class="template-title">Brand Introduction</div>
+                        <div class="template-subtitle">Content Creation Only</div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-description">
+                            Create high-quality content for your own marketing channels without requiring influencers to post publicly.
+                        </div>
+                        <div class="template-tasks">
+                            <div class="tasks-title">Campaign Tasks:</div>
+                            <ul class="task-list">
+                                <li class="task-item">Create product showcase videos</li>
+                                <li class="task-item">Write authentic product reviews</li>
+                                <li class="task-item">Submit content for brand use</li>
+                                <li class="task-item">No posting requirement</li>
+                            </ul>
+                        </div>
+                        <div class="template-pricing">
+                            <div class="pricing-grid">
+                                <div class="pricing-item">
+                                    <div class="pricing-value">$2,000</div>
+                                    <div class="pricing-label">Recommended Budget</div>
+                                </div>
+                                <div class="pricing-item">
+                                    <div class="pricing-value">20-30</div>
+                                    <div class="pricing-label">Creators</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">30+</div>
+                                <div class="metric-label">Content Pieces</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">100%</div>
+                                <div class="metric-label">Owned Content</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">12</div>
+                                <div class="metric-label">Months Usage</div>
+                            </div>
+                        </div>
+                        <button class="select-template-btn" onclick="selectTemplate('Brand Introduction', 2000)">
+                            Select This Template
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Traffic Templates -->
+        <div class="templates-section" id="traffic-templates">
+            <h2 style="color: #2d3748; font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; text-align: center;">
+                🚗 Traffic Driving Templates
+            </h2>
+            <div class="templates-grid">
+                <div class="template-card recommended">
+                    <div class="template-header">
+                        <div class="template-title">Website Traffic Boost</div>
+                        <div class="template-subtitle">Direct Traffic Generation</div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-description">
+                            Drive qualified traffic to your website or online store with clear call-to-actions and trackable links.
+                        </div>
+                        <div class="template-tasks">
+                            <div class="tasks-title">Campaign Tasks:</div>
+                            <ul class="task-list">
+                                <li class="task-item">Create content featuring your website</li>
+                                <li class="task-item">Include trackable bio links</li>
+                                <li class="task-item">Add clear call-to-actions</li>
+                                <li class="task-item">Share Instagram Stories with swipe-up</li>
+                            </ul>
+                        </div>
+                        <div class="template-pricing">
+                            <div class="pricing-grid">
+                                <div class="pricing-item">
+                                    <div class="pricing-value">$3,500</div>
+                                    <div class="pricing-label">Recommended Budget</div>
+                                </div>
+                                <div class="pricing-item">
+                                    <div class="pricing-value">20-30</div>
+                                    <div class="pricing-label">Influencers</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">1000+</div>
+                                <div class="metric-label">Website Visits</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">60+</div>
+                                <div class="metric-label">Content Pieces</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">5%</div>
+                                <div class="metric-label">Avg CTR</div>
+                            </div>
+                        </div>
+                        <button class="select-template-btn" onclick="selectTemplate('Website Traffic Boost', 3500)">
+                            Select This Template
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="template-card">
+                    <div class="template-header">
+                        <div class="template-title">Store Visit Drive</div>
+                        <div class="template-subtitle">Physical Location Traffic</div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-description">
+                            Perfect for restaurants, retail stores, and service businesses wanting to increase foot traffic and local awareness.
+                        </div>
+                        <div class="template-tasks">
+                            <div class="tasks-title">Campaign Tasks:</div>
+                            <ul class="task-list">
+                                <li class="task-item">Visit your physical location</li>
+                                <li class="task-item">Create location-tagged content</li>
+                                <li class="task-item">Share experience stories</li>
+                                <li class="task-item">Include address and directions</li>
+                            </ul>
+                        </div>
+                        <div class="template-pricing">
+                            <div class="pricing-grid">
+                                <div class="pricing-item">
+                                    <div class="pricing-value">$4,000</div>
+                                    <div class="pricing-label">Recommended Budget</div>
+                                </div>
+                                <div class="pricing-item">
+                                    <div class="pricing-value">15-20</div>
+                                    <div class="pricing-label">Local Influencers</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">500+</div>
+                                <div class="metric-label">Store Visits</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">40+</div>
+                                <div class="metric-label">Location Posts</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">Local</div>
+                                <div class="metric-label">Geo-targeted</div>
+                            </div>
+                        </div>
+                        <button class="select-template-btn" onclick="selectTemplate('Store Visit Drive', 4000)">
+                            Select This Template
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Credibility Templates -->
+        <div class="templates-section" id="credibility-templates">
+            <h2 style="color: #2d3748; font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; text-align: center;">
+                ⭐ Trust & Credibility Templates
+            </h2>
+            <div class="templates-grid">
+                <div class="template-card recommended">
+                    <div class="template-header">
+                        <div class="template-title">Purchase + Review</div>
+                        <div class="template-subtitle">Authentic Customer Testimonials</div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-description">
+                            The gold standard for building trust. Influencers purchase and genuinely review your products, creating authentic testimonials.
+                        </div>
+                        <div class="template-tasks">
+                            <div class="tasks-title">Campaign Tasks:</div>
+                            <ul class="task-list">
+                                <li class="task-item">Purchase your product</li>
+                                <li class="task-item">Use product authentically</li>
+                                <li class="task-item">Create honest review content</li>
+                                <li class="task-item">Submit proof of purchase</li>
+                            </ul>
+                        </div>
+                        <div class="template-pricing">
+                            <div class="pricing-grid">
+                                <div class="pricing-item">
+                                    <div class="pricing-value">$5,000</div>
+                                    <div class="pricing-label">Recommended Budget</div>
+                                </div>
+                                <div class="pricing-item">
+                                    <div class="pricing-value">15-25</div>
+                                    <div class="pricing-label">Reviewers</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">95%</div>
+                                <div class="metric-label">Trust Rating</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">25+</div>
+                                <div class="metric-label">Reviews</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">3x</div>
+                                <div class="metric-label">Conversion Lift</div>
+                            </div>
+                        </div>
+                        <button class="select-template-btn" onclick="selectTemplate('Purchase + Review', 5000)">
+                            Select This Template
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="template-card">
+                    <div class="template-header">
+                        <div class="template-title">Testimonial Collection</div>
+                        <div class="template-subtitle">Social Proof Building</div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-description">
+                            Build credibility with authentic user testimonials and reviews that you can use across all marketing channels.
+                        </div>
+                        <div class="template-tasks">
+                            <div class="tasks-title">Campaign Tasks:</div>
+                            <ul class="task-list">
+                                <li class="task-item">Share personal experience</li>
+                                <li class="task-item">Create testimonial video</li>
+                                <li class="task-item">Write detailed review</li>
+                                <li class="task-item">Rate on review platforms</li>
+                            </ul>
+                        </div>
+                        <div class="template-pricing">
+                            <div class="pricing-grid">
+                                <div class="pricing-item">
+                                    <div class="pricing-value">$2,500</div>
+                                    <div class="pricing-label">Recommended Budget</div>
+                                </div>
+                                <div class="pricing-item">
+                                    <div class="pricing-value">25-35</div>
+                                    <div class="pricing-label">Testimonials</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">35+</div>
+                                <div class="metric-label">Testimonials</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">90%</div>
+                                <div class="metric-label">Authenticity</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">2x</div>
+                                <div class="metric-label">Trust Increase</div>
+                            </div>
+                        </div>
+                        <button class="select-template-btn" onclick="selectTemplate('Testimonial Collection', 2500)">
+                            Select This Template
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- App Promotion Templates -->
+        <div class="templates-section" id="app-templates">
+            <h2 style="color: #2d3748; font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; text-align: center;">
+                📱 App Promotion Templates
+            </h2>
+            <div class="templates-grid">
+                <div class="template-card recommended">
+                    <div class="template-header">
+                        <div class="template-title">App Download + Review</div>
+                        <div class="template-subtitle">Full App Store Optimization</div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-description">
+                            Comprehensive app promotion including downloads, authentic usage reviews, and app store ratings to boost your app's visibility.
+                        </div>
+                        <div class="template-tasks">
+                            <div class="tasks-title">Campaign Tasks:</div>
+                            <ul class="task-list">
+                                <li class="task-item">Download and register account</li>
+                                <li class="task-item">Use app for specified period</li>
+                                <li class="task-item">Create app demo video</li>
+                                <li class="task-item">Write app store review</li>
+                            </ul>
+                        </div>
+                        <div class="template-pricing">
+                            <div class="pricing-grid">
+                                <div class="pricing-item">
+                                    <div class="pricing-value">$4,000</div>
+                                    <div class="pricing-label">Recommended Budget</div>
+                                </div>
+                                <div class="pricing-item">
+                                    <div class="pricing-value">30-50</div>
+                                    <div class="pricing-label">App Downloads</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">50+</div>
+                                <div class="metric-label">Downloads</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">40+</div>
+                                <div class="metric-label">Reviews</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">4.5+</div>
+                                <div class="metric-label">Avg Rating</div>
+                            </div>
+                        </div>
+                        <button class="select-template-btn" onclick="selectTemplate('App Download + Review', 4000)">
+                            Select This Template
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Templates -->
+        <div class="templates-section" id="content-templates">
+            <h2 style="color: #2d3748; font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; text-align: center;">
+                🎬 Content Creation Templates
+            </h2>
+            <div class="templates-grid">
+                <div class="template-card recommended">
+                    <div class="template-header">
+                        <div class="template-title">Content Library Builder</div>
+                        <div class="template-subtitle">12 Months of Marketing Content</div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-description">
+                            Create a comprehensive library of marketing content that you can use across all channels for an entire year.
+                        </div>
+                        <div class="template-tasks">
+                            <div class="tasks-title">Campaign Tasks:</div>
+                            <ul class="task-list">
+                                <li class="task-item">Create variety of content formats</li>
+                                <li class="task-item">Include tutorials and demos</li>
+                                <li class="task-item">Submit high-resolution files</li>
+                                <li class="task-item">No posting requirement</li>
+                            </ul>
+                        </div>
+                        <div class="template-pricing">
+                            <div class="pricing-grid">
+                                <div class="pricing-item">
+                                    <div class="pricing-value">$6,000</div>
+                                    <div class="pricing-label">Recommended Budget</div>
+                                </div>
+                                <div class="pricing-item">
+                                    <div class="pricing-value">40-60</div>
+                                    <div class="pricing-label">Content Pieces</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">60+</div>
+                                <div class="metric-label">Assets</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">12</div>
+                                <div class="metric-label">Months Usage</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">$100</div>
+                                <div class="metric-label">Cost per Asset</div>
+                            </div>
+                        </div>
+                        <button class="select-template-btn" onclick="selectTemplate('Content Library Builder', 6000)">
+                            Select This Template
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="template-card">
+                    <div class="template-header">
+                        <div class="template-title">Tutorial Content</div>
+                        <div class="template-subtitle">Educational Marketing Content</div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-description">
+                            Create educational and tutorial content that showcases your product benefits while providing value to viewers.
+                        </div>
+                        <div class="template-tasks">
+                            <div class="tasks-title">Campaign Tasks:</div>
+                            <ul class="task-list">
+                                <li class="task-item">Create how-to tutorials</li>
+                                <li class="task-item">Demonstrate product benefits</li>
+                                <li class="task-item">Include tips and tricks</li>
+                                <li class="task-item">Submit educational content</li>
+                            </ul>
+                        </div>
+                        <div class="template-pricing">
+                            <div class="pricing-grid">
+                                <div class="pricing-item">
+                                    <div class="pricing-value">$3,500</div>
+                                    <div class="pricing-label">Recommended Budget</div>
+                                </div>
+                                <div class="pricing-item">
+                                    <div class="pricing-value">20-30</div>
+                                    <div class="pricing-label">Tutorials</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">30+</div>
+                                <div class="metric-label">Tutorials</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">High</div>
+                                <div class="metric-label">Educational Value</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">12</div>
+                                <div class="metric-label">Months Usage</div>
+                            </div>
+                        </div>
+                        <button class="select-template-btn" onclick="selectTemplate('Tutorial Content', 3500)">
+                            Select This Template
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="budget-calculator">
+            <div class="calculator-title">
+                💰 Campaign Budget Calculator
+            </div>
+            <div class="budget-inputs">
+                <div class="input-group">
+                    <label class="input-label">Selected Template:</label>
+                    <input type="text" class="input-field" id="selectedTemplate" readonly placeholder="Select a template above">
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Base Budget (SGD):</label>
+                    <input type="number" class="input-field" id="baseBudget" readonly>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Scale Multiplier:</label>
+                    <input type="number" class="input-field" id="scaleMultiplier" value="1" step="0.5" min="0.5" max="3" oninput="calculateBudget()">
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Product Cost (if applicable):</label>
+                    <input type="number" class="input-field" id="productCost" value="0" oninput="calculateBudget()">
+                </div>
+            </div>
+            
+            <div class="budget-results" id="budgetResults">
+                <h4 style="color: #2d3748; margin-bottom: 15px; text-align: center;">Estimated Campaign Results</h4>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <div class="result-value" id="totalBudget">$0</div>
+                        <div class="result-label">Total Investment</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-value" id="expectedInfluencers">0</div>
+                        <div class="result-label">Influencers</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-value" id="contentPieces">0</div>
+                        <div class="result-label">Content Pieces</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-value" id="estimatedReach">0</div>
+                        <div class="result-label">Est. Reach</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedGoal = '';
+        let selectedTemplateData = {};
+
+        function selectGoal(goal) {
+            selectedGoal = goal;
+            
+            // Update UI
+            document.querySelectorAll('.goal-option').forEach(el => el.classList.remove('selected'));
+            event.target.closest('.goal-option').classList.add('selected');
+            
+            // Hide all template sections
+            document.querySelectorAll('.templates-section').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Show selected template section
+            document.getElementById(goal + '-templates').classList.add('active');
+        }
+
+        function selectTemplate(templateName, baseBudget) {
+            selectedTemplateData = {
+                name: templateName,
+                baseBudget: baseBudget
+            };
+            
+            document.getElementById('selectedTemplate').value = templateName;
+            document.getElementById('baseBudget').value = baseBudget;
+            
+            calculateBudget();
+            
+            // Scroll to calculator
+            document.querySelector('.budget-calculator').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function calculateBudget() {
+            const baseBudget = parseFloat(document.getElementById('baseBudget').value) || 0;
+            const scaleMultiplier = parseFloat(document.getElementById('scaleMultiplier').value) || 1;
+            const productCost = parseFloat(document.getElementById('productCost').value) || 0;
+            
+            if (baseBudget === 0) return;
+            
+            const scaledBudget = baseBudget * scaleMultiplier;
+            const totalBudget = scaledBudget + (productCost * Math.floor(scaledBudget / 150)); // Assuming avg $150 per influencer
+            
+            const expectedInfluencers = Math.floor(scaledBudget / 150);
+            const contentPieces = expectedInfluencers * (selectedTemplateData.name?.includes('Discovery') ? 3 : 
+                                                        selectedTemplateData.name?.includes('Traffic') ? 2 : 
+                                                        selectedTemplateData.name?.includes('Review') ? 1 : 2);
+            const estimatedReach = expectedInfluencers * 8000; // Avg 8k reach per influencer
+            
+            document.getElementById('totalBudget').textContent = '
+                
+                 + Math.round(totalBudget).toLocaleString();
+            document.getElementById('expectedInfluencers').textContent = expectedInfluencers;
+            document.getElementById('contentPieces').textContent = contentPieces;
+            document.getElementById('estimatedReach').textContent = estimatedReach >= 1000000 ? 
+                (estimatedReach / 1000000).toFixed(1) + 'M' : 
+                (estimatedReach / 1000).toFixed(0) + 'K';
+            
+            document.getElementById('budgetResults').classList.add('active');
+        }
+    </script>
+</body>
+</html>

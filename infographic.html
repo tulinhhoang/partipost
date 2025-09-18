@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The SME Playbook to Dominate Year-End Sales | SG & MY</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --blue:#003F5C;--purple:#58508D;--magenta:#BC5090;--red:#FF6361;--orange:#FFA600
+    }
+    body{font-family:'Inter',sans-serif}
+    .glass{backdrop-filter:saturate(180%) blur(10px); background:rgba(255,255,255,.85)}
+    .container-balanced{max-width:1152px}
+    /* subtle card hover */
+    .card{transition:transform .2s ease, box-shadow .2s ease}
+    .card:hover{transform:translateY(-2px); box-shadow:0 10px 25px rgba(0,0,0,.06)}
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="container container-balanced mx-auto px-4 md:px-8">
+    <!-- HERO -->
+    <header class="my-10">
+      <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#003F5C] via-[#3f5a8a] to-[#58508D] p-8 md:p-12 text-white">
+        <div class="max-w-3xl">
+          <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">The SME Playbook to Dominate Year-End Sales</h1>
+          <p class="mt-4 text-lg/7 text-white/90">An expanded playbook for brands in Singapore & Malaysia to win the crucial Q4 shopping season by mastering the Discovery-to-Purchase loop.</p>
+        </div>
+        <div class="absolute -right-8 -top-8 h-48 w-48 md:h-64 md:w-64 rounded-full bg-white/10"></div>
+        <div class="absolute -right-20 bottom-0 h-40 w-40 rounded-full bg-white/10"></div>
+      </div>
+    </header>
+
+    <main class="space-y-16">
+      <!-- CUSTOMER JOURNEY (Fixed layout) -->
+      <section id="customer-journey">
+        <div class="glass rounded-2xl shadow-sm p-6 md:p-8">
+          <h2 class="text-2xl md:text-3xl font-bold text-[color:var(--blue)] text-center">The Modern Shopper's Journey Isn’t Linear</h2>
+          <p class="mt-3 text-center text-gray-600 max-w-2xl mx-auto">Shoppers in SG & MY bounce between social discovery, marketplace validation, and purchase events. Your job: make each handoff seamless.</p>
+
+          <!-- Responsive Stepper -->
+          <div class="relative mt-10">
+            <!-- connecting line for desktop -->
+            <div class="hidden md:block absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1 bg-gradient-to-r from-[#FFA600] via-[#FF6361] to-[#BC5090] rounded-full"></div>
+
+            <ol class="flex flex-col md:flex-row items-stretch md:items-center gap-6 md:gap-5 relative z-10">
+              <!-- Step 1 -->
+              <li class="flex-1">
+                <div class="card h-full rounded-xl border border-[#FFA600]/30 bg-white p-6">
+                  <div class="flex items-center gap-3">
+                    <span class="grid h-10 w-10 place-items-center rounded-full bg-[#FFA600] text-white font-bold">1</span>
+                    <h3 class="text-xl font-bold text-[color:var(--blue)]">Discovery</h3>
+                  </div>
+                  <p class="mt-3 text-gray-600">“I saw this cool gadget in a TikTok video!”</p>
+                  <p class="mt-2 text-sm font-semibold text-[#FFA600]">TikTok · Instagram · YouTube</p>
+                </div>
+              </li>
+
+              <!-- Arrow (desktop) / separator (mobile) -->
+              <li class="hidden md:flex md:w-12 md:shrink-0 items-center justify-center text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-7 w-7"><path fill="currentColor" d="M5 12h12l-4.5-4.5l1.4-1.4L21.2 12l-7.3 5.9l-1.4-1.4L17 13H5z"/></svg>
+              </li>
+              <li class="md:hidden flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-7 w-7 text-gray-400"><path fill="currentColor" d="M12 5v12l4.5-4.5l1.4 1.4L12 21.2L6.1 13.9l1.4-1.4L11 17V5z"/></svg>
+              </li>
+
+              <!-- Step 2 -->
+              <li class="flex-1">
+                <div class="card h-full rounded-xl border border-[#FF6361]/30 bg-white p-6">
+                  <div class="flex items-center gap-3">
+                    <span class="grid h-10 w-10 place-items-center rounded-full bg-[#FF6361] text-white font-bold">2</span>
+                    <h3 class="text-xl font-bold text-[color:var(--blue)]">Research & Validation</h3>
+                  </div>
+                  <p class="mt-3 text-gray-600">“Let me search for it on Shopee and read the reviews.”</p>
+                  <p class="mt-2 text-sm font-semibold text-[#FF6361]">Shopee · Lazada · Google</p>
+                </div>
+              </li>
+
+              <!-- Arrow (desktop) / separator (mobile) -->
+              <li class="hidden md:flex md:w-12 md:shrink-0 items-center justify-center text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-7 w-7"><path fill="currentColor" d="M5 12h12l-4.5-4.5l1.4-1.4L21.2 12l-7.3 5.9l-1.4-1.4L17 13H5z"/></svg>
+              </li>
+              <li class="md:hidden flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-7 w-7 text-gray-400"><path fill="currentColor" d="M12 5v12l4.5-4.5l1.4 1.4L12 21.2L6.1 13.9l1.4-1.4L11 17V5z"/></svg>
+              </li>
+
+              <!-- Step 3 -->
+              <li class="flex-1">
+                <div class="card h-full rounded-xl border border-[#BC5090]/30 bg-white p-6">
+                  <div class="flex items-center gap-3">
+                    <span class="grid h-10 w-10 place-items-center rounded-full bg-[#BC5090] text-white font-bold">3</span>
+                    <h3 class="text-xl font-bold text-[color:var(--blue)]">Purchase</h3>
+                  </div>
+                  <p class="mt-3 text-gray-600">“Looks good—4.9★ and 15 reviews. Adding to cart for 11.11!”</p>
+                  <p class="mt-2 text-sm font-semibold text-[#BC5090]">11.11 · 12.12 · Bonus Season</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="mt-8 rounded-xl bg-yellow-50 border border-yellow-200 p-5">
+            <p class="font-bold text-yellow-900">💡 The Million‑Dollar Insight</p>
+            <p class="text-yellow-900/90 mt-1">Social buzz without reviews bleeds conversions at validation; reviews without buzz stall discovery. Dominate both to win Q4.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- IMPACT -->
+      <section id="impact">
+        <div class="glass rounded-2xl shadow-sm p-6 md:p-8">
+          <h2 class="text-2xl md:text-3xl font-bold text-[color:var(--blue)] text-center">The Power of Synergy: One Campaign, Multiple Wins</h2>
+          <p class="mt-3 text-center text-gray-600 max-w-2xl mx-auto">Disconnected tactics give fractional results. Integrated campaigns multiply touchpoints across the journey.</p>
+
+          <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="space-y-4">
+              <div class="card rounded-xl border border-red-200/60 bg-red-50 p-5">
+                <p class="font-semibold text-red-800">Only Social Buzz</p>
+                <p class="text-red-800/80 text-sm mt-1">Spikes interest but dies at search when reviews are thin. High traffic, low conversion.</p>
+              </div>
+              <div class="card rounded-xl border border-blue-200/60 bg-blue-50 p-5">
+                <p class="font-semibold text-blue-800">Only Reviews</p>
+                <p class="text-blue-800/80 text-sm mt-1">Converts the few who find you, but you miss mass discovery. Low traffic, good conversion.</p>
+              </div>
+            </div>
+
+            <div>
+              <div class="relative mx-auto max-w-md">
+                <canvas id="synergyChart" class="!h-72"></canvas>
+              </div>
+              <p class="text-center text-xs text-gray-500 mt-2">Impact of a single influencer in an integrated campaign.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PLAYBOOK -->
+      <section id="playbook">
+        <div class="glass rounded-2xl shadow-sm p-6 md:p-8">
+          <h2 class="text-2xl md:text-3xl font-bold text-[color:var(--blue)] text-center">Your Q4 Domination Playbook: Step‑by‑Step</h2>
+
+          <ol class="mt-10 space-y-8">
+            <!-- Phase 1 -->
+            <li class="card rounded-xl border border-[#FFA600]/30 bg-white p-6">
+              <div class="flex items-start gap-3">
+                <span class="mt-1 inline-flex items-center gap-2 rounded-full bg-[#FFA600] px-3 py-1 text-sm font-bold text-white">Phase 1 <span class="hidden md:inline">•</span> <span>Now–Oct 31</span></span>
+              </div>
+              <h3 class="mt-3 text-xl font-bold text-[color:var(--blue)]">Build the Discovery + Trust Engine</h3>
+              <p class="mt-1 text-gray-600">Launch an integrated campaign so social proof and marketplace reviews are in place before peak season.</p>
+              <ul class="mt-3 list-disc pl-5 text-gray-600 space-y-1">
+                <li><strong>Action:</strong> Engage 20+ creators for “Eyeing for 11.11” content (TikTok/IG).</li>
+                <li><strong>Action:</strong> Have them purchase via Shopee/Lazada and leave verified photo reviews.</li>
+                <li><strong>Goal:</strong> 20+ credible reviews & 20+ social posts to fuel discovery.</li>
+              </ul>
+            </li>
+
+            <!-- Phase 2 -->
+            <li class="card rounded-xl border border-[#FF6361]/30 bg-white p-6">
+              <span class="inline-flex items-center gap-2 rounded-full bg-[#FF6361] px-3 py-1 text-sm font-bold text-white">Phase 2 • Nov 1–10</span>
+              <h3 class="mt-3 text-xl font-bold text-[color:var(--blue)]">Create the 11.11 Hype Loop</h3>
+              <p class="mt-1 text-gray-600">Tighten the bridge between social and marketplace to dominate consideration pre‑event.</p>
+              <ul class="mt-3 list-disc pl-5 text-gray-600 space-y-1">
+                <li><strong>Action:</strong> “Just carted for 11.11!” IG stories to drive urgency.</li>
+                <li><strong>Action:</strong> Orchestrate unboxings as products land.</li>
+                <li><strong>Goal:</strong> Be in as many carts as possible before midnight.</li>
+              </ul>
+            </li>
+
+            <!-- Phase 3 -->
+            <li class="card rounded-xl border border-[#BC5090]/30 bg-white p-6">
+              <span class="inline-flex items-center gap-2 rounded-full bg-[#BC5090] px-3 py-1 text-sm font-bold text-white">Phase 3 • Nov 11 & Dec 12</span>
+              <h3 class="mt-3 text-xl font-bold text-[color:var(--blue)]">Execute Real‑Time Sales Surges</h3>
+              <p class="mt-1 text-gray-600">Coordinate waves across the day to trigger marketplace algorithms.</p>
+              <ul class="mt-3 list-disc pl-5 text-gray-600 space-y-1">
+                <li><strong>Action:</strong> 12–6am: “Just bought!” receipts to kickstart velocity.</li>
+                <li><strong>Action:</strong> 7–11pm: Last‑chance story pushes.</li>
+                <li><strong>Goal:</strong> Climb rankings and hold visibility.</li>
+              </ul>
+            </li>
+
+            <!-- Phase 4 -->
+            <li class="card rounded-xl border border-[#58508D]/30 bg-white p-6">
+              <span class="inline-flex items-center gap-2 rounded-full bg-[#58508D] px-3 py-1 text-sm font-bold text-white">Phase 4 • Post‑Sale & Bonus Season</span>
+              <h3 class="mt-3 text-xl font-bold text-[color:var(--blue)]">The Bonus Season Double‑Play</h3>
+              <p class="mt-1 text-gray-600">Repurpose content and put new reviews to work for year‑end spending waves.</p>
+              <ul class="mt-3 list-disc pl-5 text-gray-600 space-y-1">
+                <li><strong>Action:</strong> Pivot to “Treat yourself with your bonus.”</li>
+                <li><strong>Action:</strong> Update reviews to highlight durability & value (e.g., “Worth the splurge”).</li>
+                <li><strong>Goal:</strong> Sustain momentum into CNY.</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ROI -->
+      <section id="investment-roi">
+        <div class="glass rounded-2xl shadow-sm p-6 md:p-8">
+          <h2 class="text-2xl md:text-3xl font-bold text-[color:var(--blue)] text-center">Quantifying the Impact: From Views to Sales</h2>
+          <p class="mt-3 text-center text-gray-600 max-w-2xl mx-auto">Driving traffic to a page with few reviews is like pouring water into a leaky bucket. Seal the leaks; compound your media spend.</p>
+
+          <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="rounded-xl bg-gray-50 border border-gray-200 p-6">
+              <h3 class="font-bold text-lg text-center text-[color:var(--blue)]">Real‑World Case Study: Skincare</h3>
+              <p class="text-sm text-center text-gray-500 mb-4">Based on 5,000 visitors from a TikTok campaign.</p>
+              <div class="relative mx-auto max-w-md">
+                <canvas id="roiChart" class="!h-64"></canvas>
+              </div>
+            </div>
+            <div class="text-center">
+              <div class="mb-6">
+                <p class="text-6xl font-extrabold text-[color:var(--red)]">3.8×</p>
+                <p class="text-xl font-semibold text-[color:var(--blue)]">More Sales</p>
+                <p class="text-gray-600 mt-1">Same traffic, different outcome—30+ verified reviews in place <em>before</em> launch.</p>
+              </div>
+              <div class="rounded-xl bg-green-50 border border-green-200 p-5 text-left">
+                <p class="font-bold text-green-900">Bottom Line</p>
+                <p class="text-green-900/90 mt-1">Conversion rose from 1.1% → 4.2%. That’s 55 vs 210 sales. Reviews don’t just help; they multiply your media efficiency.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INDUSTRY TACTICS -->
+      <section id="industry-tactics">
+        <div class="glass rounded-2xl shadow-sm p-6 md:p-8">
+          <h2 class="text-2xl md:text-3xl font-bold text-[color:var(--blue)] text-center">Industry‑Specific Synergy Strategies</h2>
+          <p class="mt-3 text-center text-gray-600 max-w-2xl mx-auto">Map aspiration on social to validation in reviews—tailored by category.</p>
+
+          <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="card rounded-xl p-6 bg-gradient-to-br from-pink-50 to-rose-100 border border-rose-200/60">
+              <h3 class="text-xl font-bold text-[#BC5090] mb-1">💄 Beauty & Skincare</h3>
+              <p class="text-gray-700"><strong class="text-[#BC5090]">Social:</strong> GRWM, 30‑day routines, aesthetic transitions.</p>
+              <p class="mt-2 text-gray-700"><strong class="text-[#BC5090]">Reviews:</strong> Texture, absorption, scent, before/after photos.</p>
+            </div>
+            <div class="card rounded-xl p-6 bg-gradient-to-br from-blue-50 to-sky-100 border border-sky-200/60">
+              <h3 class="text-xl font-bold text-[#58508D] mb-1">👕 Fashion</h3>
+              <p class="text-gray-700"><strong class="text-[#58508D]">Social:</strong> “5 ways to style”, hauls, occasion lookbooks.</p>
+              <p class="mt-2 text-gray-700"><strong class="text-[#58508D]">Reviews:</strong> Sizing accuracy (with height/weight), material, fit photos.</p>
+            </div>
+            <div class="card rounded-xl p-6 bg-gradient-to-br from-orange-50 to-amber-100 border border-amber-200/60">
+              <h3 class="text-xl font-bold text-[#FFA600] mb-1">🍔 F&B Products</h3>
+              <p class="text-gray-700"><strong class="text-[#FFA600]">Social:</strong> Easy recipes, family taste tests, WIEIAD.</p>
+              <p class="mt-2 text-gray-700"><strong class="text-[#FFA600]">Reviews:</strong> Taste notes, competitor comparisons, value‑for‑money.</p>
+            </div>
+            <div class="card rounded-xl p-6 bg-gradient-to-br from-teal-50 to-cyan-100 border border-cyan-200/60">
+              <h3 class="text-xl font-bold text-[#003F5C] mb-1">💊 Health & Supplements</h3>
+              <p class="text-gray-700"><strong class="text-[#003F5C]">Social:</strong> Daily routines, energy, fitness journaling.</p>
+              <p class="mt-2 text-gray-700"><strong class="text-[#003F5C]">Reviews:</strong> Documented timelines, specific benefits, adherence.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER CTA -->
+    <footer class="my-12">
+      <div class="rounded-2xl bg-[color:var(--blue)] text-white p-8 text-center">
+        <h2 class="text-2xl md:text-3xl font-bold">Your Competitors Are Already Moving.</h2>
+        <p class="mt-3 max-w-2xl mx-auto text-white/90">Winners aren’t choosing between social <em>or</em> reviews—they’re compounding both into an unstoppable conversion engine.</p>
+        <a href="#" class="mt-6 inline-block rounded-xl bg-[#FFA600] px-6 py-3 font-bold text-[color:var(--blue)] hover:bg-[#ffb43b] transition">Launch Your Integrated Campaign Today</a>
+        <p class="text-xs text-white/60 mt-6">© 2024 Playbook created with Partipost Insights. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Shared chart styles
+    const defaultOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 18 } },
+        tooltip: { callbacks: { title(items){ return items[0].label } } }
+      }
+    };
+
+    // Synergy doughnut
+    const synergyCtx = document.getElementById('synergyChart');
+    if (synergyCtx) {
+      new Chart(synergyCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Generates a Sale', 'Creates Social Buzz', 'Builds Marketplace Trust', 'Drives Ongoing Buzz'],
+          datasets: [{
+            label: 'Campaign Touchpoints',
+            data: [25, 25, 25, 25],
+            backgroundColor: ['#FFA600', '#FF6361', '#58508D', '#BC5090'],
+            hoverOffset: 4,
+          }]
+        },
+        options: {
+          ...defaultOptions,
+          plugins: {
+            ...defaultOptions.plugins,
+            title: { display: true, text: '4+ Touchpoints from One Influencer', color: '#003F5C', font: { size: 16, weight: 'bold' } }
+          }
+        }
+      });
+    }
+
+    // ROI horizontal bar
+    const roiCtx = document.getElementById('roiChart');
+    if (roiCtx) {
+      new Chart(roiCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Sales with Reviews', 'Sales without Reviews'],
+          datasets: [{
+            label: 'Total Sales',
+            data: [210, 55],
+            backgroundColor: ['#FF6361', '#003F5C'],
+            borderColor: ['#FF6361', '#003F5C'],
+            borderWidth: 1,
+            barThickness: 42
+          }]
+        },
+        options: {
+          ...defaultOptions,
+          indexAxis: 'y',
+          scales: {
+            x: { beginAtZero: true, title: { display: true, text: 'Number of Sales' } },
+            y: { grid: { display: false } }
+          },
+          plugins: { legend: { display: false }, tooltip: defaultOptions.plugins.tooltip }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

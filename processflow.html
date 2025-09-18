@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Process Flow - Partipost Workshop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            color: #718096;
+            font-size: 1.2rem;
+        }
+        
+        .timeline-container {
+            position: relative;
+            margin: 40px 0;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #e2e8f0 0%, #667eea 50%, #e2e8f0 100%);
+            transform: translateY(-50%);
+            border-radius: 2px;
+        }
+        
+        .timeline-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+            width: 0%;
+            transition: width 2s ease-out;
+        }
+        
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .process-step {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid #e2e8f0;
+            position: relative;
+        }
+        
+        .process-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .process-step.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .process-step.completed {
+            border-color: #48bb78;
+            background: #f0fff4;
+        }
+        
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.5rem;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .process-step.active .step-icon {
+            background: white;
+            color: #667eea;
+            animation: pulse 2s infinite;
+        }
+        
+        .process-step.completed .step-icon {
+            background: #48bb78;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #2d3748;
+        }
+        
+        .process-step.active .step-title {
+            color: white;
+        }
+        
+        .step-duration {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-bottom: 15px;
+        }
+        
+        .process-step.active .step-duration {
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .step-description {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: #4a5568;
+        }
+        
+        .process-step.active .step-description {
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .detail-panel {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            border-left: 4px solid #667eea;
+            display: none;
+        }
+        
+        .detail-panel.active {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .detail-title {
+            color: #2d3748;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .detail-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .detail-section h4 {
+            color: #4a5568;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .detail-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .detail-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .detail-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #48bb78;
+            font-weight: bold;
+        }
+        
+        .detail-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .timeline-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .control-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        
+        .control-btn:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .tips-section {
+            background: #fff5f5;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 4px solid #fc8181;
+        }
+        
+        .tips-title {
+            color: #c53030;
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .tip-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid #fc8181;
+        }
+        
+        .tip-item h5 {
+            color: #2d3748;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .tip-item p {
+            color: #4a5568;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .progress-indicator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .progress-text {
+            color: #4a5568;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        
+        .progress-percentage {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .process-steps {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+            
+            .detail-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .timeline-line {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Campaign Process Flow</h1>
+            <p>Step-by-step guide to launching your Partipost campaign</p>
+        </div>
+        
+        <div class="timeline-container">
+            <div class="timeline-line">
+                <div class="timeline-progress" id="timelineProgress"></div>
+            </div>
+            
+            <div class="process-steps">
+                <div class="process-step completed" onclick="selectStep(0)">
+                    <div class="step-icon">1</div>
+                    <div class="step-title">Pre-Campaign Launch</div>
+                    <div class="step-duration">2-3 days</div>
+                    <div class="step-description">Campaign creation, review, and payment setup</div>
+                </div>
+                
+                <div class="process-step active" onclick="selectStep(1)">
+                    <div class="step-icon">2</div>
+                    <div class="step-title">Campaign Launch</div>
+                    <div class="step-duration">Day 1</div>
+                    <div class="step-description">Campaign goes live on Partipost app</div>
+                </div>
+                
+                <div class="process-step" onclick="selectStep(2)">
+                    <div class="step-icon">3</div>
+                    <div class="step-title">Ongoing Campaign</div>
+                    <div class="step-duration">2-3 weeks</div>
+                    <div class="step-description">Influencer submissions and content review</div>
+                </div>
+                
+                <div class="process-step" onclick="selectStep(3)">
+                    <div class="step-icon">4</div>
+                    <div class="step-title">Post-Campaign</div>
+                    <div class="step-duration">Ongoing</div>
+                    <div class="step-description">Content ownership and final reporting</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="progress-indicator">
+            <div class="progress-text">Campaign Progress</div>
+            <div class="progress-percentage" id="progressPercentage">25%</div>
+            <div style="color: #718096; font-size: 0.9rem;">Campaign Launch Phase</div>
+        </div>
+        
+        <div class="detail-panel active" id="detailPanel0">
+            <div class="detail-title">
+                📋 Pre-Campaign Launch Phase
+            </div>
+            <div class="detail-content">
+                <div class="detail-section">
+                    <h4>🎯 What Happens:</h4>
+                    <ul class="detail-list">
+                        <li>Create campaign using templates</li>
+                        <li>Partipost team reviews campaign details</li>
+                        <li>Payment verification and processing</li>
+                        <li>Campaign optimization recommendations</li>
+                        <li>Final approval and scheduling</li>
+                    </ul>
+                </div>
+                <div class="detail-section">
+                    <h4>✅ Your Actions:</h4>
+                    <ul class="detail-list">
+                        <li>Complete campaign brief</li>
+                        <li>Upload brand assets and references</li>
+                        <li>Set budget and timeline</li>
+                        <li>Make payment via Stripe or bank transfer</li>
+                        <li>Respond to any review feedback</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="background: #e6fffa; padding: 15px; border-radius: 8px; border-left: 4px solid #38b2ac; margin-top: 20px;">
+                <strong>💡 Pro Tip:</strong> Allow 2-3 buffer days between submission and desired launch date for smooth review process.
+            </div>
+        </div>
+        
+        <div class="detail-panel" id="detailPanel1">
+            <div class="detail-title">
+                🚀 Campaign Launch Phase
+            </div>
+            <div class="detail-content">
+                <div class="detail-section">
+                    <h4>🎯 What Happens:</h4>
+                    <ul class="detail-list">
+                        <li>Campaign goes live on Partipost app</li>
+                        <li>Influencers can discover and join</li>
+                        <li>Access to campaign overview dashboard</li>
+                        <li>Real-time registration tracking</li>
+                        <li>Automatic influencer communications</li>
+                    </ul>
+                </div>
+                <div class="detail-section">
+                    <h4>✅ Your Actions:</h4>
+                    <ul class="detail-list">
+                        <li>Monitor campaign dashboard</li>
+                        <li>Review influencer registrations (if enabled)</li>
+                        <li>Approve/waitlist participants</li>
+                        <li>Track initial engagement metrics</li>
+                        <li>Be available for quick responses</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="background: #fff5f5; padding: 15px; border-radius: 8px; border-left: 4px solid #fc8181; margin-top: 20px;">
+                <strong>⏰ Timeline Note:</strong> Most influencers join within the first 48-72 hours of launch.
+            </div>
+        </div>
+        
+        <div class="detail-panel" id="detailPanel2">
+            <div class="detail-title">
+                📱 Ongoing Campaign Phase
+            </div>
+            <div class="detail-content">
+                <div class="detail-section">
+                    <h4>🎯 What Happens:</h4>
+                    <ul class="detail-list">
+                        <li>Influencers submit content for review</li>
+                        <li>7-day review window per submission</li>
+                        <li>Content gets posted on social media</li>
+                        <li>Real-time performance tracking</li>
+                        <li>Automatic payment to influencers</li>
+                    </ul>
+                </div>
+                <div class="detail-section">
+                    <h4>✅ Your Actions:</h4>
+                    <ul class="detail-list">
+                        <li>Review and approve content submissions</li>
+                        <li>Provide feedback for revisions</li>
+                        <li>Use editing tools for minor fixes</li>
+                        <li>Monitor live content performance</li>
+                        <li>Tag high-performing influencers</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="background: #f0fff4; padding: 15px; border-radius: 8px; border-left: 4px solid #48bb78; margin-top: 20px;">
+                <strong>🎬 Content Peak:</strong> Majority of submissions typically come in during weeks 2-3 of the campaign.
+            </div>
+        </div>
+        
+        <div class="detail-panel" id="detailPanel3">
+            <div class="detail-title">
+                📊 Post-Campaign Phase
+            </div>
+            <div class="detail-content">
+                <div class="detail-section">
+                    <h4>🎯 What Happens:</h4>
+                    <ul class="detail-list">
+                        <li>Campaign completion and final reporting</li>
+                        <li>Content ownership transferred for 12 months</li>
+                        <li>Performance analytics compilation</li>
+                        <li>Influencer performance ratings</li>
+                        <li>Content library organization</li>
+                    </ul>
+                </div>
+                <div class="detail-section">
+                    <h4>✅ Your Actions:</h4>
+                    <ul class="detail-list">
+                        <li>Download and organize content assets</li>
+                        <li>Plan content repurposing strategy</li>
+                        <li>Analyze performance metrics</li>
+                        <li>Identify top performers for future campaigns</li>
+                        <li>Plan follow-up campaign strategy</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="background: #fffbeb; padding: 15px; border-radius: 8px; border-left: 4px solid #f6ad55; margin-top: 20px;">
+                <strong>📚 Content Library:</strong> You now own 12 months of usage rights for all approved content - use it across all marketing channels!
+            </div>
+        </div>
+        
+        <div class="timeline-controls">
+            <button class="control-btn" onclick="previousStep()">← Previous Phase</button>
+            <button class="control-btn" onclick="autoPlay()">▶ Auto Play</button>
+            <button class="control-btn" onclick="nextStep()">Next Phase →</button>
+        </div>
+        
+        <div class="tips-section">
+            <div class="tips-title">
+                💡 Success Tips for Each Phase
+            </div>
+            <div class="tips-grid">
+                <div class="tip-item">
+                    <h5>Pre-Launch</h5>
+                    <p>Be as specific as possible in your brief. Clear instructions lead to better content and fewer revisions.</p>
+                </div>
+                <div class="tip-item">
+                    <h5>Launch Day</h5>
+                    <p>Check your dashboard regularly in the first 48 hours. Early engagement indicates campaign success.</p>
+                </div>
+                <div class="tip-item">
+                    <h5>During Campaign</h5>
+                    <p>Review content quickly but thoroughly. Use the 3-edit rule - approve, edit minor issues, or request specific changes.</p>
+                </div>
+                <div class="tip-item">
+                    <h5>Post-Campaign</h5>
+                    <p>Start planning your content repurposing strategy. Great content can be used across all marketing channels for 12 months.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let autoPlayInterval;
+        
+        function selectStep(stepIndex) {
+            // Clear auto-play if running
+            if (autoPlayInterval) {
+                clearInterval(autoPlayInterval);
+                autoPlayInterval = null;
+            }
+            
+            currentStep = stepIndex;
+            updateDisplay();
+        }
+        
+        function updateDisplay() {
+            // Update step appearance
+            const steps = document.querySelectorAll('.process-step');
+            const panels = document.querySelectorAll('.detail-panel');
+            
+            steps.forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index < currentStep) {
+                    step.classList.add('completed');
+                } else if (index === currentStep) {
+                    step.classList.add('active');
+                }
+            });
+            
+            // Update detail panels
+            panels.forEach((panel, index) => {
+                panel.classList.remove('active');
+                if (index === currentStep) {
+                    panel.classList.add('active');
+                }
+            });
+            
+            // Update progress bar
+            const progressPercentage = ((currentStep + 1) / 4) * 100;
+            document.getElementById('timelineProgress').style.width = `${progressPercentage}%`;
+            document.getElementById('progressPercentage').textContent = `${Math.round(progressPercentage)}%`;
+            
+            // Update progress text
+            const phaseNames = [
+                'Pre-Campaign Launch',
+                'Campaign Launch', 
+                'Ongoing Campaign',
+                'Post-Campaign'
+            ];
+            document.querySelector('#progressPercentage').nextElementSibling.textContent = phaseNames[currentStep] + ' Phase';
+        }
+        
+        function previousStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                updateDisplay();
+            }
+        }
+        
+        function nextStep() {
+            if (currentStep < 3) {
+                currentStep++;
+                updateDisplay();
+            }
+        }
+        
+        function autoPlay() {
+            if (autoPlayInterval) {
+                clearInterval(autoPlayInterval);
+                autoPlayInterval = null;
+                document.querySelector('[onclick="autoPlay()"]').textContent = '▶ Auto Play';
+            } else {
+                autoPlayInterval = setInterval(() => {
+                    if (currentStep < 3) {
+                        nextStep();
+                    } else {
+                        currentStep = 0;
+                        updateDisplay();
+                    }
+                }, 3000);
+                document.querySelector('[onclick="autoPlay()"]').textContent = '⏸ Pause';
+            }
+        }
+        
+        // Initialize display
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDisplay();
+        });
+    </script>
+</body>
+</html>
