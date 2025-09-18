@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop 5: Campaign Command Center - Partipost</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 30px;
+            color: #1a202c;
+        }
+
+        .container {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 48px;
+            max-width: 1400px;
+            margin: 0 auto;
+            box-shadow: 0 24px 48px rgba(15, 23, 42, 0.18);
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #2d3748;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            color: #4a5568;
+            font-size: 1.05rem;
+            margin-top: 16px;
+            line-height: 1.6;
+            max-width: 780px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .badge {
+            background: #f7fafc;
+            border-radius: 999px;
+            padding: 10px 22px;
+            font-weight: 600;
+            color: #4a5568;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(102, 126, 234, 0.25);
+        }
+
+        .badge span {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            width: 24px;
+            height: 24px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .section {
+            margin-bottom: 56px;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            color: #2d3748;
+            margin-bottom: 16px;
+        }
+
+        .section > p, .section > .section-intro {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            max-width: 900px;
+        }
+
+        .phase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+
+        .phase-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 24px;
+            text-align: left;
+            background: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .phase-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 32px rgba(102, 126, 234, 0.18);
+        }
+
+        .phase-card.active {
+            border-color: #667eea;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.22);
+        }
+
+        .phase-icon {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+        }
+
+        .phase-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #2d3748;
+        }
+
+        .phase-meta {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .phase-detail {
+            margin-top: 32px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+            border-radius: 18px;
+            padding: 28px;
+            display: none;
+        }
+
+        .phase-detail.active {
+            display: block;
+        }
+
+        .detail-heading {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #2d3748;
+            margin-bottom: 12px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .detail-card {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 18px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+        }
+
+        .detail-card h4 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #2d3748;
+        }
+
+        .detail-card ul {
+            list-style: none;
+            color: #4a5568;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .detail-card ul li {
+            position: relative;
+            padding-left: 18px;
+            margin-bottom: 6px;
+        }
+
+        .detail-card ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+        }
+
+        .calculator-card {
+            background: #f7fafc;
+            border-radius: 18px;
+            padding: 28px;
+            border: 1px solid rgba(102, 126, 234, 0.18);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .input-group span {
+            font-size: 0.85rem;
+            color: #718096;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border 0.2s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .primary-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            border: none;
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 12px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 30px rgba(102, 126, 234, 0.28);
+        }
+
+        .results-card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 30px;
+            border: 2px dashed rgba(102, 126, 234, 0.4);
+            min-height: 260px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 18px;
+        }
+
+        .result-block {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .result-label {
+            font-size: 0.85rem;
+            color: #4a5568;
+        }
+
+        .result-value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #2d3748;
+            margin-top: 6px;
+        }
+
+        .result-insight {
+            margin-top: 18px;
+            font-size: 0.95rem;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .timeline-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 22px;
+            background: #ffffff;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(102, 126, 234, 0.18);
+        }
+
+        .timeline-card.active {
+            border-color: #764ba2;
+            box-shadow: 0 18px 36px rgba(118, 75, 162, 0.22);
+        }
+
+        .timeline-card h3 {
+            font-size: 1.1rem;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .timeline-card p {
+            color: #4a5568;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .timeline-detail {
+            margin-top: 32px;
+            background: #f7f5ff;
+            border-radius: 18px;
+            padding: 28px;
+            border: 1px solid rgba(118, 75, 162, 0.2);
+        }
+
+        .timeline-detail h3 {
+            font-size: 1.3rem;
+            margin-bottom: 14px;
+            color: #2d3748;
+        }
+
+        .timeline-detail ul {
+            list-style: none;
+            color: #4a5568;
+        }
+
+        .timeline-detail ul li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .timeline-detail ul li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: #764ba2;
+        }
+
+        .progress-indicator {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .progress-chip {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 12px 16px;
+            border: 1px solid rgba(102, 126, 234, 0.25);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .progress-chip strong {
+            color: #2d3748;
+            font-size: 0.95rem;
+        }
+
+        .progress-chip span {
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                padding: 32px 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            .container {
+                padding: 24px;
+            }
+
+            .header h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .badge-row {
+                gap: 12px;
+            }
+
+            .badge {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Workshop 5 · Campaign Command Center</h1>
+            <p>Turn your year-end influencer initiative into a predictable growth engine. Use this command center to align cross-functional teams, pressure-test ROI, and orchestrate the final 30-day push from discovery to repeat purchase.</p>
+        </header>
+
+        <div class="badge-row">
+            <div class="badge"><span>1</span>Cross-team launch alignment</div>
+            <div class="badge"><span>2</span>ROI + cash flow clarity</div>
+            <div class="badge"><span>3</span>30-day execution rhythm</div>
+        </div>
+
+        <section class="section" aria-labelledby="phase-title">
+            <h2 id="phase-title">Phased Launch Blueprint</h2>
+            <p>Select a phase to surface the cross-functional checklist and momentum metrics each squad owns.</p>
+
+            <div class="phase-grid" role="tablist">
+                <button type="button" class="phase-card active" data-phase="discovery" onclick="selectPhase('discovery')" role="tab" aria-selected="true">
+                    <div class="phase-icon">🚀</div>
+                    <div class="phase-title">Discovery Surge</div>
+                    <div class="phase-meta">Days -30 to -15 · Social + PR ignition</div>
+                </button>
+                <button type="button" class="phase-card" data-phase="conversion" onclick="selectPhase('conversion')" role="tab" aria-selected="false">
+                    <div class="phase-icon">🛒</div>
+                    <div class="phase-title">Conversion Sprint</div>
+                    <div class="phase-meta">Days -14 to +7 · Marketplace wins</div>
+                </button>
+                <button type="button" class="phase-card" data-phase="retention" onclick="selectPhase('retention')" role="tab" aria-selected="false">
+                    <div class="phase-icon">♻️</div>
+                    <div class="phase-title">Retention Loop</div>
+                    <div class="phase-meta">Days +8 to +30 · LTV amplification</div>
+                </button>
+            </div>
+
+            <div class="phase-detail active" id="phase-discovery" role="tabpanel">
+                <div class="detail-heading">Your north-star: front-load discovery velocity</div>
+                <div class="detail-grid">
+                    <div class="detail-card">
+                        <h4>Influencer Squad</h4>
+                        <ul>
+                            <li>Lock 40 nano, 10 micro creators with staggered go-live</li>
+                            <li>Seed exclusive promo code bundles with expiring perks</li>
+                            <li>Capture raw assets for retargeting pool</li>
+                        </ul>
+                    </div>
+                    <div class="detail-card">
+                        <h4>Paid + PR</h4>
+                        <ul>
+                            <li>Boost top 20% creator posts within 6h of publish</li>
+                            <li>Pitch year-end gifting angles to lifestyle media</li>
+                            <li>Sync TikTok Shop spotlight slots with creator drops</li>
+                        </ul>
+                    </div>
+                    <div class="detail-card">
+                        <h4>Momentum Metrics</h4>
+                        <ul>
+                            <li>Reach velocity ≥ 9.5k views per creator in 48h</li>
+                            <li>Save & share rate ≥ 8.2%</li>
+                            <li>Community waitlist hits 1.5x target</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="phase-detail" id="phase-conversion" role="tabpanel">
+                <div class="detail-heading">Your north-star: compress time-to-cart</div>
+                <div class="detail-grid">
+                    <div class="detail-card">
+                        <h4>On-site Trading</h4>
+                        <ul>
+                            <li>Swap hero assets to creator-led social proof</li>
+                            <li>Deploy urgency widgets (stock, timers, bundles)</li>
+                            <li>Mirror influencer bundles on Shopee, Lazada, TikTok Shop</li>
+                        </ul>
+                    </div>
+                    <div class="detail-card">
+                        <h4>Performance Marketing</h4>
+                        <ul>
+                            <li>Retarget viewers within 12h via spark ads & reels</li>
+                            <li>Launch cost-per-acquisition guardrails per cohort</li>
+                            <li>Push live shopping streams with creator co-host</li>
+                        </ul>
+                    </div>
+                    <div class="detail-card">
+                        <h4>Momentum Metrics</h4>
+                        <ul>
+                            <li>Click-to-cart ≤ 2.4 minutes</li>
+                            <li>Cart-to-purchase rate ≥ 6.1%</li>
+                            <li>Promo code redemption 2.3x baseline</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="phase-detail" id="phase-retention" role="tabpanel">
+                <div class="detail-heading">Your north-star: turn buyers into advocates</div>
+                <div class="detail-grid">
+                    <div class="detail-card">
+                        <h4>CRM + Loyalty</h4>
+                        <ul>
+                            <li>Trigger day-3 review nudges with creator callbacks</li>
+                            <li>Launch VIP nano community for surprise drops</li>
+                            <li>Invite top UGC into referral micro-site</li>
+                        </ul>
+                    </div>
+                    <div class="detail-card">
+                        <h4>Content Engine</h4>
+                        <ul>
+                            <li>Spin hero case study from top 5 customer stories</li>
+                            <li>Repurpose livestream highlights into evergreen ads</li>
+                            <li>Run “how I style it” duet challenge</li>
+                        </ul>
+                    </div>
+                    <div class="detail-card">
+                        <h4>Momentum Metrics</h4>
+                        <ul>
+                            <li>Repeat purchase rate ≥ 28%</li>
+                            <li>Review volume uplift +65%</li>
+                            <li>Referral code share rate 3.4x baseline</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="roi-title">
+            <h2 id="roi-title">ROI & Cashflow Simulator</h2>
+            <p class="section-intro">Adjust your inputs to project demand, margin, and payback windows. Defaults are calibrated to SME benchmarks from SG/MY year-end campaigns.</p>
+
+            <div class="calculator-grid">
+                <div class="calculator-card" aria-label="ROI input form">
+                    <div class="input-group">
+                        <label for="campaign-budget">Campaign budget (SGD)<span>Suggested: 3000</span></label>
+                        <input type="number" id="campaign-budget" value="3000" min="0" step="100">
+                    </div>
+                    <div class="input-group">
+                        <label for="content-pieces">Creator content pieces<span>Includes reels, stories, TikToks</span></label>
+                        <input type="number" id="content-pieces" value="55" min="0" step="1">
+                    </div>
+                    <div class="input-group">
+                        <label for="ctr">Click-through rate (%)<span>Avg nano CTR: 2.8</span></label>
+                        <input type="number" id="ctr" value="2.8" min="0" max="100" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="conversion-rate">Conversion rate (%)<span>Checkout uplift assumption</span></label>
+                        <input type="number" id="conversion-rate" value="1.6" min="0" max="100" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="avg-order">Average order value (SGD)<span>Post-discount</span></label>
+                        <input type="number" id="avg-order" value="68" min="0" step="1">
+                    </div>
+                    <div class="input-group">
+                        <label for="repeat-rate">Repeat purchase uplift (%)<span>Triggered within 30 days</span></label>
+                        <input type="number" id="repeat-rate" value="24" min="0" max="300" step="1">
+                    </div>
+                    <button class="primary-btn" type="button" onclick="calculateROI()">Run Forecast</button>
+                </div>
+
+                <div class="results-card" aria-live="polite" id="results-card">
+                    <div class="results-grid">
+                        <div class="result-block">
+                            <div class="result-label">Net new orders</div>
+                            <div class="result-value" id="orders-output">—</div>
+                        </div>
+                        <div class="result-block">
+                            <div class="result-label">Projected revenue</div>
+                            <div class="result-value" id="revenue-output">—</div>
+                        </div>
+                        <div class="result-block">
+                            <div class="result-label">ROI multiple</div>
+                            <div class="result-value" id="roi-output">—</div>
+                        </div>
+                        <div class="result-block">
+                            <div class="result-label">Payback window</div>
+                            <div class="result-value" id="payback-output">—</div>
+                        </div>
+                    </div>
+                    <div class="result-insight" id="insight-output">Input projections to surface insights.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="timeline-title">
+            <h2 id="timeline-title">30-Day Execution Rhythm</h2>
+            <p class="section-intro">Click a lane to reveal the battle rhythm. Each cadence locks experimentation, analytics, and retention into a single operating loop.</p>
+
+            <div class="timeline-grid" role="tablist">
+                <button type="button" class="timeline-card active" data-lane="weekly" onclick="selectTimeline('weekly')" role="tab" aria-selected="true">
+                    <h3>Monday Ops</h3>
+                    <p>Recalibrate supply, creators, and budget pacing with a 30-minute triad stand-up.</p>
+                </button>
+                <button type="button" class="timeline-card" data-lane="midweek" onclick="selectTimeline('midweek')" role="tab" aria-selected="false">
+                    <h3>Midweek Pulse</h3>
+                    <p>Storm through creative swaps, spark ad boosts, and social listening alerts by Wednesday noon.</p>
+                </button>
+                <button type="button" class="timeline-card" data-lane="weekend" onclick="selectTimeline('weekend')" role="tab" aria-selected="false">
+                    <h3>Weekend Surge</h3>
+                    <p>Double down on live shopping anchors, nano UGC takeovers, and remarketing blitz.</p>
+                </button>
+                <button type="button" class="timeline-card" data-lane="post" onclick="selectTimeline('post')" role="tab" aria-selected="false">
+                    <h3>Post-Cycle Debrief</h3>
+                    <p>Convert learnings into evergreen playbooks within 48 hours of cycle end.</p>
+                </button>
+            </div>
+
+            <div class="timeline-detail" id="timeline-detail" role="tabpanel">
+                <h3 id="timeline-heading">Monday Ops Cadence</h3>
+                <ul id="timeline-list">
+                    <li>Review 7-day creator leaderboard (reach, clicks, conversion).</li>
+                    <li>Reset budget caps per platform using traffic momentum.</li>
+                    <li>Confirm inventory buffers vs. forecasted volume spikes.</li>
+                    <li>Publish updated talking points to all creators by 3 PM.</li>
+                </ul>
+
+                <div class="progress-indicator" id="progress-indicator">
+                    <div class="progress-chip">
+                        <strong>Decision latency</strong>
+                        <span>&lt; 12 hours from data to action</span>
+                    </div>
+                    <div class="progress-chip">
+                        <strong>Creative refresh rate</strong>
+                        <span>Top performers swapped every 4 days</span>
+                    </div>
+                    <div class="progress-chip">
+                        <strong>Retention trigger</strong>
+                        <span>CRM scenes deployed Day +3</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const phasePanels = {
+            discovery: document.getElementById('phase-discovery'),
+            conversion: document.getElementById('phase-conversion'),
+            retention: document.getElementById('phase-retention')
+        };
+
+        function selectPhase(phase) {
+            document.querySelectorAll('.phase-card').forEach(card => {
+                const isActive = card.dataset.phase === phase;
+                card.classList.toggle('active', isActive);
+                card.setAttribute('aria-selected', String(isActive));
+            });
+
+            Object.entries(phasePanels).forEach(([key, panel]) => {
+                panel.classList.toggle('active', key === phase);
+            });
+        }
+
+        function calculateROI() {
+            const budget = Number(document.getElementById('campaign-budget').value) || 0;
+            const pieces = Number(document.getElementById('content-pieces').value) || 0;
+            const ctr = Number(document.getElementById('ctr').value) / 100 || 0;
+            const conversion = Number(document.getElementById('conversion-rate').value) / 100 || 0;
+            const averageOrder = Number(document.getElementById('avg-order').value) || 0;
+            const repeatRate = Number(document.getElementById('repeat-rate').value) / 100 || 0;
+
+            const impressions = pieces * 9200; // Benchmarked nano distribution
+            const clicks = impressions * ctr;
+            const primaryOrders = clicks * conversion;
+            const repeatOrders = primaryOrders * repeatRate;
+            const totalOrders = primaryOrders + repeatOrders;
+            const revenue = totalOrders * averageOrder;
+            const roiMultiple = budget === 0 ? 0 : revenue / budget;
+            const paybackDays = roiMultiple <= 0 ? Infinity : Math.max(5, Math.round(30 / roiMultiple));
+
+            const formattedOrders = totalOrders > 0 ? totalOrders.toFixed(0) : '—';
+            const formattedRevenue = revenue > 0 ? `SGD ${revenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}` : '—';
+            const formattedROI = roiMultiple > 0 ? `${roiMultiple.toFixed(2)}x` : '—';
+            const formattedPayback = paybackDays === Infinity ? '—' : `${paybackDays} days`;
+
+            document.getElementById('orders-output').textContent = formattedOrders;
+            document.getElementById('revenue-output').textContent = formattedRevenue;
+            document.getElementById('roi-output').textContent = formattedROI;
+            document.getElementById('payback-output').textContent = formattedPayback;
+
+            let insight = 'Input projections to surface insights.';
+            if (totalOrders > 0) {
+                const breakEvenOrder = budget / (averageOrder || 1);
+                const uplift = ((repeatRate || 0) * 100).toFixed(0);
+                insight = `Forecast unlocks ${formattedOrders} orders with a ${formattedROI} return. Break-even requires ${Math.ceil(breakEvenOrder)} orders; hit stretch by deepening CRM repeat rate beyond ${uplift}%.`;
+            }
+
+            document.getElementById('insight-output').textContent = insight;
+        }
+
+        const timelineData = {
+            weekly: {
+                heading: 'Monday Ops Cadence',
+                tasks: [
+                    'Review 7-day creator leaderboard (reach, clicks, conversion).',
+                    'Reset budget caps per platform using traffic momentum.',
+                    'Confirm inventory buffers vs. forecasted volume spikes.',
+                    'Publish updated talking points to all creators by 3 PM.'
+                ],
+                indicators: [
+                    { title: 'Decision latency', value: '< 12 hours from data to action' },
+                    { title: 'Creative refresh rate', value: 'Top performers swapped every 4 days' },
+                    { title: 'Retention trigger', value: 'CRM scenes deployed Day +3' }
+                ]
+            },
+            midweek: {
+                heading: 'Wednesday Momentum Sync',
+                tasks: [
+                    'Ship fresh hooks based on comment mining + social listening.',
+                    'Boost top 10 performing videos with 72-hour spark campaigns.',
+                    'Update marketplace bundles to mirror live creator offers.',
+                    'Pulse promo codes to nano creators with <40% usage.'
+                ],
+                indicators: [
+                    { title: 'Creative velocity', value: '3 new assets added per channel' },
+                    { title: 'Community response', value: 'DM reply time under 15 minutes' },
+                    { title: 'Promo health', value: 'Code utilisation at 65% mid-cycle' }
+                ]
+            },
+            weekend: {
+                heading: 'Weekend Surge Stack',
+                tasks: [
+                    'Anchor a 45-minute live shopping show with creator duo.',
+                    'Trigger retargeting bursts aligned to peak traffic slots.',
+                    'Launch “show us your haul” UGC challenge with prizes.',
+                    'Deploy low-stock scarcity badges across PDPs.'
+                ],
+                indicators: [
+                    { title: 'Stream conversion', value: '≥ 9.8% click-to-cart during live' },
+                    { title: 'Customer support', value: 'All inquiries resolved < 2 hours' },
+                    { title: 'Inventory sync', value: 'Auto-sync every 30 minutes' }
+                ]
+            },
+            post: {
+                heading: '48-Hour Debrief Loop',
+                tasks: [
+                    'Slice out winning narratives for evergreen ad banks.',
+                    'Update team wiki with creative + marketplace learnings.',
+                    'Close the loop with creators (payments, testimonials, briefs).',
+                    'Feed repeat buyer cohort into referral automation.'
+                ],
+                indicators: [
+                    { title: 'Insight velocity', value: 'Post-mortem published within 36 hours' },
+                    { title: 'Asset reuse', value: 'Top 5 creatives ported into BAU ads' },
+                    { title: 'LTV capture', value: 'Referral cadence scheduled day +5' }
+                ]
+            }
+        };
+
+        function selectTimeline(lane) {
+            document.querySelectorAll('.timeline-card').forEach(card => {
+                const isActive = card.dataset.lane === lane;
+                card.classList.toggle('active', isActive);
+                card.setAttribute('aria-selected', String(isActive));
+            });
+
+            const detail = timelineData[lane];
+            if (!detail) {
+                return;
+            }
+
+            document.getElementById('timeline-heading').textContent = detail.heading;
+
+            const list = document.getElementById('timeline-list');
+            list.innerHTML = '';
+            detail.tasks.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                list.appendChild(li);
+            });
+
+            const indicatorWrap = document.getElementById('progress-indicator');
+            indicatorWrap.innerHTML = '';
+            detail.indicators.forEach(chip => {
+                const div = document.createElement('div');
+                div.className = 'progress-chip';
+
+                const strong = document.createElement('strong');
+                strong.textContent = chip.title;
+                div.appendChild(strong);
+
+                const span = document.createElement('span');
+                span.textContent = chip.value;
+                div.appendChild(span);
+
+                indicatorWrap.appendChild(div);
+            });
+        }
+    </script>
+</body>
+</html>

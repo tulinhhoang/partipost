@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop 3: Frequency-Driven ROI Playbook - Partipost</title>
+    <style>
+        :root {
+            --brand-orange: #FF6B3D;
+            --brand-purple: #5F4B8B;
+            --brand-dark: #1F2933;
+            --brand-cream: #FFF5F0;
+            --brand-white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FFF5F0 0%, #FFE2D3 100%);
+            min-height: 100vh;
+            padding: 30px;
+            color: var(--brand-dark);
+        }
+
+        .container {
+            background: var(--brand-white);
+            border-radius: 24px;
+            padding: 48px;
+            max-width: 1360px;
+            margin: 0 auto;
+            box-shadow: 0 28px 60px rgba(15, 23, 42, 0.15);
+            animation: fadeIn 0.9s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(32px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.7rem;
+            font-weight: 800;
+            color: var(--brand-dark);
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            color: #425466;
+            font-size: 1.05rem;
+            max-width: 780px;
+            margin: 18px auto 0;
+            line-height: 1.6;
+        }
+
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: center;
+            margin: 0 auto 36px;
+        }
+
+        .pill {
+            background: var(--brand-cream);
+            border-radius: 999px;
+            padding: 10px 22px;
+            border: 1px solid rgba(95, 75, 139, 0.28);
+            color: var(--brand-dark);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pill span {
+            background: linear-gradient(135deg, var(--brand-purple) 0%, var(--brand-orange) 100%);
+            color: var(--brand-white);
+            width: 24px;
+            height: 24px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .section {
+            margin-bottom: 56px;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            color: var(--brand-dark);
+            margin-bottom: 16px;
+        }
+
+        .section p.section-intro {
+            color: #425466;
+            max-width: 900px;
+            line-height: 1.6;
+            margin-bottom: 26px;
+        }
+
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 26px;
+        }
+
+        .insight-card {
+            background: linear-gradient(135deg, rgba(95, 75, 139, 0.08), rgba(255, 107, 61, 0.08));
+            border-radius: 18px;
+            padding: 26px;
+            border: 1px solid rgba(95, 75, 139, 0.25);
+            box-shadow: 0 18px 36px rgba(95, 75, 139, 0.18);
+        }
+
+        .insight-card.secondary {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        .insight-card h3 {
+            font-size: 1.2rem;
+            color: var(--brand-dark);
+            margin-bottom: 12px;
+        }
+
+        .insight-card p {
+            color: #425466;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .metric-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .metric {
+            background: rgba(255, 255, 255, 0.82);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            border: 1px dashed rgba(95, 75, 139, 0.4);
+        }
+
+        .metric strong {
+            display: block;
+            font-size: 1.4rem;
+            color: var(--brand-dark);
+            font-weight: 800;
+        }
+
+        .metric span {
+            font-size: 0.85rem;
+            color: #425466;
+        }
+
+        .scenario-switcher {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+        }
+
+        .scenario-btn {
+            border-radius: 14px;
+            padding: 14px 22px;
+            border: 2px solid #E2E8F0;
+            background: #FFFFFF;
+            font-weight: 600;
+            color: var(--brand-dark);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .scenario-btn.active {
+            border-color: var(--brand-purple);
+            background: linear-gradient(135deg, rgba(95, 75, 139, 0.12), rgba(255, 107, 61, 0.12));
+            box-shadow: 0 14px 32px rgba(95, 75, 139, 0.25);
+        }
+
+        .scenario-panel {
+            background: var(--brand-cream);
+            border-radius: 20px;
+            padding: 28px;
+            border: 1px solid rgba(95, 75, 139, 0.18);
+        }
+
+        .scenario-panel h3 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            color: var(--brand-dark);
+        }
+
+        .scenario-panel p {
+            color: #425466;
+            margin-bottom: 22px;
+            line-height: 1.6;
+        }
+
+        .scenario-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
+
+        .scenario-metric {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 18px;
+            border: 1px solid rgba(95, 75, 139, 0.18);
+            text-align: center;
+        }
+
+        .scenario-metric strong {
+            display: block;
+            font-size: 1.6rem;
+            color: var(--brand-dark);
+        }
+
+        .scenario-metric span {
+            font-size: 0.85rem;
+            color: #425466;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+        }
+
+        .month-card {
+            border: 2px solid #E2E8F0;
+            border-radius: 14px;
+            padding: 18px;
+            text-align: center;
+            background: #FFFFFF;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .month-card.active {
+            border-color: var(--brand-purple);
+            box-shadow: 0 18px 32px rgba(95, 75, 139, 0.22);
+        }
+
+        .month-card.holiday::after {
+            content: 'Holiday Surge';
+            position: absolute;
+            top: 12px;
+            right: -40px;
+            padding: 4px 42px;
+            background: var(--brand-orange);
+            color: var(--brand-white);
+            font-size: 0.75rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+            box-shadow: 0 10px 20px rgba(255, 107, 61, 0.35);
+        }
+
+        .month-card h4 {
+            font-size: 1.1rem;
+            color: var(--brand-dark);
+            margin-bottom: 10px;
+        }
+
+        .month-card p {
+            color: #425466;
+            font-size: 0.88rem;
+            line-height: 1.4;
+        }
+
+        .playbook {
+            background: linear-gradient(135deg, rgba(95, 75, 139, 0.1), rgba(255, 107, 61, 0.1));
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(95, 75, 139, 0.22);
+            box-shadow: 0 20px 38px rgba(95, 75, 139, 0.18);
+        }
+
+        .playbook h3 {
+            color: var(--brand-dark);
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+        }
+
+        .playbook ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            color: #425466;
+        }
+
+        .playbook li {
+            position: relative;
+            padding-left: 18px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .playbook li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--brand-purple);
+        }
+
+        .nav-arrows {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 48px;
+        }
+
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            background: linear-gradient(135deg, var(--brand-purple) 0%, var(--brand-orange) 100%);
+            color: var(--brand-white);
+            padding: 12px 20px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 14px 30px rgba(95, 75, 139, 0.28);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 36px rgba(95, 75, 139, 0.34);
+        }
+
+        .nav-button.disabled {
+            background: rgba(31, 41, 51, 0.1);
+            color: rgba(31, 41, 51, 0.5);
+            box-shadow: none;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                padding: 36px 28px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            .container {
+                padding: 26px;
+            }
+
+            .header h1 {
+                font-size: 2.2rem;
+            }
+
+            .scenario-switcher {
+                flex-direction: column;
+            }
+
+            .nav-arrows {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .nav-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Workshop 3 · Frequency-Driven ROI Playbook</h1>
+            <p>Shift the conversation from one-off bursts to a sustained creator rhythm. This playbook proves why alternating creator-led launches with retargeting fuel unlocks the best ROI, keeps your brand visible at least 5–6 times a year, and stacks the deck for holiday dominance.</p>
+        </header>
+
+        <div class="pill-row">
+            <div class="pill"><span>1</span>Every-other-month creator drops</div>
+            <div class="pill"><span>2</span>Always-on retargeting spine</div>
+            <div class="pill"><span>3</span>Holiday double-down plan</div>
+        </div>
+
+        <section class="section" aria-labelledby="roi-proof">
+            <h2 id="roi-proof">Why sustained cadence beats monthly ad blasts</h2>
+            <p class="section-intro">Running creators every other month preserves freshness, lifts conversion, and keeps CPMs efficient—especially when retargeting ads harvest the attention halo for 45 days after each drop.</p>
+
+            <div class="insight-grid">
+                <div class="insight-card">
+                    <h3>Creators × Retargeting Flywheel</h3>
+                    <p>Creator bursts generate social proof and first-party audiences. Retargeting sequences recycle the momentum without exhausting your message, so you buy attention less frequently but monetise it longer.</p>
+                    <div class="metric-row">
+                        <div class="metric">
+                            <strong>+38%</strong>
+                            <span>Higher repeat purchases when retargeting follows creator drops</span>
+                        </div>
+                        <div class="metric">
+                            <strong>2.4×</strong>
+                            <span>ROAS lift vs. monthly ad-only cadence</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="insight-card secondary">
+                    <h3>Monthly ad spend fatigue</h3>
+                    <p>Flat monthly ad plans spike frequency without story diversity. Audiences tune out, CPMs climb, and nano creators skip your brief. Layering a creator pulse every other month keeps social proof fresh while paid media recaptures intent.</p>
+                </div>
+                <div class="insight-card secondary">
+                    <h3>5–6 plays, 365 visibility</h3>
+                    <p>Six activations a year is the sweet spot: strong enough for share of voice, light enough to iterate. Each activation seeds your retargeting pools, letting budgets work harder in between with precise messaging (holiday bundles, loyalty perks, LTV triggers).</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="scenario-title">
+            <h2 id="scenario-title">Scenario modelling</h2>
+            <p class="section-intro">Toggle scenarios to show stakeholders how an every-other-month creator plan with persistent retargeting stacks dollars into returns.</p>
+
+            <div class="scenario-switcher" role="tablist">
+                <button type="button" class="scenario-btn" data-scenario="monthly" onclick="setScenario('monthly')" role="tab" aria-selected="false">Monthly ads only</button>
+                <button type="button" class="scenario-btn" data-scenario="hybrid" onclick="setScenario('hybrid')" role="tab" aria-selected="true">Creator + retargeting rhythm</button>
+            </div>
+
+            <div class="scenario-panel" id="scenario-panel" role="tabpanel">
+                <h3 id="scenario-heading">Creator + retargeting rhythm</h3>
+                <p id="scenario-copy">Six creator bursts (every other month) with retargeting turned on for 45 days post-launch. Stronger storytelling windows, more efficient paid conversions, and a powerful Q4 compounding effect.</p>
+                <div class="scenario-metrics">
+                    <div class="scenario-metric">
+                        <strong id="metric-spend">SGD 21K</strong>
+                        <span>Total annual investment</span>
+                    </div>
+                    <div class="scenario-metric">
+                        <strong id="metric-activations">6 launches</strong>
+                        <span>Creator-led plays per year</span>
+                    </div>
+                    <div class="scenario-metric">
+                        <strong id="metric-roas">2.8×</strong>
+                        <span>Average ROAS</span>
+                    </div>
+                    <div class="scenario-metric">
+                        <strong id="metric-repeat">+42%</strong>
+                        <span>Repeat purchase uplift</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="calendar-title">
+            <h2 id="calendar-title">Cadence calendar: get seen 6× a year</h2>
+            <p class="section-intro">Plan alternating months for hero creator storylines. Layer retargeting (spark ads, reels, marketplace retargeting) immediately after each drop. Double your spend in Q4 to ride regional mega sales.</p>
+
+            <div class="calendar-grid" role="list">
+                <div class="month-card active" role="listitem">
+                    <h4>January</h4>
+                    <p>New year refresh drop. Seed first-party audiences and kick off loyalty hooks.</p>
+                </div>
+                <div class="month-card" role="listitem">
+                    <h4>February</h4>
+                    <p>Retargeting focus. Spark ads drive back-to-cart with fresh CTA.</p>
+                </div>
+                <div class="month-card active" role="listitem">
+                    <h4>March</h4>
+                    <p>Creator drop. Highlight seasonal trends, capture second wave of content.</p>
+                </div>
+                <div class="month-card" role="listitem">
+                    <h4>April</h4>
+                    <p>Retargeting + marketplace vouchers to convert browsers.</p>
+                </div>
+                <div class="month-card active" role="listitem">
+                    <h4>May</h4>
+                    <p>Creators focus on gifting moments (Mother’s Day, Hari Raya).</p>
+                </div>
+                <div class="month-card" role="listitem">
+                    <h4>June</h4>
+                    <p>Always-on retargeting, test bundles before peak season.</p>
+                </div>
+                <div class="month-card active" role="listitem">
+                    <h4>July</h4>
+                    <p>Mid-year creator drop. Launch community challenge to grow UGC.</p>
+                </div>
+                <div class="month-card" role="listitem">
+                    <h4>August</h4>
+                    <p>Retargeting with localized creatives. Prep holiday waitlists.</p>
+                </div>
+                <div class="month-card active" role="listitem">
+                    <h4>September</h4>
+                    <p>Creators push holiday previews. Capture intent for Q4 remarketing.</p>
+                </div>
+                <div class="month-card" role="listitem">
+                    <h4>October</h4>
+                    <p>Retargeting spend tapers into mega-sale warm up.</p>
+                </div>
+                <div class="month-card active holiday" role="listitem">
+                    <h4>November</h4>
+                    <p>Double-budget creator drop around 11.11. Live shopping + nano blitz.</p>
+                </div>
+                <div class="month-card" role="listitem">
+                    <h4>December</h4>
+                    <p>Retargeting + remarketing stack culminates in 12.12 & holiday bundles.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="retargeting-title">
+            <h2 id="retargeting-title">Retargeting amplifier checklist</h2>
+            <p class="section-intro">Every creator burst deserves a retargeting spine that monetises the halo immediately. Use this to keep your performance team aligned.</p>
+
+            <div class="playbook">
+                <h3>Activation steps after every creator cycle</h3>
+                <ul>
+                    <li>Spin top 3 creator videos into Spark Ads and Reels Ads within 12 hours of publish.</li>
+                    <li>Load segmented audiences (views, saves, add-to-cart) into paid social, search, and marketplace retargeting.</li>
+                    <li>Deploy dynamic product ads with creator quotes for 45 days post drop.</li>
+                    <li>Sync CRM flows (email, WhatsApp) with creator narratives to nurture consideration.</li>
+                    <li>Schedule live shopping or webinar recap within 10 days to re-engage warm buyers.</li>
+                    <li>Measure halo effect: compare ROAS, retention, and LTV vs. months without creator support.</li>
+                </ul>
+            </div>
+        </section>
+
+        <nav class="nav-arrows" aria-label="Workshop navigation">
+            <a class="nav-button" href="workshop2.html">← Back to planning</a>
+            <a class="nav-button disabled" aria-disabled="true" tabindex="-1">All done →</a>
+        </nav>
+    </div>
+
+    <script>
+        const scenarios = {
+            monthly: {
+                heading: 'Monthly ads only',
+                copy: 'Twelve flat ad bursts with no creator storytelling. Frequency fatigue sets in, CPMs climb, and retargeting pools stay shallow. Result: short-term reach bumps but limited lifetime value.',
+                spend: 'SGD 24K',
+                activations: '12 pushes',
+                roas: '1.6×',
+                repeat: '+12%'
+            },
+            hybrid: {
+                heading: 'Creator + retargeting rhythm',
+                copy: 'Six creator bursts (every other month) with retargeting turned on for 45 days post-launch. Stronger storytelling windows, more efficient paid conversions, and a powerful Q4 compounding effect.',
+                spend: 'SGD 21K',
+                activations: '6 launches',
+                roas: '2.8×',
+                repeat: '+42%'
+            }
+        };
+
+        function setScenario(key) {
+            const scenario = scenarios[key];
+            if (!scenario) {
+                return;
+            }
+
+            document.querySelectorAll('.scenario-btn').forEach(btn => {
+                const isActive = btn.dataset.scenario === key;
+                btn.classList.toggle('active', isActive);
+                btn.setAttribute('aria-selected', String(isActive));
+            });
+
+            document.getElementById('scenario-heading').textContent = scenario.heading;
+            document.getElementById('scenario-copy').textContent = scenario.copy;
+            document.getElementById('metric-spend').textContent = scenario.spend;
+            document.getElementById('metric-activations').textContent = scenario.activations;
+            document.getElementById('metric-roas').textContent = scenario.roas;
+            document.getElementById('metric-repeat').textContent = scenario.repeat;
+        }
+
+        setScenario('hybrid');
+    </script>
+</body>
+</html>

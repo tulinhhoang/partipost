@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Touchpoint Gap Assessment - Partipost Workshop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            color: #718096;
+            font-size: 1.2rem;
+        }
+        
+        .assessment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .current-channels {
+            background: #f7fafc;
+            padding: 30px;
+            border-radius: 15px;
+        }
+        
+        .section-title {
+            color: #2d3748;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .channel-category {
+            margin-bottom: 25px;
+        }
+        
+        .category-header {
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .channel-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin: 8px 0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .channel-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .channel-item.selected {
+            border-color: #764ba2;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .channel-item input[type="checkbox"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+        
+        .channel-details {
+            flex-grow: 1;
+        }
+        
+        .channel-name {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        
+        .channel-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Updated styles for industry benchmarks */
+        .industry-benchmarks {
+            background: #f7fafc;
+            padding: 30px;
+            border-radius: 15px;
+        }
+        
+        .benchmark-industry {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .benchmark-industry:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left-color: #667eea;
+        }
+        
+        .benchmark-industry.active {
+            border-left-color: #764ba2;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .benchmark-industry.active .industry-name,
+        .benchmark-industry.active div {
+            color: white !important;
+        }
+        
+        .industry-name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .typical-channels {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .channel-badge {
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .benchmark-industry.active .channel-badge {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .results-section {
+            background: #f0fff4;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            border-left: 4px solid #48bb78;
+            display: none;
+        }
+        
+        .analysis-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        .analysis-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .gap-visualization {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .gap-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .progress-bar {
+            background: #e2e8f0;
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 1s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .recommendations {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .priority-high { border-left-color: #fc8181; }
+        .priority-medium { border-left-color: #f6ad55; }
+        .priority-low { border-left-color: #68d391; }
+        
+        .missing-channels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .missing-channel {
+            background: #fff5f5;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px dashed #fc8181;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* New styles for navigation footer */
+        .navigation-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .nav-link {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: #f7fafc;
+            color: #2d3748;
+        }
+        
+        @media (max-width: 768px) {
+            .assessment-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Touchpoint Gap Assessment</h1>
+            <p>Discover the gaps in your customer journey and how to fill them</p>
+        </div>
+        
+        <div class="assessment-grid">
+            <div class="current-channels">
+                <div class="section-title">
+                    📊 Select Your Current Marketing Channels
+                </div>
+                
+                <div class="channel-category">
+                    <div class="category-header">Digital Advertising</div>
+                    <div class="channel-item" onclick="toggleChannel(this)">
+                        <input type="checkbox" style="display: none;">
+                        <div class="channel-details">
+                            <div class="channel-name">Facebook Ads</div>
+                            <div class="channel-desc">Paid social media advertising</div>
+                        </div>
+                    </div>
+                    <div class="channel-item" onclick="toggleChannel(this)">
+                        <input type="checkbox" style="display: none;">
+                        <div class="channel-details">
+                            <div class="channel-name">Google Ads</div>
+                            <div class="channel-desc">Search and display advertising</div>
+                        </div>
+                    </div>
+                    <div class="channel-item" onclick="toggleChannel(this)">
+                        <input type="checkbox" style="display: none;">
+                        <div class="channel-details">
+                            <div class="channel-name">Instagram Ads</div>
+                            <div class="channel-desc">Visual social media advertising</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="channel-category">
+                    <div class="category-header">Content & Social</div>
+                    <div class="channel-item" onclick="toggleChannel(this)">
+                        <input type="checkbox" style="display: none;">
+                        <div class="channel-details">
+                            <div class="channel-name">Company Social Media</div>
+                            <div class="channel-desc">Brand-owned social profiles</div>
+                        </div>
+                    </div>
+                    <div class="channel-item" onclick="toggleChannel(this)">
+                        <input type="checkbox" style="display: none;">
+                        <div class="channel-details">
+                            <div class="channel-name">Influencer Partnerships</div>
+                            <div class="channel-desc">Authentic creator content</div>
+                        </div>
+                    </div>
+                    <div class="channel-item" onclick="toggleChannel(this)">
+                        <input type="checkbox" style="display: none;">
+                        <div class="channel-details">
+                            <div class="channel-name">User-Generated Content</div>
+                            <div class="channel-desc">Customer-created content</div>
+                        </div>
+                    </div>
+                    <div class="channel-item" onclick="toggleChannel(this)">
+                        <input type="checkbox" style="display: none;">
+                        <div class="channel-details">
+                            <div class="channel-name">Blog/Content Marketing</div>
+                            <div class="channel-desc">Educational and helpful content</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="channel-category">
+                    <div class="category-header">Direct Marketing</div>
+                    <div class="channel-item" onclick="toggleChannel(this)">
+                        <input type="checkbox" style="display: none;">
+                        <div class="channel-details">
+                            <div class="channel-name">Email Marketing</div>
+                            <div class="channel-desc">Direct email campaigns</div>
+                        </div>
+                    </div>
+                    <div class="channel-item" onclick="toggleChannel(this)">
+                        <input type="checkbox" style="display: none;">
+                        <div class="channel-details">
+                            <div class="channel-name">SMS Marketing</div>
+                            <div class="channel-desc">Text message campaigns</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="channel-category">
+                    <div class="category-header">Trust & Reviews</div>
+                    <div class="channel-item" onclick="toggleChannel(this)">
+                        <input type="checkbox" style="display: none;">
+                        <div class="channel-details">
+                            <div class="channel-name">Customer Reviews</div>
+                            <div class="channel-desc">Google, platform reviews</div>
+                        </div>
+                    </div>
+                    <div class="channel-item" onclick="toggleChannel(this)">
+                        <input type="checkbox" style="display: none;">
+                        <div class="channel-details">
+                            <div class="channel-name">Testimonials</div>
+                            <div class="channel-desc">Customer success stories</div>
+                        </div>
+                    </div>
+                    <div class="channel-item" onclick="toggleChannel(this)">
+                        <input type="checkbox" style="display: none;">
+                        <div class="channel-details">
+                            <div class="channel-name">Word of Mouth</div>
+                            <div class="channel-desc">Referrals and recommendations</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="channel-category">
+                    <div class="category-header">Physical & Events</div>
+                    <div class="channel-item" onclick="toggleChannel(this)">
+                        <input type="checkbox" style="display: none;">
+                        <div class="channel-details">
+                            <div class="channel-name">Physical Store/Location</div>
+                            <div class="channel-desc">Brick and mortar presence</div>
+                        </div>
+                    </div>
+                    <div class="channel-item" onclick="toggleChannel(this)">
+                        <input type="checkbox" style="display: none;">
+                        <div class="channel-details">
+                            <div class="channel-name">Events & Trade Shows</div>
+                            <div class="channel-desc">In-person marketing</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="industry-benchmarks">
+                <div class="section-title">
+                    🎯 Industry Benchmarks
+                </div>
+                
+                <div class="benchmark-industry" onclick="selectIndustry(this, 'beauty')">
+                    <div class="industry-name">Beauty & Fashion</div>
+                    <div style="color: #718096; margin-bottom: 10px;">Typical touchpoints: 8-12</div>
+                    <div class="typical-channels">
+                        <div class="channel-badge">Instagram</div>
+                        <div class="channel-badge">Influencers</div>
+                        <div class="channel-badge">Reviews</div>
+                        <div class="channel-badge">UGC</div>
+                        <div class="channel-badge">Email</div>
+                        <div class="channel-badge">Tutorials</div>
+                    </div>
+                </div>
+                
+                <div class="benchmark-industry" onclick="selectIndustry(this, 'fnb')">
+                    <div class="industry-name">Food & Beverage</div>
+                    <div style="color: #718096; margin-bottom: 10px;">Typical touchpoints: 6-10</div>
+                    <div class="typical-channels">
+                        <div class="channel-badge">Social Media</div>
+                        <div class="channel-badge">Reviews</div>
+                        <div class="channel-badge">Location</div>
+                        <div class="channel-badge">Food Photos</div>
+                        <div class="channel-badge">Word of Mouth</div>
+                    </div>
+                </div>
+                
+                <div class="benchmark-industry" onclick="selectIndustry(this, 'health')">
+                    <div class="industry-name">Health & Nutrition</div>
+                    <div style="color: #718096; margin-bottom: 10px;">Typical touchpoints: 9-13</div>
+                    <div class="typical-channels">
+                        <div class="channel-badge">Testimonials</div>
+                        <div class="channel-badge">Reviews</div>
+                        <div class="channel-badge">Content</div>
+                        <div class="channel-badge">Influencers</div>
+                        <div class="channel-badge">Science</div>
+                        <div class="channel-badge">Trust Signals</div>
+                    </div>
+                </div>
+                
+                <div class="benchmark-industry" onclick="selectIndustry(this, 'others')">
+                    <div class="industry-name">Other Industries</div>
+                    <div style="color: #718096; margin-bottom: 10px;">Typical touchpoints: 7-11</div>
+                    <div class="typical-channels">
+                        <div class="channel-badge">Website</div>
+                        <div class="channel-badge">Social</div>
+                        <div class="channel-badge">Reviews</div>
+                        <div class="channel-badge">Email</div>
+                        <div class="channel-badge">Referrals</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="analysis-button" onclick="performGapAnalysis()">
+            Analyze My Touchpoint Gaps
+        </button>
+        
+        <div class="results-section" id="resultsSection">
+            <div class="section-title">
+                🔍 Your Gap Analysis Results
+            </div>
+            <div id="analysisResults"></div>
+        </div>
+
+        <div class="navigation-footer">
+            <a href="#" class="nav-link">← Back to planning</a>
+            <a href="#" class="nav-link">All done →</a>
+        </div>
+    </div>
+
+    <script>
+        let selectedChannels = [];
+        let selectedIndustry = '';
+        
+        function toggleChannel(element) {
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            const channelName = element.querySelector('.channel-name').textContent;
+            
+            checkbox.checked = !checkbox.checked;
+            element.classList.toggle('selected');
+            
+            if (checkbox.checked) {
+                if (!selectedChannels.includes(channelName)) {
+                    selectedChannels.push(channelName);
+                }
+            } else {
+                selectedChannels = selectedChannels.filter(ch => ch !== channelName);
+            }
+        }
+        
+        function selectIndustry(element, industry) {
+            // Remove previous selection
+            document.querySelectorAll('.benchmark-industry').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Add selection to clicked element
+            element.classList.add('active');
+            selectedIndustry = industry;
+        }
+        
+        function performGapAnalysis() {
+            if (selectedChannels.length === 0) {
+                alert('Please select at least one current marketing channel');
+                return;
+            }
+             if (!selectedIndustry) {
+                alert('Please select an industry benchmark to compare against');
+                return;
+            }
+            
+            const currentCount = selectedChannels.length;
+            const targetCount = 11;
+            const gapCount = Math.max(0, targetCount - currentCount);
+            const completionPercentage = Math.round((currentCount / targetCount) * 100);
+            
+            // Industry-specific analysis
+            const industryData = {
+                beauty: {
+                    typical: 10,
+                    critical: ['Influencer Partnerships', 'User-Generated Content', 'Customer Reviews', 'Testimonials'],
+                    description: 'Beauty brands need high trust through authentic reviews and influencer content'
+                },
+                fnb: {
+                    typical: 8,
+                    critical: ['Customer Reviews', 'User-Generated Content', 'Physical Store/Location', 'Word of Mouth'],
+                    description: 'F&B brands rely heavily on visual content and location-based discovery'
+                },
+                health: {
+                    typical: 11,
+                    critical: ['Testimonials', 'Customer Reviews', 'Influencer Partnerships', 'Blog/Content Marketing'],
+                    description: 'Health brands require extensive credibility building and educational content'
+                },
+                others: {
+                    typical: 9,
+                    critical: ['Customer Reviews', 'Email Marketing', 'User-Generated Content', 'Word of Mouth'],
+                    description: 'Most industries benefit from authentic customer advocacy and direct communication'
+                }
+            };
+            
+            const industryInfo = industryData[selectedIndustry] || industryData.others;
+            const industryGap = Math.max(0, industryInfo.typical - currentCount);
+            
+            // Determine priority level
+            let priorityClass, priorityText, priorityColor;
+            if (gapCount >= 7) {
+                priorityClass = 'priority-high';
+                priorityText = 'Critical Priority';
+                priorityColor = '#fc8181';
+            } else if (gapCount >= 4) {
+                priorityClass = 'priority-medium';
+                priorityText = 'Medium Priority';
+                priorityColor = '#f6ad55';
+            } else {
+                priorityClass = 'priority-low';
+                priorityText = 'Low Priority';
+                priorityColor = '#68d391';
+            }
+            
+            // Find missing critical channels
+            const missingCritical = industryInfo.critical.filter(critical => 
+                !selectedChannels.includes(critical)
+            );
+            
+            const resultsSection = document.getElementById('resultsSection');
+            const analysisResults = document.getElementById('analysisResults');
+            
+            analysisResults.innerHTML = `
+                <div class="gap-visualization">
+                    <div class="gap-card">
+                        <h3 style="color: #2d3748; margin-bottom: 15px;">Overall Progress</h3>
+                        <div style="font-size: 2rem; font-weight: 900; color: #667eea; text-align: center;">
+                            ${currentCount}/11
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%">
+                                ${completionPercentage}%
+                            </div>
+                        </div>
+                        <p style="text-align: center; color: #718096; margin-top: 10px;">
+                            ${gapCount} touchpoints missing
+                        </p>
+                    </div>
+                    
+                    <div class="gap-card">
+                        <h3 style="color: #2d3748; margin-bottom: 15px;">Industry Comparison</h3>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: ${priorityColor}; text-align: center;">
+                           You are ${industryGap === 0 ? 'on par' : `${industryGap} point${industryGap > 1 ? 's' : ''} behind`}
+                        </div>
+                        <p style="text-align: center; color: #718096; margin: 10px 0;">
+                            Typical for industry: ${industryInfo.typical} touchpoints
+                        </p>
+                        <div style="background: #f7fafc; padding: 10px; border-radius: 8px; font-size: 0.9rem;">
+                            ${industryInfo.description}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recommendations ${priorityClass}">
+                    <h3 style="color: #2d3748; margin-bottom: 15px;">
+                        🚨 ${priorityText}: Missing Critical Touchpoints
+                    </h3>
+                    
+                    ${missingCritical.length > 0 ? `
+                        <p style="margin-bottom: 15px;">You're missing these critical touchpoints for your industry:</p>
+                        <div class="missing-channels">
+                            ${missingCritical.map(channel => `
+                                <div class="missing-channel">
+                                    ❌ ${channel}
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : `
+                        <p style="color: #38a169;">✅ You have most critical touchpoints covered!</p>
+                    `}
+                    
+                    <div style="background: #e6fffa; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #38b2ac;">
+                        <h4 style="color: #234e52; margin-bottom: 10px;">🎯 Partipost Can Fill These Gaps:</h4>
+                        <ul style="margin-left: 20px; color: #2d3748;">
+                            <li><strong>Influencer Partnerships:</strong> Authentic creator recommendations</li>
+                            <li><strong>User-Generated Content:</strong> Real customers using your products</li>
+                            <li><strong>Reviews & Testimonials:</strong> Credible social proof</li>
+                            <li><strong>Word of Mouth:</strong> Social media recommendations</li>
+                            <li><strong>Content Marketing:</strong> 12 months of reusable content</li>
+                        </ul>
+                        
+                        <div style="background: #234e52; color: white; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: center;">
+                            <strong>💡 One Partipost campaign can add 4-6 touchpoints to your customer journey</strong><br>
+                            <span style="font-size: 0.9rem; opacity: 0.9;">
+                                Plus provide 12 months of authentic content for all your other channels
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: #fff; padding: 20px; border-radius: 10px; margin-top: 20px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #2d3748; margin-bottom: 10px;">📊 Your Selected Channels:</h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        ${selectedChannels.map(channel => `
+                            <span style="background: #667eea; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.9rem;">
+                                ✓ ${channel}
+                            </span>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            resultsSection.style.display = 'block';
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // Animate progress bar
+            setTimeout(() => {
+                const progressFill = document.querySelector('.progress-fill');
+                if (progressFill) {
+                    progressFill.style.width = `${completionPercentage}%`;
+                }
+            }, 100);
+        }
+    </script>
+</body>
+</html>

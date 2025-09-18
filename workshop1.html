@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 7-11-4 Rule - Partipost Workshop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 1200px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            color: #718096;
+            font-size: 1.2rem;
+        }
+        
+        .rule-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .rule-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rule-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .rule-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+            opacity: 0;
+        }
+        
+        .rule-card:hover::before {
+            animation: shine 0.5s ease-in-out;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
+        }
+        
+        .rule-number {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .rule-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .rule-detail {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        
+        .journey-section {
+            background: #f7fafc;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        
+        .journey-title {
+            color: #2d3748;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .touchpoints-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .touchpoint {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .touchpoint:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            border-left-color: #764ba2;
+        }
+        
+        .touchpoint.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-left-color: #764ba2;
+        }
+        
+        .touchpoint-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .touchpoint-detail {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .current-touchpoints {
+            background: #fff5f5;
+            border: 2px dashed #fc8181;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .input-section {
+            margin-top: 30px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            color: #2d3748;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .input-group input:focus, .input-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .analyze-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .results {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f0fff4;
+            border-radius: 10px;
+            border-left: 4px solid #48bb78;
+            display: none;
+        }
+        
+        .gap-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .gap-score {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .rule-number {
+                font-size: 3rem;
+            }
+            
+            .rule-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>The 7-11-4 Rule</h1>
+            <p>Why Traditional Marketing Isn't Working Anymore</p>
+        </div>
+        
+        <div class="rule-container">
+            <div class="rule-card" onclick="showDetail('hours')">
+                <div class="rule-number">7</div>
+                <div class="rule-text">HOURS</div>
+                <div class="rule-detail">of interaction time needed to build trust</div>
+            </div>
+            
+            <div class="rule-card" onclick="showDetail('touchpoints')">
+                <div class="rule-number">11</div>
+                <div class="rule-text">TOUCHPOINTS</div>
+                <div class="rule-detail">across different channels and formats</div>
+            </div>
+            
+            <div class="rule-card" onclick="showDetail('locations')">
+                <div class="rule-number">4</div>
+                <div class="rule-text">LOCATIONS</div>
+                <div class="rule-detail">where customers encounter your brand</div>
+            </div>
+        </div>
+        
+        <div class="journey-section">
+            <div class="journey-title">Typical Customer Journey Touchpoints</div>
+            <div class="touchpoints-grid" id="touchpointsGrid">
+                <div class="touchpoint" onclick="toggleTouchpoint(this)">
+                    <div class="touchpoint-name">Social Media Discovery</div>
+                    <div class="touchpoint-detail">Instagram, TikTok, Facebook posts</div>
+                </div>
+                <div class="touchpoint" onclick="toggleTouchpoint(this)">
+                    <div class="touchpoint-name">Website Visit</div>
+                    <div class="touchpoint-detail">Homepage, product pages</div>
+                </div>
+                <div class="touchpoint" onclick="toggleTouchpoint(this)">
+                    <div class="touchpoint-name">Reviews & Testimonials</div>
+                    <div class="touchpoint-detail">Google, social proof content</div>
+                </div>
+                <div class="touchpoint" onclick="toggleTouchpoint(this)">
+                    <div class="touchpoint-name">Email Marketing</div>
+                    <div class="touchpoint-detail">Newsletters, promotions</div>
+                </div>
+                <div class="touchpoint" onclick="toggleTouchpoint(this)">
+                    <div class="touchpoint-name">Influencer Content</div>
+                    <div class="touchpoint-detail">Authentic recommendations</div>
+                </div>
+                <div class="touchpoint" onclick="toggleTouchpoint(this)">
+                    <div class="touchpoint-name">Search Results</div>
+                    <div class="touchpoint-detail">Google, SEO presence</div>
+                </div>
+                <div class="touchpoint" onclick="toggleTouchpoint(this)">
+                    <div class="touchpoint-name">Retargeting Ads</div>
+                    <div class="touchpoint-detail">Facebook, Google ads</div>
+                </div>
+                <div class="touchpoint" onclick="toggleTouchpoint(this)">
+                    <div class="touchpoint-name">Word of Mouth</div>
+                    <div class="touchpoint-detail">Friends, family recommendations</div>
+                </div>
+                <div class="touchpoint" onclick="toggleTouchpoint(this)">
+                    <div class="touchpoint-name">Content Marketing</div>
+                    <div class="touchpoint-detail">Blog posts, tutorials</div>
+                </div>
+                <div class="touchpoint" onclick="toggleTouchpoint(this)">
+                    <div class="touchpoint-name">Physical Experience</div>
+                    <div class="touchpoint-detail">Store visits, events</div>
+                </div>
+                <div class="touchpoint" onclick="toggleTouchpoint(this)">
+                    <div class="touchpoint-name">Customer Service</div>
+                    <div class="touchpoint-detail">Support interactions</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="input-section">
+            <div class="current-touchpoints">
+                <h3 style="color: #c53030; margin-bottom: 15px;">📊 Assess Your Current Touchpoints</h3>
+                <p style="margin-bottom: 20px;">Click on the touchpoints above that you currently use, then describe your customer journey below:</p>
+                
+                <div class="input-group">
+                    <label for="businessName">Business Name:</label>
+                    <input type="text" id="businessName" placeholder="Enter your business name">
+                </div>
+                
+                <div class="input-group">
+                    <label for="industry">Industry:</label>
+                    <input type="text" id="industry" placeholder="e.g., Beauty, F&B, Health">
+                </div>
+                
+                <div class="input-group">
+                    <label for="customerJourney">Describe your typical customer journey:</label>
+                    <textarea id="customerJourney" rows="4" placeholder="How do customers typically discover and buy from you?"></textarea>
+                </div>
+                
+                <button class="analyze-btn" onclick="analyzeGaps()">Analyze My Touchpoint Gaps</button>
+            </div>
+        </div>
+        
+        <div class="results" id="results">
+            <h3 style="color: #38a169; margin-bottom: 15px;">🎯 Your Touchpoint Analysis</h3>
+            <div id="analysisResults"></div>
+        </div>
+    </div>
+
+    <script>
+        let selectedTouchpoints = [];
+        
+        function showDetail(type) {
+            const details = {
+                hours: "Customers need 7 hours of cumulative interaction with your brand before they trust you enough to make a purchase. This includes time spent viewing content, reading reviews, and engaging with your brand.",
+                touchpoints: "Customers require 11 different touchpoints across various channels. Most brands only have 2-3 touchpoints, creating a massive gap in the customer journey.",
+                locations: "Customers need to encounter your brand in 4 different locations - online platforms, social media, physical spaces, and through personal recommendations."
+            };
+            
+            alert(details[type]);
+        }
+        
+        function toggleTouchpoint(element) {
+            element.classList.toggle('active');
+            const touchpointName = element.querySelector('.touchpoint-name').textContent;
+            
+            if (element.classList.contains('active')) {
+                if (!selectedTouchpoints.includes(touchpointName)) {
+                    selectedTouchpoints.push(touchpointName);
+                }
+            } else {
+                selectedTouchpoints = selectedTouchpoints.filter(t => t !== touchpointName);
+            }
+            
+            updateSelectedCount();
+        }
+        
+        function updateSelectedCount() {
+            // Visual feedback for selected touchpoints
+            console.log('Selected touchpoints:', selectedTouchpoints.length);
+        }
+        
+        function analyzeGaps() {
+            const businessName = document.getElementById('businessName').value;
+            const industry = document.getElementById('industry').value;
+            const customerJourney = document.getElementById('customerJourney').value;
+            
+            if (!businessName || !industry) {
+                alert('Please fill in your business name and industry');
+                return;
+            }
+            
+            const touchpointCount = selectedTouchpoints.length;
+            const gapScore = Math.max(0, 11 - touchpointCount);
+            const completionPercentage = Math.round((touchpointCount / 11) * 100);
+            
+            const results = document.getElementById('results');
+            const analysisResults = document.getElementById('analysisResults');
+            
+            let recommendation = '';
+            let priority = '';
+            
+            if (touchpointCount <= 3) {
+                recommendation = 'Critical Gap: You need to establish more touchpoints immediately. Focus on building authentic content through influencer marketing to fill multiple gaps quickly.';
+                priority = 'High Priority: Influencer Content + Reviews + Social Proof';
+            } else if (touchpointCount <= 6) {
+                recommendation = 'Moderate Gap: You have a good foundation but need more authentic touchpoints. Consider influencer partnerships to build trust and social proof.';
+                priority = 'Medium Priority: Authentic Reviews + User-Generated Content';
+            } else {
+                recommendation = 'Good Coverage: You have strong touchpoint coverage. Focus on optimizing existing channels and adding authentic user content.';
+                priority = 'Low Priority: Optimization + Authentic Content Enhancement';
+            }
+            
+            analysisResults.innerHTML = `
+                <div class="gap-indicator">
+                    <div>
+                        <strong>Current Touchpoints:</strong> ${touchpointCount}/11<br>
+                        <strong>Completion:</strong> ${completionPercentage}%
+                    </div>
+                    <div class="gap-score">${touchpointCount}/11</div>
+                </div>
+                
+                <div style="margin-top: 15px;">
+                    <strong>📈 Analysis for ${businessName} (${industry}):</strong><br>
+                    ${recommendation}
+                </div>
+                
+                <div style="margin-top: 15px; padding: 15px; background: #fff; border-radius: 8px;">
+                    <strong>🎯 ${priority}</strong><br>
+                    Missing touchpoints that influencer marketing can fill:
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        ${!selectedTouchpoints.includes('Influencer Content') ? '<li>Authentic influencer recommendations</li>' : ''}
+                        ${!selectedTouchpoints.includes('Reviews & Testimonials') ? '<li>Real customer reviews and testimonials</li>' : ''}
+                        ${!selectedTouchpoints.includes('Word of Mouth') ? '<li>Social proof and word-of-mouth</li>' : ''}
+                        ${!selectedTouchpoints.includes('Content Marketing') ? '<li>User-generated content for marketing</li>' : ''}
+                    </ul>
+                </div>
+                
+                <div style="margin-top: 15px; padding: 15px; background: #e6fffa; border-radius: 8px; border-left: 4px solid #38b2ac;">
+                    <strong>💡 Partipost Solution:</strong><br>
+                    One Partipost campaign can create 4-6 new touchpoints simultaneously while providing authentic content you can use across all channels for 12 months.
+                </div>
+            `;
+            
+            results.style.display = 'block';
+            results.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.rule-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.2}s`;
+                card.style.animation = 'fadeIn 0.8s ease-out forwards';
+            });
+        });
+    </script>
+</body>
+</html>
