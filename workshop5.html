@@ -3,831 +3,1048 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workshop 5: Campaign Command Center - Partipost</title>
+    <title>Template Selection Guide - Partipost Workshop</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 30px;
-            color: #1a202c;
+            padding: 20px;
         }
-
+        
         .container {
-            background: #ffffff;
-            border-radius: 24px;
-            padding: 48px;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
             max-width: 1400px;
             margin: 0 auto;
-            box-shadow: 0 24px 48px rgba(15, 23, 42, 0.18);
-            animation: fadeIn 0.8s ease-in-out;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease-out;
         }
-
+        
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(24px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
+        
         .header {
             text-align: center;
-            margin-bottom: 48px;
-        }
-
-        .header h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: #2d3748;
-            letter-spacing: -0.02em;
-        }
-
-        .header p {
-            color: #4a5568;
-            font-size: 1.05rem;
-            margin-top: 16px;
-            line-height: 1.6;
-            max-width: 780px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .badge-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 16px;
             margin-bottom: 40px;
         }
-
-        .badge {
-            background: #f7fafc;
-            border-radius: 999px;
-            padding: 10px 22px;
-            font-weight: 600;
-            color: #4a5568;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            border: 1px solid rgba(102, 126, 234, 0.25);
-        }
-
-        .badge span {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #ffffff;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 999px;
-            width: 24px;
-            height: 24px;
-            font-size: 0.85rem;
+        
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
             font-weight: 700;
         }
-
-        .section {
-            margin-bottom: 56px;
+        
+        .header p {
+            color: #718096;
+            font-size: 1.2rem;
         }
-
-        .section h2 {
-            font-size: 2rem;
+        
+        .goal-selector {
+            background: #f7fafc;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .selector-title {
             color: #2d3748;
-            margin-bottom: 16px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
         }
-
-        .section > p, .section > .section-intro {
-            color: #4a5568;
-            line-height: 1.6;
-            margin-bottom: 24px;
-            max-width: 900px;
-        }
-
-        .phase-grid {
+        
+        .goal-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
         }
-
-        .phase-card {
-            border: 2px solid #e2e8f0;
-            border-radius: 18px;
-            padding: 24px;
-            text-align: left;
-            background: #ffffff;
+        
+        .goal-option {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
+            border: 2px solid #e2e8f0;
+            text-align: center;
         }
-
-        .phase-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 32px rgba(102, 126, 234, 0.18);
+        
+        .goal-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
-
-        .phase-card.active {
+        
+        .goal-option.selected {
             border-color: #667eea;
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.22);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
         }
-
-        .phase-icon {
-            font-size: 2.2rem;
-            margin-bottom: 16px;
+        
+        .goal-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
         }
-
-        .phase-title {
-            font-weight: 700;
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-            color: #2d3748;
+        
+        .goal-name {
+            font-weight: 600;
+            margin-bottom: 5px;
         }
-
-        .phase-meta {
-            color: #718096;
+        
+        .goal-desc {
             font-size: 0.9rem;
+            opacity: 0.8;
         }
-
-        .phase-detail {
-            margin-top: 32px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
-            border-radius: 18px;
-            padding: 28px;
+        
+        .templates-section {
             display: none;
         }
-
-        .phase-detail.active {
+        
+        .templates-section.active {
             display: block;
+            animation: slideIn 0.5s ease-out;
         }
-
-        .detail-heading {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: #2d3748;
-            margin-bottom: 12px;
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .detail-grid {
+        
+        .templates-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 18px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
         }
-
-        .detail-card {
-            background: #ffffff;
-            border-radius: 14px;
-            padding: 18px;
-            border-left: 4px solid #667eea;
-            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+        
+        .template-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
-
-        .detail-card h4 {
-            font-size: 1rem;
+        
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        
+        .template-card.recommended {
+            border-color: #48bb78;
+            position: relative;
+        }
+        
+        .template-card.recommended::before {
+            content: "RECOMMENDED";
+            position: absolute;
+            top: 15px;
+            right: -25px;
+            background: #48bb78;
+            color: white;
+            padding: 5px 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+            z-index: 2;
+        }
+        
+        .template-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .template-title {
+            font-size: 1.3rem;
+            font-weight: 700;
             margin-bottom: 8px;
-            color: #2d3748;
         }
-
-        .detail-card ul {
-            list-style: none;
+        
+        .template-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .template-content {
+            padding: 25px;
+        }
+        
+        .template-description {
             color: #4a5568;
-            font-size: 0.95rem;
+            margin-bottom: 20px;
             line-height: 1.5;
         }
-
-        .detail-card ul li {
-            position: relative;
-            padding-left: 18px;
-            margin-bottom: 6px;
+        
+        .template-tasks {
+            margin-bottom: 20px;
         }
-
-        .detail-card ul li::before {
-            content: '•';
+        
+        .tasks-title {
+            color: #2d3748;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        
+        .task-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .task-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+            position: relative;
+            padding-left: 20px;
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+        
+        .task-item:before {
+            content: "▶";
             position: absolute;
             left: 0;
             color: #667eea;
+            font-size: 0.8rem;
         }
-
-        .calculator-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 28px;
+        
+        .task-item:last-child {
+            border-bottom: none;
         }
-
-        .calculator-card {
+        
+        .template-pricing {
             background: #f7fafc;
-            border-radius: 18px;
-            padding: 28px;
-            border: 1px solid rgba(102, 126, 234, 0.18);
-        }
-
-        .input-group {
+            padding: 15px;
+            border-radius: 8px;
             margin-bottom: 20px;
         }
-
-        .input-group label {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 8px;
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
-
-        .input-group span {
-            font-size: 0.85rem;
+        
+        .pricing-item {
+            text-align: center;
+        }
+        
+        .pricing-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .pricing-label {
+            font-size: 0.8rem;
+            color: #718096;
+            margin-top: 5px;
+        }
+        
+        .template-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .metric-item {
+            text-align: center;
+            padding: 10px;
+            background: #fff5f5;
+            border-radius: 6px;
+        }
+        
+        .metric-value {
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .metric-label {
+            font-size: 0.8rem;
             color: #718096;
         }
-
-        .input-group input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: border 0.2s ease;
-        }
-
-        .input-group input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .primary-btn {
+        
+        .select-template-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #ffffff;
+            color: white;
             border: none;
-            padding: 14px 18px;
-            border-radius: 12px;
-            font-size: 1rem;
+            padding: 12px 20px;
+            border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
             width: 100%;
-            margin-top: 12px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: all 0.3s ease;
         }
-
-        .primary-btn:hover {
+        
+        .select-template-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 18px 30px rgba(102, 126, 234, 0.28);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
         }
-
-        .results-card {
-            background: #ffffff;
-            border-radius: 18px;
-            padding: 30px;
-            border: 2px dashed rgba(102, 126, 234, 0.4);
-            min-height: 260px;
+        
+        .budget-calculator {
+            background: #fff5f5;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 4px solid #fc8181;
         }
-
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 18px;
+        
+        .calculator-title {
+            color: #c53030;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-
-        .result-block {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            border-radius: 14px;
-            padding: 18px;
-        }
-
-        .result-label {
-            font-size: 0.85rem;
-            color: #4a5568;
-        }
-
-        .result-value {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: #2d3748;
-            margin-top: 6px;
-        }
-
-        .result-insight {
-            margin-top: 18px;
-            font-size: 0.95rem;
-            color: #4a5568;
-            line-height: 1.5;
-        }
-
-        .timeline-grid {
+        
+        .budget-inputs {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
+            margin-bottom: 20px;
         }
-
-        .timeline-card {
+        
+        .input-group {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .input-label {
+            display: block;
+            color: #4a5568;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 10px;
             border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 22px;
-            background: #ffffff;
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            border-radius: 6px;
+            font-size: 1rem;
         }
-
-        .timeline-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 32px rgba(102, 126, 234, 0.18);
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
         }
-
-        .timeline-card.active {
-            border-color: #764ba2;
-            box-shadow: 0 18px 36px rgba(118, 75, 162, 0.22);
+        
+        .budget-results {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
         }
-
-        .timeline-card h3 {
-            font-size: 1.1rem;
-            color: #2d3748;
-            margin-bottom: 10px;
-            font-weight: 700;
+        
+        .budget-results.active {
+            display: block;
         }
-
-        .timeline-card p {
-            color: #4a5568;
-            font-size: 0.92rem;
-            line-height: 1.5;
-        }
-
-        .timeline-detail {
-            margin-top: 32px;
-            background: #f7f5ff;
-            border-radius: 18px;
-            padding: 28px;
-            border: 1px solid rgba(118, 75, 162, 0.2);
-        }
-
-        .timeline-detail h3 {
-            font-size: 1.3rem;
-            margin-bottom: 14px;
-            color: #2d3748;
-        }
-
-        .timeline-detail ul {
-            list-style: none;
-            color: #4a5568;
-        }
-
-        .timeline-detail ul li {
-            position: relative;
-            padding-left: 20px;
-            margin-bottom: 10px;
-        }
-
-        .timeline-detail ul li::before {
-            content: '▹';
-            position: absolute;
-            left: 0;
-            color: #764ba2;
-        }
-
-        .progress-indicator {
+        
+        .results-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 16px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
         }
-
-        .progress-chip {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 12px 16px;
-            border: 1px solid rgba(102, 126, 234, 0.25);
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
+        
+        .result-item {
+            text-align: center;
+            padding: 15px;
+            background: #f7fafc;
+            border-radius: 8px;
         }
-
-        .progress-chip strong {
-            color: #2d3748;
-            font-size: 0.95rem;
+        
+        .result-value {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #667eea;
+            margin-bottom: 5px;
         }
-
-        .progress-chip span {
+        
+        .result-label {
             color: #4a5568;
             font-size: 0.9rem;
         }
-
-        @media (max-width: 992px) {
-            .container {
-                padding: 32px 24px;
-            }
-        }
-
+        
         @media (max-width: 768px) {
-            body {
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .goal-options {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .budget-inputs {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
                 padding: 20px;
             }
-
-            .container {
-                padding: 24px;
-            }
-
+            
             .header h1 {
-                font-size: 2.2rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .badge-row {
-                gap: 12px;
-            }
-
-            .badge {
-                width: 100%;
-                justify-content: center;
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header class="header">
-            <h1>Workshop 5 · Campaign Command Center</h1>
-            <p>Turn your year-end influencer initiative into a predictable growth engine. Use this command center to align cross-functional teams, pressure-test ROI, and orchestrate the final 30-day push from discovery to repeat purchase.</p>
-        </header>
-
-        <div class="badge-row">
-            <div class="badge"><span>1</span>Cross-team launch alignment</div>
-            <div class="badge"><span>2</span>ROI + cash flow clarity</div>
-            <div class="badge"><span>3</span>30-day execution rhythm</div>
+        <div class="header">
+            <h1>Campaign Template Selection</h1>
+            <p>Choose the perfect campaign template for your marketing goals</p>
+        </div>
+        
+        <div class="goal-selector">
+            <div class="selector-title">🎯 What's your primary marketing goal?</div>
+            <div class="goal-options">
+                <div class="goal-option" onclick="selectGoal('awareness')">
+                    <div class="goal-icon">🌟</div>
+                    <div class="goal-name">Awareness</div>
+                    <div class="goal-desc">Build brand recognition</div>
+                </div>
+                <div class="goal-option" onclick="selectGoal('traffic')">
+                    <div class="goal-icon">🚗</div>
+                    <div class="goal-name">Traffic</div>
+                    <div class="goal-desc">Drive visits & engagement</div>
+                </div>
+                <div class="goal-option" onclick="selectGoal('credibility')">
+                    <div class="goal-icon">⭐</div>
+                    <div class="goal-name">Credibility</div>
+                    <div class="goal-desc">Build trust & social proof</div>
+                </div>
+                <div class="goal-option" onclick="selectGoal('app')">
+                    <div class="goal-icon">📱</div>
+                    <div class="goal-name">App Promotion</div>
+                    <div class="goal-desc">Drive app downloads</div>
+                </div>
+                <div class="goal-option" onclick="selectGoal('content')">
+                    <div class="goal-icon">🎬</div>
+                    <div class="goal-name">Content</div>
+                    <div class="goal-desc">Create marketing assets</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Awareness Templates -->
+        <div class="templates-section" id="awareness-templates">
+            <h2 style="color: #2d3748; font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; text-align: center;">
+                🌟 Awareness Building Templates
+            </h2>
+            <div class="templates-grid">
+                <div class="template-card recommended">
+                    <div class="template-header">
+                        <div class="template-title">Social Media Discovery</div>
+                        <div class="template-subtitle">Instagram + TikTok Exposure</div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-description">
+                            Perfect for new brands wanting maximum exposure across multiple platforms with authentic user-generated content.
+                        </div>
+                        <div class="template-tasks">
+                            <div class="tasks-title">Campaign Tasks:</div>
+                            <ul class="task-list">
+                                <li class="task-item">Follow brand social accounts</li>
+                                <li class="task-item">Create Instagram Reel showcasing product</li>
+                                <li class="task-item">Create TikTok video with brand hashtags</li>
+                                <li class="task-item">Share Instagram Story mention</li>
+                            </ul>
+                        </div>
+                        <div class="template-pricing">
+                            <div class="pricing-grid">
+                                <div class="pricing-item">
+                                    <div class="pricing-value">$3,000</div>
+                                    <div class="pricing-label">Recommended Budget</div>
+                                </div>
+                                <div class="pricing-item">
+                                    <div class="pricing-value">15-25</div>
+                                    <div class="pricing-label">Influencers</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">50+</div>
+                                <div class="metric-label">Content Pieces</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">200K+</div>
+                                <div class="metric-label">Reach</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">12</div>
+                                <div class="metric-label">Months Usage</div>
+                            </div>
+                        </div>
+                        <button class="select-template-btn" onclick="selectTemplate('Social Media Discovery', 3000)">
+                            Select This Template
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="template-card">
+                    <div class="template-header">
+                        <div class="template-title">Brand Introduction</div>
+                        <div class="template-subtitle">Content Creation Only</div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-description">
+                            Create high-quality content for your own marketing channels without requiring influencers to post publicly.
+                        </div>
+                        <div class="template-tasks">
+                            <div class="tasks-title">Campaign Tasks:</div>
+                            <ul class="task-list">
+                                <li class="task-item">Create product showcase videos</li>
+                                <li class="task-item">Write authentic product reviews</li>
+                                <li class="task-item">Submit content for brand use</li>
+                                <li class="task-item">No posting requirement</li>
+                            </ul>
+                        </div>
+                        <div class="template-pricing">
+                            <div class="pricing-grid">
+                                <div class="pricing-item">
+                                    <div class="pricing-value">$2,000</div>
+                                    <div class="pricing-label">Recommended Budget</div>
+                                </div>
+                                <div class="pricing-item">
+                                    <div class="pricing-value">20-30</div>
+                                    <div class="pricing-label">Creators</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">30+</div>
+                                <div class="metric-label">Content Pieces</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">100%</div>
+                                <div class="metric-label">Owned Content</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">12</div>
+                                <div class="metric-label">Months Usage</div>
+                            </div>
+                        </div>
+                        <button class="select-template-btn" onclick="selectTemplate('Brand Introduction', 2000)">
+                            Select This Template
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <section class="section" aria-labelledby="phase-title">
-            <h2 id="phase-title">Phased Launch Blueprint</h2>
-            <p>Select a phase to surface the cross-functional checklist and momentum metrics each squad owns.</p>
-
-            <div class="phase-grid" role="tablist">
-                <button type="button" class="phase-card active" data-phase="discovery" onclick="selectPhase('discovery')" role="tab" aria-selected="true">
-                    <div class="phase-icon">🚀</div>
-                    <div class="phase-title">Discovery Surge</div>
-                    <div class="phase-meta">Days -30 to -15 · Social + PR ignition</div>
-                </button>
-                <button type="button" class="phase-card" data-phase="conversion" onclick="selectPhase('conversion')" role="tab" aria-selected="false">
-                    <div class="phase-icon">🛒</div>
-                    <div class="phase-title">Conversion Sprint</div>
-                    <div class="phase-meta">Days -14 to +7 · Marketplace wins</div>
-                </button>
-                <button type="button" class="phase-card" data-phase="retention" onclick="selectPhase('retention')" role="tab" aria-selected="false">
-                    <div class="phase-icon">♻️</div>
-                    <div class="phase-title">Retention Loop</div>
-                    <div class="phase-meta">Days +8 to +30 · LTV amplification</div>
-                </button>
-            </div>
-
-            <div class="phase-detail active" id="phase-discovery" role="tabpanel">
-                <div class="detail-heading">Your north-star: front-load discovery velocity</div>
-                <div class="detail-grid">
-                    <div class="detail-card">
-                        <h4>Influencer Squad</h4>
-                        <ul>
-                            <li>Lock 40 nano, 10 micro creators with staggered go-live</li>
-                            <li>Seed exclusive promo code bundles with expiring perks</li>
-                            <li>Capture raw assets for retargeting pool</li>
-                        </ul>
+        <!-- Traffic Templates -->
+        <div class="templates-section" id="traffic-templates">
+            <h2 style="color: #2d3748; font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; text-align: center;">
+                🚗 Traffic Driving Templates
+            </h2>
+            <div class="templates-grid">
+                <div class="template-card recommended">
+                    <div class="template-header">
+                        <div class="template-title">Website Traffic Boost</div>
+                        <div class="template-subtitle">Direct Traffic Generation</div>
                     </div>
-                    <div class="detail-card">
-                        <h4>Paid + PR</h4>
-                        <ul>
-                            <li>Boost top 20% creator posts within 6h of publish</li>
-                            <li>Pitch year-end gifting angles to lifestyle media</li>
-                            <li>Sync TikTok Shop spotlight slots with creator drops</li>
-                        </ul>
-                    </div>
-                    <div class="detail-card">
-                        <h4>Momentum Metrics</h4>
-                        <ul>
-                            <li>Reach velocity ≥ 9.5k views per creator in 48h</li>
-                            <li>Save & share rate ≥ 8.2%</li>
-                            <li>Community waitlist hits 1.5x target</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="phase-detail" id="phase-conversion" role="tabpanel">
-                <div class="detail-heading">Your north-star: compress time-to-cart</div>
-                <div class="detail-grid">
-                    <div class="detail-card">
-                        <h4>On-site Trading</h4>
-                        <ul>
-                            <li>Swap hero assets to creator-led social proof</li>
-                            <li>Deploy urgency widgets (stock, timers, bundles)</li>
-                            <li>Mirror influencer bundles on Shopee, Lazada, TikTok Shop</li>
-                        </ul>
-                    </div>
-                    <div class="detail-card">
-                        <h4>Performance Marketing</h4>
-                        <ul>
-                            <li>Retarget viewers within 12h via spark ads & reels</li>
-                            <li>Launch cost-per-acquisition guardrails per cohort</li>
-                            <li>Push live shopping streams with creator co-host</li>
-                        </ul>
-                    </div>
-                    <div class="detail-card">
-                        <h4>Momentum Metrics</h4>
-                        <ul>
-                            <li>Click-to-cart ≤ 2.4 minutes</li>
-                            <li>Cart-to-purchase rate ≥ 6.1%</li>
-                            <li>Promo code redemption 2.3x baseline</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="phase-detail" id="phase-retention" role="tabpanel">
-                <div class="detail-heading">Your north-star: turn buyers into advocates</div>
-                <div class="detail-grid">
-                    <div class="detail-card">
-                        <h4>CRM + Loyalty</h4>
-                        <ul>
-                            <li>Trigger day-3 review nudges with creator callbacks</li>
-                            <li>Launch VIP nano community for surprise drops</li>
-                            <li>Invite top UGC into referral micro-site</li>
-                        </ul>
-                    </div>
-                    <div class="detail-card">
-                        <h4>Content Engine</h4>
-                        <ul>
-                            <li>Spin hero case study from top 5 customer stories</li>
-                            <li>Repurpose livestream highlights into evergreen ads</li>
-                            <li>Run “how I style it” duet challenge</li>
-                        </ul>
-                    </div>
-                    <div class="detail-card">
-                        <h4>Momentum Metrics</h4>
-                        <ul>
-                            <li>Repeat purchase rate ≥ 28%</li>
-                            <li>Review volume uplift +65%</li>
-                            <li>Referral code share rate 3.4x baseline</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" aria-labelledby="roi-title">
-            <h2 id="roi-title">ROI & Cashflow Simulator</h2>
-            <p class="section-intro">Adjust your inputs to project demand, margin, and payback windows. Defaults are calibrated to SME benchmarks from SG/MY year-end campaigns.</p>
-
-            <div class="calculator-grid">
-                <div class="calculator-card" aria-label="ROI input form">
-                    <div class="input-group">
-                        <label for="campaign-budget">Campaign budget (SGD)<span>Suggested: 3000</span></label>
-                        <input type="number" id="campaign-budget" value="3000" min="0" step="100">
-                    </div>
-                    <div class="input-group">
-                        <label for="content-pieces">Creator content pieces<span>Includes reels, stories, TikToks</span></label>
-                        <input type="number" id="content-pieces" value="55" min="0" step="1">
-                    </div>
-                    <div class="input-group">
-                        <label for="ctr">Click-through rate (%)<span>Avg nano CTR: 2.8</span></label>
-                        <input type="number" id="ctr" value="2.8" min="0" max="100" step="0.1">
-                    </div>
-                    <div class="input-group">
-                        <label for="conversion-rate">Conversion rate (%)<span>Checkout uplift assumption</span></label>
-                        <input type="number" id="conversion-rate" value="1.6" min="0" max="100" step="0.1">
-                    </div>
-                    <div class="input-group">
-                        <label for="avg-order">Average order value (SGD)<span>Post-discount</span></label>
-                        <input type="number" id="avg-order" value="68" min="0" step="1">
-                    </div>
-                    <div class="input-group">
-                        <label for="repeat-rate">Repeat purchase uplift (%)<span>Triggered within 30 days</span></label>
-                        <input type="number" id="repeat-rate" value="24" min="0" max="300" step="1">
-                    </div>
-                    <button class="primary-btn" type="button" onclick="calculateROI()">Run Forecast</button>
-                </div>
-
-                <div class="results-card" aria-live="polite" id="results-card">
-                    <div class="results-grid">
-                        <div class="result-block">
-                            <div class="result-label">Net new orders</div>
-                            <div class="result-value" id="orders-output">—</div>
+                    <div class="template-content">
+                        <div class="template-description">
+                            Drive qualified traffic to your website or online store with clear call-to-actions and trackable links.
                         </div>
-                        <div class="result-block">
-                            <div class="result-label">Projected revenue</div>
-                            <div class="result-value" id="revenue-output">—</div>
+                        <div class="template-tasks">
+                            <div class="tasks-title">Campaign Tasks:</div>
+                            <ul class="task-list">
+                                <li class="task-item">Create content featuring your website</li>
+                                <li class="task-item">Include trackable bio links</li>
+                                <li class="task-item">Add clear call-to-actions</li>
+                                <li class="task-item">Share Instagram Stories with swipe-up</li>
+                            </ul>
                         </div>
-                        <div class="result-block">
-                            <div class="result-label">ROI multiple</div>
-                            <div class="result-value" id="roi-output">—</div>
+                        <div class="template-pricing">
+                            <div class="pricing-grid">
+                                <div class="pricing-item">
+                                    <div class="pricing-value">$3,500</div>
+                                    <div class="pricing-label">Recommended Budget</div>
+                                </div>
+                                <div class="pricing-item">
+                                    <div class="pricing-value">20-30</div>
+                                    <div class="pricing-label">Influencers</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="result-block">
-                            <div class="result-label">Payback window</div>
-                            <div class="result-value" id="payback-output">—</div>
+                        <div class="template-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">1000+</div>
+                                <div class="metric-label">Website Visits</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">60+</div>
+                                <div class="metric-label">Content Pieces</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">5%</div>
+                                <div class="metric-label">Avg CTR</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="result-insight" id="insight-output">Input projections to surface insights.</div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" aria-labelledby="timeline-title">
-            <h2 id="timeline-title">30-Day Execution Rhythm</h2>
-            <p class="section-intro">Click a lane to reveal the battle rhythm. Each cadence locks experimentation, analytics, and retention into a single operating loop.</p>
-
-            <div class="timeline-grid" role="tablist">
-                <button type="button" class="timeline-card active" data-lane="weekly" onclick="selectTimeline('weekly')" role="tab" aria-selected="true">
-                    <h3>Monday Ops</h3>
-                    <p>Recalibrate supply, creators, and budget pacing with a 30-minute triad stand-up.</p>
-                </button>
-                <button type="button" class="timeline-card" data-lane="midweek" onclick="selectTimeline('midweek')" role="tab" aria-selected="false">
-                    <h3>Midweek Pulse</h3>
-                    <p>Storm through creative swaps, spark ad boosts, and social listening alerts by Wednesday noon.</p>
-                </button>
-                <button type="button" class="timeline-card" data-lane="weekend" onclick="selectTimeline('weekend')" role="tab" aria-selected="false">
-                    <h3>Weekend Surge</h3>
-                    <p>Double down on live shopping anchors, nano UGC takeovers, and remarketing blitz.</p>
-                </button>
-                <button type="button" class="timeline-card" data-lane="post" onclick="selectTimeline('post')" role="tab" aria-selected="false">
-                    <h3>Post-Cycle Debrief</h3>
-                    <p>Convert learnings into evergreen playbooks within 48 hours of cycle end.</p>
-                </button>
-            </div>
-
-            <div class="timeline-detail" id="timeline-detail" role="tabpanel">
-                <h3 id="timeline-heading">Monday Ops Cadence</h3>
-                <ul id="timeline-list">
-                    <li>Review 7-day creator leaderboard (reach, clicks, conversion).</li>
-                    <li>Reset budget caps per platform using traffic momentum.</li>
-                    <li>Confirm inventory buffers vs. forecasted volume spikes.</li>
-                    <li>Publish updated talking points to all creators by 3 PM.</li>
-                </ul>
-
-                <div class="progress-indicator" id="progress-indicator">
-                    <div class="progress-chip">
-                        <strong>Decision latency</strong>
-                        <span>&lt; 12 hours from data to action</span>
-                    </div>
-                    <div class="progress-chip">
-                        <strong>Creative refresh rate</strong>
-                        <span>Top performers swapped every 4 days</span>
-                    </div>
-                    <div class="progress-chip">
-                        <strong>Retention trigger</strong>
-                        <span>CRM scenes deployed Day +3</span>
+                        <button class="select-template-btn" onclick="selectTemplate('Website Traffic Boost', 3500)">
+                            Select This Template
+                        </button>
                     </div>
                 </div>
+                
+                <div class="template-card">
+                    <div class="template-header">
+                        <div class="template-title">Store Visit Drive</div>
+                        <div class="template-subtitle">Physical Location Traffic</div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-description">
+                            Perfect for restaurants, retail stores, and service businesses wanting to increase foot traffic and local awareness.
+                        </div>
+                        <div class="template-tasks">
+                            <div class="tasks-title">Campaign Tasks:</div>
+                            <ul class="task-list">
+                                <li class="task-item">Visit your physical location</li>
+                                <li class="task-item">Create location-tagged content</li>
+                                <li class="task-item">Share experience stories</li>
+                                <li class="task-item">Include address and directions</li>
+                            </ul>
+                        </div>
+                        <div class="template-pricing">
+                            <div class="pricing-grid">
+                                <div class="pricing-item">
+                                    <div class="pricing-value">$4,000</div>
+                                    <div class="pricing-label">Recommended Budget</div>
+                                </div>
+                                <div class="pricing-item">
+                                    <div class="pricing-value">15-20</div>
+                                    <div class="pricing-label">Local Influencers</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">500+</div>
+                                <div class="metric-label">Store Visits</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">40+</div>
+                                <div class="metric-label">Location Posts</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">Local</div>
+                                <div class="metric-label">Geo-targeted</div>
+                            </div>
+                        </div>
+                        <button class="select-template-btn" onclick="selectTemplate('Store Visit Drive', 4000)">
+                            Select This Template
+                        </button>
+                    </div>
+                </div>
             </div>
-        </section>
+        </div>
+
+        <!-- Credibility Templates -->
+        <div class="templates-section" id="credibility-templates">
+            <h2 style="color: #2d3748; font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; text-align: center;">
+                ⭐ Trust & Credibility Templates
+            </h2>
+            <div class="templates-grid">
+                <div class="template-card recommended">
+                    <div class="template-header">
+                        <div class="template-title">Purchase + Review</div>
+                        <div class="template-subtitle">Authentic Customer Testimonials</div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-description">
+                            The gold standard for building trust. Influencers purchase and genuinely review your products, creating authentic testimonials.
+                        </div>
+                        <div class="template-tasks">
+                            <div class="tasks-title">Campaign Tasks:</div>
+                            <ul class="task-list">
+                                <li class="task-item">Purchase your product</li>
+                                <li class="task-item">Use product authentically</li>
+                                <li class="task-item">Create honest review content</li>
+                                <li class="task-item">Submit proof of purchase</li>
+                            </ul>
+                        </div>
+                        <div class="template-pricing">
+                            <div class="pricing-grid">
+                                <div class="pricing-item">
+                                    <div class="pricing-value">$5,000</div>
+                                    <div class="pricing-label">Recommended Budget</div>
+                                </div>
+                                <div class="pricing-item">
+                                    <div class="pricing-value">15-25</div>
+                                    <div class="pricing-label">Reviewers</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">95%</div>
+                                <div class="metric-label">Trust Rating</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">25+</div>
+                                <div class="metric-label">Reviews</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">3x</div>
+                                <div class="metric-label">Conversion Lift</div>
+                            </div>
+                        </div>
+                        <button class="select-template-btn" onclick="selectTemplate('Purchase + Review', 5000)">
+                            Select This Template
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="template-card">
+                    <div class="template-header">
+                        <div class="template-title">Testimonial Collection</div>
+                        <div class="template-subtitle">Social Proof Building</div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-description">
+                            Build credibility with authentic user testimonials and reviews that you can use across all marketing channels.
+                        </div>
+                        <div class="template-tasks">
+                            <div class="tasks-title">Campaign Tasks:</div>
+                            <ul class="task-list">
+                                <li class="task-item">Share personal experience</li>
+                                <li class="task-item">Create testimonial video</li>
+                                <li class="task-item">Write detailed review</li>
+                                <li class="task-item">Rate on review platforms</li>
+                            </ul>
+                        </div>
+                        <div class="template-pricing">
+                            <div class="pricing-grid">
+                                <div class="pricing-item">
+                                    <div class="pricing-value">$2,500</div>
+                                    <div class="pricing-label">Recommended Budget</div>
+                                </div>
+                                <div class="pricing-item">
+                                    <div class="pricing-value">25-35</div>
+                                    <div class="pricing-label">Testimonials</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">35+</div>
+                                <div class="metric-label">Testimonials</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">90%</div>
+                                <div class="metric-label">Authenticity</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">2x</div>
+                                <div class="metric-label">Trust Increase</div>
+                            </div>
+                        </div>
+                        <button class="select-template-btn" onclick="selectTemplate('Testimonial Collection', 2500)">
+                            Select This Template
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- App Promotion Templates -->
+        <div class="templates-section" id="app-templates">
+            <h2 style="color: #2d3748; font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; text-align: center;">
+                📱 App Promotion Templates
+            </h2>
+            <div class="templates-grid">
+                <div class="template-card recommended">
+                    <div class="template-header">
+                        <div class="template-title">App Download + Review</div>
+                        <div class="template-subtitle">Full App Store Optimization</div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-description">
+                            Comprehensive app promotion including downloads, authentic usage reviews, and app store ratings to boost your app's visibility.
+                        </div>
+                        <div class="template-tasks">
+                            <div class="tasks-title">Campaign Tasks:</div>
+                            <ul class="task-list">
+                                <li class="task-item">Download and register account</li>
+                                <li class="task-item">Use app for specified period</li>
+                                <li class="task-item">Create app demo video</li>
+                                <li class="task-item">Write app store review</li>
+                            </ul>
+                        </div>
+                        <div class="template-pricing">
+                            <div class="pricing-grid">
+                                <div class="pricing-item">
+                                    <div class="pricing-value">$4,000</div>
+                                    <div class="pricing-label">Recommended Budget</div>
+                                </div>
+                                <div class="pricing-item">
+                                    <div class="pricing-value">30-50</div>
+                                    <div class="pricing-label">App Downloads</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">50+</div>
+                                <div class="metric-label">Downloads</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">40+</div>
+                                <div class="metric-label">Reviews</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">4.5+</div>
+                                <div class="metric-label">Avg Rating</div>
+                            </div>
+                        </div>
+                        <button class="select-template-btn" onclick="selectTemplate('App Download + Review', 4000)">
+                            Select This Template
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Templates -->
+        <div class="templates-section" id="content-templates">
+            <h2 style="color: #2d3748; font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; text-align: center;">
+                🎬 Content Creation Templates
+            </h2>
+            <div class="templates-grid">
+                <div class="template-card recommended">
+                    <div class="template-header">
+                        <div class="template-title">Content Library Builder</div>
+                        <div class="template-subtitle">12 Months of Marketing Content</div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-description">
+                            Create a comprehensive library of marketing content that you can use across all channels for an entire year.
+                        </div>
+                        <div class="template-tasks">
+                            <div class="tasks-title">Campaign Tasks:</div>
+                            <ul class="task-list">
+                                <li class="task-item">Create variety of content formats</li>
+                                <li class="task-item">Include tutorials and demos</li>
+                                <li class="task-item">Submit high-resolution files</li>
+                                <li class="task-item">No posting requirement</li>
+                            </ul>
+                        </div>
+                        <div class="template-pricing">
+                            <div class="pricing-grid">
+                                <div class="pricing-item">
+                                    <div class="pricing-value">$6,000</div>
+                                    <div class="pricing-label">Recommended Budget</div>
+                                </div>
+                                <div class="pricing-item">
+                                    <div class="pricing-value">40-60</div>
+                                    <div class="pricing-label">Content Pieces</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">60+</div>
+                                <div class="metric-label">Assets</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">12</div>
+                                <div class="metric-label">Months Usage</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">$100</div>
+                                <div class="metric-label">Cost per Asset</div>
+                            </div>
+                        </div>
+                        <button class="select-template-btn" onclick="selectTemplate('Content Library Builder', 6000)">
+                            Select This Template
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="template-card">
+                    <div class="template-header">
+                        <div class="template-title">Tutorial Content</div>
+                        <div class="template-subtitle">Educational Marketing Content</div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-description">
+                            Create educational and tutorial content that showcases your product benefits while providing value to viewers.
+                        </div>
+                        <div class="template-tasks">
+                            <div class="tasks-title">Campaign Tasks:</div>
+                            <ul class="task-list">
+                                <li class="task-item">Create how-to tutorials</li>
+                                <li class="task-item">Demonstrate product benefits</li>
+                                <li class="task-item">Include tips and tricks</li>
+                                <li class="task-item">Submit educational content</li>
+                            </ul>
+                        </div>
+                        <div class="template-pricing">
+                            <div class="pricing-grid">
+                                <div class="pricing-item">
+                                    <div class="pricing-value">$3,500</div>
+                                    <div class="pricing-label">Recommended Budget</div>
+                                </div>
+                                <div class="pricing-item">
+                                    <div class="pricing-value">20-30</div>
+                                    <div class="pricing-label">Tutorials</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">30+</div>
+                                <div class="metric-label">Tutorials</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">High</div>
+                                <div class="metric-label">Educational Value</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">12</div>
+                                <div class="metric-label">Months Usage</div>
+                            </div>
+                        </div>
+                        <button class="select-template-btn" onclick="selectTemplate('Tutorial Content', 3500)">
+                            Select This Template
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="budget-calculator">
+            <div class="calculator-title">
+                💰 Campaign Budget Calculator
+            </div>
+            <div class="budget-inputs">
+                <div class="input-group">
+                    <label class="input-label">Selected Template:</label>
+                    <input type="text" class="input-field" id="selectedTemplate" readonly placeholder="Select a template above">
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Base Budget (SGD):</label>
+                    <input type="number" class="input-field" id="baseBudget" readonly>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Scale Multiplier:</label>
+                    <input type="number" class="input-field" id="scaleMultiplier" value="1" step="0.5" min="0.5" max="3" oninput="calculateBudget()">
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Product Cost (if applicable):</label>
+                    <input type="number" class="input-field" id="productCost" value="0" oninput="calculateBudget()">
+                </div>
+            </div>
+            
+            <div class="budget-results" id="budgetResults">
+                <h4 style="color: #2d3748; margin-bottom: 15px; text-align: center;">Estimated Campaign Results</h4>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <div class="result-value" id="totalBudget">$0</div>
+                        <div class="result-label">Total Investment</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-value" id="expectedInfluencers">0</div>
+                        <div class="result-label">Influencers</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-value" id="contentPieces">0</div>
+                        <div class="result-label">Content Pieces</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-value" id="estimatedReach">0</div>
+                        <div class="result-label">Est. Reach</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        const phasePanels = {
-            discovery: document.getElementById('phase-discovery'),
-            conversion: document.getElementById('phase-conversion'),
-            retention: document.getElementById('phase-retention')
-        };
+        let selectedGoal = '';
+        let selectedTemplateData = {};
 
-        function selectPhase(phase) {
-            document.querySelectorAll('.phase-card').forEach(card => {
-                const isActive = card.dataset.phase === phase;
-                card.classList.toggle('active', isActive);
-                card.setAttribute('aria-selected', String(isActive));
+        function selectGoal(goal) {
+            selectedGoal = goal;
+            
+            // Update UI
+            document.querySelectorAll('.goal-option').forEach(el => el.classList.remove('selected'));
+            event.target.closest('.goal-option').classList.add('selected');
+            
+            // Hide all template sections
+            document.querySelectorAll('.templates-section').forEach(el => {
+                el.classList.remove('active');
             });
-
-            Object.entries(phasePanels).forEach(([key, panel]) => {
-                panel.classList.toggle('active', key === phase);
-            });
+            
+            // Show selected template section
+            document.getElementById(goal + '-templates').classList.add('active');
         }
 
-        function calculateROI() {
-            const budget = Number(document.getElementById('campaign-budget').value) || 0;
-            const pieces = Number(document.getElementById('content-pieces').value) || 0;
-            const ctr = Number(document.getElementById('ctr').value) / 100 || 0;
-            const conversion = Number(document.getElementById('conversion-rate').value) / 100 || 0;
-            const averageOrder = Number(document.getElementById('avg-order').value) || 0;
-            const repeatRate = Number(document.getElementById('repeat-rate').value) / 100 || 0;
-
-            const impressions = pieces * 9200; // Benchmarked nano distribution
-            const clicks = impressions * ctr;
-            const primaryOrders = clicks * conversion;
-            const repeatOrders = primaryOrders * repeatRate;
-            const totalOrders = primaryOrders + repeatOrders;
-            const revenue = totalOrders * averageOrder;
-            const roiMultiple = budget === 0 ? 0 : revenue / budget;
-            const paybackDays = roiMultiple <= 0 ? Infinity : Math.max(5, Math.round(30 / roiMultiple));
-
-            const formattedOrders = totalOrders > 0 ? totalOrders.toFixed(0) : '—';
-            const formattedRevenue = revenue > 0 ? `SGD ${revenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}` : '—';
-            const formattedROI = roiMultiple > 0 ? `${roiMultiple.toFixed(2)}x` : '—';
-            const formattedPayback = paybackDays === Infinity ? '—' : `${paybackDays} days`;
-
-            document.getElementById('orders-output').textContent = formattedOrders;
-            document.getElementById('revenue-output').textContent = formattedRevenue;
-            document.getElementById('roi-output').textContent = formattedROI;
-            document.getElementById('payback-output').textContent = formattedPayback;
-
-            let insight = 'Input projections to surface insights.';
-            if (totalOrders > 0) {
-                const breakEvenOrder = budget / (averageOrder || 1);
-                const uplift = ((repeatRate || 0) * 100).toFixed(0);
-                insight = `Forecast unlocks ${formattedOrders} orders with a ${formattedROI} return. Break-even requires ${Math.ceil(breakEvenOrder)} orders; hit stretch by deepening CRM repeat rate beyond ${uplift}%.`;
-            }
-
-            document.getElementById('insight-output').textContent = insight;
+        function selectTemplate(templateName, baseBudget) {
+            selectedTemplateData = {
+                name: templateName,
+                baseBudget: baseBudget
+            };
+            
+            document.getElementById('selectedTemplate').value = templateName;
+            document.getElementById('baseBudget').value = baseBudget;
+            
+            calculateBudget();
+            
+            // Scroll to calculator
+            document.querySelector('.budget-calculator').scrollIntoView({ behavior: 'smooth' });
         }
 
-        const timelineData = {
-            weekly: {
-                heading: 'Monday Ops Cadence',
-                tasks: [
-                    'Review 7-day creator leaderboard (reach, clicks, conversion).',
-                    'Reset budget caps per platform using traffic momentum.',
-                    'Confirm inventory buffers vs. forecasted volume spikes.',
-                    'Publish updated talking points to all creators by 3 PM.'
-                ],
-                indicators: [
-                    { title: 'Decision latency', value: '< 12 hours from data to action' },
-                    { title: 'Creative refresh rate', value: 'Top performers swapped every 4 days' },
-                    { title: 'Retention trigger', value: 'CRM scenes deployed Day +3' }
-                ]
-            },
-            midweek: {
-                heading: 'Wednesday Momentum Sync',
-                tasks: [
-                    'Ship fresh hooks based on comment mining + social listening.',
-                    'Boost top 10 performing videos with 72-hour spark campaigns.',
-                    'Update marketplace bundles to mirror live creator offers.',
-                    'Pulse promo codes to nano creators with <40% usage.'
-                ],
-                indicators: [
-                    { title: 'Creative velocity', value: '3 new assets added per channel' },
-                    { title: 'Community response', value: 'DM reply time under 15 minutes' },
-                    { title: 'Promo health', value: 'Code utilisation at 65% mid-cycle' }
-                ]
-            },
-            weekend: {
-                heading: 'Weekend Surge Stack',
-                tasks: [
-                    'Anchor a 45-minute live shopping show with creator duo.',
-                    'Trigger retargeting bursts aligned to peak traffic slots.',
-                    'Launch “show us your haul” UGC challenge with prizes.',
-                    'Deploy low-stock scarcity badges across PDPs.'
-                ],
-                indicators: [
-                    { title: 'Stream conversion', value: '≥ 9.8% click-to-cart during live' },
-                    { title: 'Customer support', value: 'All inquiries resolved < 2 hours' },
-                    { title: 'Inventory sync', value: 'Auto-sync every 30 minutes' }
-                ]
-            },
-            post: {
-                heading: '48-Hour Debrief Loop',
-                tasks: [
-                    'Slice out winning narratives for evergreen ad banks.',
-                    'Update team wiki with creative + marketplace learnings.',
-                    'Close the loop with creators (payments, testimonials, briefs).',
-                    'Feed repeat buyer cohort into referral automation.'
-                ],
-                indicators: [
-                    { title: 'Insight velocity', value: 'Post-mortem published within 36 hours' },
-                    { title: 'Asset reuse', value: 'Top 5 creatives ported into BAU ads' },
-                    { title: 'LTV capture', value: 'Referral cadence scheduled day +5' }
-                ]
-            }
-        };
-
-        function selectTimeline(lane) {
-            document.querySelectorAll('.timeline-card').forEach(card => {
-                const isActive = card.dataset.lane === lane;
-                card.classList.toggle('active', isActive);
-                card.setAttribute('aria-selected', String(isActive));
-            });
-
-            const detail = timelineData[lane];
-            if (!detail) {
-                return;
-            }
-
-            document.getElementById('timeline-heading').textContent = detail.heading;
-
-            const list = document.getElementById('timeline-list');
-            list.innerHTML = '';
-            detail.tasks.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = item;
-                list.appendChild(li);
-            });
-
-            const indicatorWrap = document.getElementById('progress-indicator');
-            indicatorWrap.innerHTML = '';
-            detail.indicators.forEach(chip => {
-                const div = document.createElement('div');
-                div.className = 'progress-chip';
-
-                const strong = document.createElement('strong');
-                strong.textContent = chip.title;
-                div.appendChild(strong);
-
-                const span = document.createElement('span');
-                span.textContent = chip.value;
-                div.appendChild(span);
-
-                indicatorWrap.appendChild(div);
-            });
+        function calculateBudget() {
+            const baseBudget = parseFloat(document.getElementById('baseBudget').value) || 0;
+            const scaleMultiplier = parseFloat(document.getElementById('scaleMultiplier').value) || 1;
+            const productCost = parseFloat(document.getElementById('productCost').value) || 0;
+            
+            if (baseBudget === 0) return;
+            
+            const scaledBudget = baseBudget * scaleMultiplier;
+            const totalBudget = scaledBudget + (productCost * Math.floor(scaledBudget / 150)); // Assuming avg $150 per influencer
+            
+            const expectedInfluencers = Math.floor(scaledBudget / 150);
+            const contentPieces = expectedInfluencers * (selectedTemplateData.name?.includes('Discovery') ? 3 : 
+                                                        selectedTemplateData.name?.includes('Traffic') ? 2 : 
+                                                        selectedTemplateData.name?.includes('Review') ? 1 : 2);
+            const estimatedReach = expectedInfluencers * 8000; // Avg 8k reach per influencer
+            
+            document.getElementById('totalBudget').textContent = '
+                
+                 + Math.round(totalBudget).toLocaleString();
+            document.getElementById('expectedInfluencers').textContent = expectedInfluencers;
+            document.getElementById('contentPieces').textContent = contentPieces;
+            document.getElementById('estimatedReach').textContent = estimatedReach >= 1000000 ? 
+                (estimatedReach / 1000000).toFixed(1) + 'M' : 
+                (estimatedReach / 1000).toFixed(0) + 'K';
+            
+            document.getElementById('budgetResults').classList.add('active');
         }
     </script>
 </body>

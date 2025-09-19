@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Touchpoint Gap Assessment - Partipost Workshop</title>
     <style>
+        :root {
+            --partipost-primary: #F97316;
+            --partipost-secondary: #FF8A5C;
+            --partipost-accent: #2563EB;
+            --partipost-dark: #1E293B;
+            --partipost-light: #F8FAFC;
+            --partipost-cream: #FFF5F0;
+            --partipost-gray: #64748B;
+            --partipost-success: #10B981;
+            --partipost-warning: #F59E0B;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,7 +25,7 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--partipost-cream) 0%, #FFEDE6 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -39,14 +51,14 @@
         }
         
         .header h1 {
-            color: #2d3748;
+            color: var(--partipost-dark);
             font-size: 2.5rem;
             margin-bottom: 10px;
             font-weight: 700;
         }
         
         .header p {
-            color: #718096;
+            color: var(--partipost-gray);
             font-size: 1.2rem;
         }
         
@@ -58,13 +70,13 @@
         }
         
         .current-channels {
-            background: #f7fafc;
+            background: var(--partipost-light);
             padding: 30px;
             border-radius: 15px;
         }
-        
+
         .section-title {
-            color: #2d3748;
+            color: var(--partipost-dark);
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 20px;
@@ -72,20 +84,20 @@
             align-items: center;
             gap: 10px;
         }
-        
+
         .channel-category {
             margin-bottom: 25px;
         }
         
         .category-header {
-            color: #4a5568;
+            color: var(--partipost-gray);
             font-weight: 600;
             font-size: 1.1rem;
             margin-bottom: 10px;
             padding-bottom: 5px;
-            border-bottom: 2px solid #e2e8f0;
+            border-bottom: 2px solid rgba(100, 116, 139, 0.2);
         }
-        
+
         .channel-item {
             display: flex;
             align-items: center;
@@ -104,8 +116,8 @@
         }
         
         .channel-item.selected {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: var(--partipost-primary);
+            background: linear-gradient(135deg, var(--partipost-primary) 0%, var(--partipost-secondary) 100%);
             color: white;
         }
         
@@ -118,46 +130,46 @@
         .channel-details {
             flex-grow: 1;
         }
-        
+
         .channel-name {
             font-weight: 600;
             margin-bottom: 3px;
         }
-        
+
         .channel-desc {
             font-size: 0.9rem;
             opacity: 0.8;
         }
-        
+
         .industry-benchmarks {
-            background: #fff5f5;
+            background: var(--partipost-cream);
             padding: 30px;
             border-radius: 15px;
         }
-        
+
         .benchmark-industry {
             background: white;
             padding: 20px;
             border-radius: 10px;
             margin: 15px 0;
-            border-left: 4px solid #fc8181;
+            border-left: 4px solid var(--partipost-secondary);
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .benchmark-industry:hover {
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-left-color: #667eea;
+            border-left-color: var(--partipost-accent);
         }
-        
+
         .benchmark-industry.active {
-            border-left-color: #667eea;
-            background: #f0f8ff;
+            border-left-color: var(--partipost-accent);
+            background: rgba(37, 99, 235, 0.08);
         }
-        
+
         .industry-name {
             font-weight: 600;
-            color: #2d3748;
+            color: var(--partipost-dark);
             margin-bottom: 10px;
             font-size: 1.1rem;
         }
@@ -170,25 +182,25 @@
         }
         
         .channel-badge {
-            background: #667eea;
+            background: linear-gradient(135deg, var(--partipost-primary) 0%, var(--partipost-secondary) 100%);
             color: white;
             padding: 5px 8px;
             border-radius: 20px;
             font-size: 0.8rem;
             text-align: center;
         }
-        
+
         .results-section {
-            background: #f0fff4;
+            background: rgba(16, 185, 129, 0.08);
             padding: 30px;
             border-radius: 15px;
             margin-top: 30px;
-            border-left: 4px solid #48bb78;
+            border-left: 4px solid var(--partipost-success);
             display: none;
         }
-        
+
         .analysis-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--partipost-primary) 0%, var(--partipost-secondary) 100%);
             color: white;
             padding: 15px 30px;
             border: none;
@@ -205,7 +217,49 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
-        
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .nav-button {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, var(--partipost-primary) 0%, var(--partipost-secondary) 100%);
+            box-shadow: 0 10px 25px rgba(249, 115, 22, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .nav-button.secondary {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.85) 0%, rgba(37, 99, 235, 1) 100%);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
+        }
+
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(249, 115, 22, 0.25);
+        }
+
+        .nav-button.secondary:hover {
+            box-shadow: 0 15px 30px rgba(37, 99, 235, 0.25);
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+        }
+
         .gap-visualization {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -219,7 +273,7 @@
             border-radius: 10px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
-        
+
         .progress-bar {
             background: #e2e8f0;
             height: 20px;
@@ -227,10 +281,10 @@
             overflow: hidden;
             margin: 10px 0;
         }
-        
+
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(90deg, var(--partipost-primary) 0%, var(--partipost-secondary) 100%);
             transition: width 1s ease-out;
             display: flex;
             align-items: center;
@@ -245,12 +299,12 @@
             padding: 20px;
             border-radius: 10px;
             margin-top: 20px;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid var(--partipost-accent);
         }
-        
-        .priority-high { border-left-color: #fc8181; }
-        .priority-medium { border-left-color: #f6ad55; }
-        .priority-low { border-left-color: #68d391; }
+
+        .priority-high { border-left-color: var(--partipost-secondary); }
+        .priority-medium { border-left-color: var(--partipost-warning); }
+        .priority-low { border-left-color: var(--partipost-success); }
         
         .missing-channels {
             display: grid;
@@ -260,10 +314,10 @@
         }
         
         .missing-channel {
-            background: #fff5f5;
+            background: rgba(255, 138, 92, 0.1);
             padding: 10px;
             border-radius: 8px;
-            border: 1px dashed #fc8181;
+            border: 1px dashed var(--partipost-secondary);
             text-align: center;
             font-size: 0.9rem;
         }
@@ -280,6 +334,14 @@
             
             .header h1 {
                 font-size: 2rem;
+            }
+
+            .navigation {
+                flex-direction: column;
+            }
+            
+            .nav-button {
+                width: 100%;
             }
         }
     </style>
@@ -318,6 +380,13 @@
                         <div class="channel-details">
                             <div class="channel-name">Instagram Ads</div>
                             <div class="channel-desc">Visual social media advertising</div>
+                        </div>
+                    </div>
+                    <div class="channel-item" onclick="toggleChannel(this)">
+                        <input type="checkbox">
+                        <div class="channel-details">
+                            <div class="channel-name">TikTok Ads</div>
+                            <div class="channel-desc">Short-form video ad campaigns</div>
                         </div>
                     </div>
                 </div>
@@ -423,7 +492,7 @@
                 
                 <div class="benchmark-industry" onclick="selectIndustry(this, 'beauty')">
                     <div class="industry-name">Beauty & Fashion</div>
-                    <div style="color: #718096; margin-bottom: 10px;">Typical touchpoints: 8-12</div>
+                    <div style="color: var(--partipost-gray); margin-bottom: 10px;">Typical touchpoints: 8-12</div>
                     <div class="typical-channels">
                         <div class="channel-badge">Instagram</div>
                         <div class="channel-badge">Influencers</div>
@@ -436,7 +505,7 @@
                 
                 <div class="benchmark-industry" onclick="selectIndustry(this, 'fnb')">
                     <div class="industry-name">Food & Beverage</div>
-                    <div style="color: #718096; margin-bottom: 10px;">Typical touchpoints: 6-10</div>
+                    <div style="color: var(--partipost-gray); margin-bottom: 10px;">Typical touchpoints: 6-10</div>
                     <div class="typical-channels">
                         <div class="channel-badge">Social Media</div>
                         <div class="channel-badge">Reviews</div>
@@ -448,7 +517,7 @@
                 
                 <div class="benchmark-industry" onclick="selectIndustry(this, 'health')">
                     <div class="industry-name">Health & Nutrition</div>
-                    <div style="color: #718096; margin-bottom: 10px;">Typical touchpoints: 9-13</div>
+                    <div style="color: var(--partipost-gray); margin-bottom: 10px;">Typical touchpoints: 9-13</div>
                     <div class="typical-channels">
                         <div class="channel-badge">Testimonials</div>
                         <div class="channel-badge">Reviews</div>
@@ -461,7 +530,7 @@
                 
                 <div class="benchmark-industry" onclick="selectIndustry(this, 'others')">
                     <div class="industry-name">Other Industries</div>
-                    <div style="color: #718096; margin-bottom: 10px;">Typical touchpoints: 7-11</div>
+                    <div style="color: var(--partipost-gray); margin-bottom: 10px;">Typical touchpoints: 7-11</div>
                     <div class="typical-channels">
                         <div class="channel-badge">Website</div>
                         <div class="channel-badge">Social</div>
@@ -482,6 +551,17 @@
                 🔍 Your Gap Analysis Results
             </div>
             <div id="analysisResults"></div>
+        </div>
+
+        <div class="navigation">
+            <a class="nav-button secondary" href="Septworkshop1.html">
+                <span class="nav-icon">&#8592;</span>
+                <span>Back to 7-11-4 Rule</span>
+            </a>
+            <a class="nav-button" href="workshop3.html">
+                <span>Continue to ROI Comparison</span>
+                <span class="nav-icon">&#8594;</span>
+            </a>
         </div>
     </div>
 
@@ -557,15 +637,15 @@
             if (gapCount >= 7) {
                 priorityClass = 'priority-high';
                 priorityText = 'Critical Priority';
-                priorityColor = '#fc8181';
+                priorityColor = 'var(--partipost-secondary)';
             } else if (gapCount >= 4) {
                 priorityClass = 'priority-medium';
                 priorityText = 'Medium Priority';
-                priorityColor = '#f6ad55';
+                priorityColor = 'var(--partipost-warning)';
             } else {
                 priorityClass = 'priority-low';
                 priorityText = 'Low Priority';
-                priorityColor = '#68d391';
+                priorityColor = 'var(--partipost-success)';
             }
             
             // Find missing critical channels
@@ -579,8 +659,8 @@
             analysisResults.innerHTML = `
                 <div class="gap-visualization">
                     <div class="gap-card">
-                        <h3 style="color: #2d3748; margin-bottom: 15px;">Overall Progress</h3>
-                        <div style="font-size: 2rem; font-weight: 900; color: #667eea; text-align: center;">
+                        <h3 style="color: var(--partipost-dark); margin-bottom: 15px;">Overall Progress</h3>
+                        <div style="font-size: 2rem; font-weight: 900; color: var(--partipost-accent); text-align: center;">
                             ${currentCount}/11
                         </div>
                         <div class="progress-bar">
@@ -588,27 +668,27 @@
                                 ${completionPercentage}%
                             </div>
                         </div>
-                        <p style="text-align: center; color: #718096; margin-top: 10px;">
+                        <p style="text-align: center; color: var(--partipost-gray); margin-top: 10px;">
                             ${gapCount} touchpoints missing
                         </p>
                     </div>
                     
                     <div class="gap-card">
-                        <h3 style="color: #2d3748; margin-bottom: 15px;">Industry Comparison</h3>
+                        <h3 style="color: var(--partipost-dark); margin-bottom: 15px;">Industry Comparison</h3>
                         <div style="font-size: 1.5rem; font-weight: 700; color: ${priorityColor}; text-align: center;">
                             ${industryGap} behind typical
                         </div>
-                        <p style="text-align: center; color: #718096; margin: 10px 0;">
+                        <p style="text-align: center; color: var(--partipost-gray); margin: 10px 0;">
                             Industry average: ${industryInfo.typical} touchpoints
                         </p>
-                        <div style="background: #f7fafc; padding: 10px; border-radius: 8px; font-size: 0.9rem;">
+                        <div style="background: var(--partipost-light); padding: 10px; border-radius: 8px; font-size: 0.9rem;">
                             ${industryInfo.description}
                         </div>
                     </div>
                 </div>
                 
                 <div class="recommendations ${priorityClass}">
-                    <h3 style="color: #2d3748; margin-bottom: 15px;">
+                    <h3 style="color: var(--partipost-dark); margin-bottom: 15px;">
                         🚨 ${priorityText}: Missing Critical Touchpoints
                     </h3>
                     
@@ -622,12 +702,12 @@
                             `).join('')}
                         </div>
                     ` : `
-                        <p style="color: #38a169;">✅ You have most critical touchpoints covered!</p>
+                        <p style="color: var(--partipost-success);">✅ You have most critical touchpoints covered!</p>
                     `}
                     
-                    <div style="background: #e6fffa; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #38b2ac;">
-                        <h4 style="color: #234e52; margin-bottom: 10px;">🎯 Partipost Can Fill These Gaps:</h4>
-                        <ul style="margin-left: 20px; color: #2d3748;">
+                    <div style="background: rgba(37, 99, 235, 0.08); padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid var(--partipost-accent);">
+                        <h4 style="color: var(--partipost-dark); margin-bottom: 10px;">🎯 Partipost Can Fill These Gaps:</h4>
+                        <ul style="margin-left: 20px; color: var(--partipost-dark);">
                             <li><strong>Influencer Partnerships:</strong> Authentic creator recommendations</li>
                             <li><strong>User-Generated Content:</strong> Real customers using your products</li>
                             <li><strong>Reviews & Testimonials:</strong> Credible social proof</li>
@@ -635,7 +715,7 @@
                             <li><strong>Content Marketing:</strong> 12 months of reusable content</li>
                         </ul>
                         
-                        <div style="background: #234e52; color: white; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: center;">
+                        <div style="background: var(--partipost-accent); color: white; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: center;">
                             <strong>💡 One Partipost campaign can add 4-6 touchpoints to your customer journey</strong><br>
                             <span style="font-size: 0.9rem; opacity: 0.9;">
                                 Plus provide 12 months of authentic content for all your other channels
@@ -644,11 +724,11 @@
                     </div>
                 </div>
                 
-                <div style="background: #fff; padding: 20px; border-radius: 10px; margin-top: 20px; border-left: 4px solid #667eea;">
-                    <h4 style="color: #2d3748; margin-bottom: 10px;">📊 Your Selected Channels:</h4>
+                <div style="background: #fff; padding: 20px; border-radius: 10px; margin-top: 20px; border-left: 4px solid var(--partipost-accent);">
+                    <h4 style="color: var(--partipost-dark); margin-bottom: 10px;">📊 Your Selected Channels:</h4>
                     <div style="display: flex; flex-wrap: wrap; gap: 8px;">
                         ${selectedChannels.map(channel => `
-                            <span style="background: #667eea; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.9rem;">
+                            <span style="background: linear-gradient(135deg, var(--partipost-primary) 0%, var(--partipost-secondary) 100%); color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.9rem;">
                                 ✓ ${channel}
                             </span>
                         `).join('')}
