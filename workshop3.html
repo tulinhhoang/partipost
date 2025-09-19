@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Partipost Marketing Campaign ROI Calculator</title>
+    <title>Partipost Strategic ROI Calculator: Long-Term Growth Model</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
@@ -48,6 +48,11 @@
         header h1 {
             color: var(--partipost-primary);
             font-size: 2.5rem;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            color: var(--partipost-gray);
         }
 
         .calculator {
@@ -105,7 +110,8 @@
         }
 
         .summary-cards {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
             margin-bottom: 2rem;
         }
@@ -144,33 +150,19 @@
             color: #ef4444;
         }
 
-        .details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .strategy-details {
-            background: #fff;
-            padding: 1rem;
-            border-radius: 15px;
-        }
-
-        .strategy-details h3 {
-            margin-top: 0;
-            font-size: 1.1rem;
-        }
-        
-        .strategy-details p {
-            font-size: 0.95rem;
-        }
-
         .key-insights {
             margin-top: 2rem;
+            background: var(--partipost-cream);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 5px solid var(--partipost-primary);
+        }
+        .key-insights h3 {
+            margin-top: 0;
         }
         .key-insights ul{
             padding-left: 20px;
+            margin-bottom: 0;
         }
         .key-insights .highlight {
             color: var(--partipost-primary);
@@ -198,7 +190,7 @@
             left: 50%;
             transform: translateX(-50%);
             bottom: 125%;
-            width: 220px;
+            width: 240px;
             background-color: var(--partipost-dark);
             color: #fff;
             text-align: center;
@@ -221,77 +213,75 @@
             .calculator {
                 grid-template-columns: 1fr;
             }
+            .summary-cards {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Interactive ROI Calculator</h1>
-            <p>Compare Traditional Advertising vs. Partipost's Nano Creator + Retargeting Strategy</p>
+            <h1>Strategic ROI Calculator</h1>
+            <p>Modeling the Long-Term Value of Owned Content vs. Rented Ads</p>
         </header>
 
         <div class="calculator">
             <div class="inputs">
-                <h2>Campaign Inputs</h2>
+                <h2>Shared Campaign Inputs</h2>
                 <div class="input-group">
-                    <label for="totalBudget">Total Monthly Marketing Budget ($)
-                        <span class="label-note">(Adjustable)</span>
-                    </label>
+                    <label for="totalBudget">Total Monthly Marketing Budget ($)</label>
                     <input type="number" id="totalBudget" value="5000" min="1000" max="10000">
                     <input type="range" id="totalBudgetSlider" value="5000" min="1000" max="10000">
                 </div>
                 <div class="input-group">
-                    <label for="avgOrderValue">Average Order Value ($)
-                        <span class="label-note">(~ $85 Avg.)</span>
-                    </label>
+                    <label for="avgOrderValue">Average Order Value ($)</label>
                     <input type="number" id="avgOrderValue" value="85">
                 </div>
 
-                <h3>Strategy A: Traditional Advertising</h3>
+                <h3>Strategy A: Traditional Ads <span class="label-note">(Renting Space)</span></h3>
                 <div class="input-group">
-                    <label for="tradAdConversionRate">Traditional Ad Conversion Rate (%)
-                         <span class="label-note">(~ 2.5% Avg.)</span>
+                    <label for="tradAdConversionRate">Ad Conversion Rate (%) <span class="label-note">(~2.5% Avg.)</span>
+                        <span class="tooltip" data-tooltip="Based on 2024/2025 benchmarks, the average conversion rate for e-commerce and B2C brands typically falls between 2-3% for paid ads targeting new customers.">&#9432;</span>
                     </label>
                     <input type="number" id="tradAdConversionRate" value="2.5" step="0.1">
                 </div>
                 <div class="input-group">
-                    <label for="tradAdCpc">Traditional Ad Cost Per Click ($)
-                         <span class="label-note">(~ $1.75 Avg.)</span>
+                    <label for="tradAdCpc">Cost Per Click ($) <span class="label-note">(~ $1.75 Avg.)</span>
+                        <span class="tooltip" data-tooltip="This is a blended 2024 average from sources like WordStream, considering both Google Search (higher cost) and Paid Social (lower cost) to represent a typical B2C ad spend.">&#9432;</span>
                     </label>
                     <input type="number" id="tradAdCpc" value="1.75" step="0.01">
                 </div>
 
-                <h3>Strategy B: Nano Creator + Retargeting</h3>
+                <h3>Strategy B: Partipost Content Engine <span class="label-note">(Owning Assets)</span></h3>
                 <div class="input-group">
-                    <label for="nanoCampaignCost">Avg. Cost per Nano Creator ($)
-                         <span class="label-note">(~ $50 Avg.)</span>
+                    <label for="costPerAsset">Avg. Cost per Content Asset ($) <span class="label-note">(~ $50 Avg.)</span>
+                        <span class="tooltip" data-tooltip="Based on 2025 data from Afluencer, nano-influencers (1k-10k followers) typically charge between $25-$100 per post, making $50 a strong working average for one content asset.">&#9432;</span>
                     </label>
-                    <input type="number" id="nanoCampaignCost" value="50">
+                    <input type="number" id="costPerAsset" value="50">
                 </div>
                 <div class="input-group">
-                    <label for="nanoConversionRate">Nano Creator Conversion Rate (%)
-                         <span class="label-note">(~ 3.2% Avg.)</span>
-                        <span class="tooltip" data-tooltip="Smaller influencers show significantly higher sales conversion rates due to authentic engagement. (MIT Sloan)">&#9432;</span>
+                    <label for="contentAmplification">Content Amplification Factor (%) <span class="label-note">(~ 5% Boost)</span>
+                        <span class="tooltip" data-tooltip="Research from inBeat (2025) shows UGC-based ads can achieve 4x higher CTRs. This 5% boost per 10 assets is a conservative model of how social proof from your content library improves ad performance.">&#9432;</span>
                     </label>
-                    <input type="number" id="nanoConversionRate" value="3.2" step="0.1">
+                    <input type="number" id="contentAmplification" value="5" step="0.5">
                 </div>
                 <div class="input-group">
-                    <label for="retargetingConversionRate">Retargeting Ad Conversion Rate (%)
-                         <span class="label-note">(~ 4.5% Avg.)</span>
+                    <label for="retargetingConversionRate">Base Retargeting Conv. Rate (%) <span class="label-note">(~ 4.5% Avg.)</span>
+                         <span class="tooltip" data-tooltip="Industry data shows retargeting can increase conversion rates by up to 150% compared to standard ads. A 4.5% rate is a typical benchmark for reaching an already-engaged audience.">&#9432;</span>
                     </label>
                     <input type="number" id="retargetingConversionRate" value="4.5" step="0.1">
                 </div>
                 <div class="input-group">
-                    <label for="retargetingCpc">Retargeting Cost Per Click ($)
-                         <span class="label-note">(~ $0.85 Avg.)</span>
+                    <label for="retargetingCpc">Retargeting Cost Per Click ($) <span class="label-note">(~ $0.85 Avg.)</span>
+                        <span class="tooltip" data-tooltip="Retargeting ads target a warmer audience. 2024/2025 benchmarks consistently show this results in a CPC that is 40-50% lower than standard ads for 'cold' traffic.">&#9432;</span>
                     </label>
                     <input type="number" id="retargetingCpc" value="0.85" step="0.01">
                 </div>
             </div>
 
             <div class="outputs">
-                <h2>6-Month ROI Comparison</h2>
+                <h2>6-Month Strategic Comparison</h2>
                 <div class="summary-cards">
                     <div class="card">
                         <h3>Strategy A ROI</h3>
@@ -301,32 +291,21 @@
                         <h3>Strategy B ROI</h3>
                         <p id="roiB" class="roi-positive">0%</p>
                     </div>
+                    <div class="card">
+                        <h3>Content Assets Owned</h3>
+                        <p id="assetsOwned" style="color:var(--partipost-primary)">0</p>
+                    </div>
                 </div>
 
                 <div class="comparison-chart">
                     <canvas id="roiChart"></canvas>
                 </div>
-
-                <div class="details">
-                    <div class="strategy-details">
-                        <h3>Strategy A: Traditional Ads</h3>
-                        <p>Total Conversions: <span id="conversionsA">0</span></p>
-                        <p>Total Revenue: <span id="revenueA">$0</span></p>
-                        <p>Cost Per Acquisition: <span id="cpaA">$0</span></p>
-                    </div>
-                    <div class="strategy-details">
-                        <h3>Strategy B: Nano Creator + Retargeting</h3>
-                        <p>Total Conversions: <span id="conversionsB">0</span></p>
-                        <p>Total Revenue: <span id="revenueB">$0</span></p>
-                        <p>Cost Per Acquisition: <span id="cpaB">$0</span></p>
-                    </div>
-                </div>
-                 <div class="key-insights">
-                    <h3>Key Research Insights</h3>
+                
+                <div class="key-insights">
+                    <h3>The Strategic Difference: Owning vs. Renting</h3>
                     <ul>
-                        <li><span class="highlight">Nano Advantage:</span> Nano influencers can achieve 3x higher ROI. <span class="tooltip" data-tooltip="AMA Research 2024">&#9432;</span></li>
-                        <li><span class="highlight">Engagement Premium:</span> Nanos achieve ~4% engagement vs. 1.3% for macro. <span class="tooltip" data-tooltip="Popular Pays 2025">&#9432;</span></li>
-                        <li><span class="highlight">Cost Efficiency:</span> Nano campaigns can be 18x less expensive than macro. <span class="tooltip" data-tooltip="Industry Research">&#9432;</span></li>
+                        <li><span class="highlight">Strategy A (Renting):</span> Performance is linear. When you stop paying, the value disappears.</li>
+                        <li><span class="highlight">Strategy B (Owning):</span> Performance is compounding. You build a library of content assets that makes all future marketing <span class="highlight">more effective and cheaper</span>.</li>
                     </ul>
                 </div>
             </div>
@@ -342,63 +321,61 @@
             let roiChart;
 
             function calculateROI() {
+                // --- SHARED INPUTS ---
                 const totalBudget = parseFloat(document.getElementById('totalBudget').value);
                 const avgOrderValue = parseFloat(document.getElementById('avgOrderValue').value);
+                const totalCost = totalBudget * 6;
 
-                // --- Strategy A ---
+                // --- STRATEGY A: RENTING ADS ---
                 const tradAdConversionRate = parseFloat(document.getElementById('tradAdConversionRate').value) / 100;
                 const tradAdCpc = parseFloat(document.getElementById('tradAdCpc').value);
                 
                 const clicksA = tradAdCpc > 0 ? totalBudget / tradAdCpc : 0;
                 const conversionsA_monthly = clicksA * tradAdConversionRate;
                 const revenueA_monthly = conversionsA_monthly * avgOrderValue;
-
-                const totalConversionsA = conversionsA_monthly * 6;
                 const totalRevenueA = revenueA_monthly * 6;
-                const totalCostA = totalBudget * 6;
-                const totalProfitA = totalRevenueA - totalCostA;
-                const totalRoiA = totalCostA > 0 ? (totalProfitA / totalCostA) * 100 : 0;
-                const cpaA = conversionsA_monthly > 0 ? totalBudget / conversionsA_monthly : 0;
+                const totalProfitA = totalRevenueA - totalCost;
+                const totalRoiA = totalCost > 0 ? (totalProfitA / totalCost) * 100 : 0;
+                
+                let monthlyCumulativeRevenueA = [];
+                for (let month = 1; month <= 6; month++) {
+                    monthlyCumulativeRevenueA.push(revenueA_monthly * month);
+                }
 
-                // --- Strategy B ---
-                const nanoCampaignCost = parseFloat(document.getElementById('nanoCampaignCost').value);
-                const nanoConversionRate = parseFloat(document.getElementById('nanoConversionRate').value) / 100;
-                const retargetingConversionRate = parseFloat(document.getElementById('retargetingConversionRate').value) / 100;
+                // --- STRATEGY B: OWNING ASSETS ---
+                const costPerAsset = parseFloat(document.getElementById('costPerAsset').value);
+                const contentAmplification = parseFloat(document.getElementById('contentAmplification').value) / 100;
+                const baseRetargetingConvRate = parseFloat(document.getElementById('retargetingConversionRate').value) / 100;
                 const retargetingCpc = parseFloat(document.getElementById('retargetingCpc').value);
 
-                let totalConversionsB = 0;
-                let totalRevenueB = 0;
-                const totalCostB = totalBudget * 6;
-                let monthlyDataA = [];
-                let monthlyDataB = [];
+                let contentLibrarySize = 0;
                 let cumulativeRevenueB = 0;
+                let monthlyCumulativeRevenueB = [];
 
                 for (let month = 1; month <= 6; month++) {
-                    monthlyDataA.push(revenueA_monthly * month);
-                    
-                    if (month % 2 !== 0) { // Nano creator months (1, 3, 5)
-                        const creatorsHired = nanoCampaignCost > 0 ? totalBudget / nanoCampaignCost : 0;
-                        const conversionsFromCreators = creatorsHired * nanoConversionRate * 100; // Simplified assumption
-                        totalConversionsB += conversionsFromCreators;
-                        cumulativeRevenueB += conversionsFromCreators * avgOrderValue;
-                    } else { // Retargeting months (2, 4, 6)
+                    if (month % 2 !== 0) { // Content Creation Months (1, 3, 5)
+                        const newAssets = costPerAsset > 0 ? totalBudget / costPerAsset : 0;
+                        contentLibrarySize += newAssets;
+                        // No direct revenue, goal is asset creation
+                    } else { // Performance Months (2, 4, 6)
+                        const performanceBoost = 1 + (contentAmplification * (contentLibrarySize / 10));
+                        const boostedConvRate = baseRetargetingConvRate * performanceBoost;
+                        
                         const retargetingClicks = retargetingCpc > 0 ? totalBudget / retargetingCpc : 0;
-                        const conversionsFromRetargeting = retargetingClicks * retargetingConversionRate;
-                        totalConversionsB += conversionsFromRetargeting;
+                        const conversionsFromRetargeting = retargetingClicks * boostedConvRate;
                         cumulativeRevenueB += conversionsFromRetargeting * avgOrderValue;
                     }
-                    monthlyDataB.push(cumulativeRevenueB);
+                    monthlyCumulativeRevenueB.push(cumulativeRevenueB);
                 }
                 
-                totalRevenueB = cumulativeRevenueB;
-                const totalProfitB = totalRevenueB - totalCostB;
-                const totalRoiB = totalCostB > 0 ? (totalProfitB / totalCostB) * 100 : 0;
-                const cpaB = totalConversionsB > 0 ? totalCostB / totalConversionsB : 0;
+                const totalRevenueB = cumulativeRevenueB;
+                const totalProfitB = totalRevenueB - totalCost;
+                const totalRoiB = totalCost > 0 ? (totalProfitB / totalCost) * 100 : 0;
 
-                updateDisplay(totalRoiA, totalRoiB, totalConversionsA, totalRevenueA, cpaA, totalConversionsB, totalRevenueB, cpaB, monthlyDataA, monthlyDataB);
+                updateDisplay(totalRoiA, totalRoiB, monthlyCumulativeRevenueA, monthlyCumulativeRevenueB, contentLibrarySize);
             }
 
-            function updateDisplay(roiA, roiB, conversionsA, revenueA, cpaA, conversionsB, revenueB, cpaB, monthlyDataA, monthlyDataB) {
+            function updateDisplay(roiA, roiB, dataA, dataB, assetsOwned) {
                 const roiAEl = document.getElementById('roiA');
                 const roiBEl = document.getElementById('roiB');
 
@@ -408,15 +385,9 @@
                 roiAEl.className = roiA >= 0 ? 'roi-positive' : 'roi-negative';
                 roiBEl.className = roiB >= 0 ? 'roi-positive' : 'roi-negative';
 
-                document.getElementById('conversionsA').textContent = Math.round(conversionsA).toLocaleString();
-                document.getElementById('revenueA').textContent = `$${Math.round(revenueA).toLocaleString()}`;
-                document.getElementById('cpaA').textContent = `$${cpaA.toFixed(2)}`;
+                document.getElementById('assetsOwned').textContent = Math.round(assetsOwned).toLocaleString();
 
-                document.getElementById('conversionsB').textContent = Math.round(conversionsB).toLocaleString();
-                document.getElementById('revenueB').textContent = `$${Math.round(revenueB).toLocaleString()}`;
-                document.getElementById('cpaB').textContent = `$${cpaB.toFixed(2)}`;
-
-                updateChart(monthlyDataA, monthlyDataB);
+                updateChart(dataA, dataB);
             }
 
             function updateChart(dataA, dataB) {
@@ -432,14 +403,14 @@
                     data: {
                         labels: labels,
                         datasets: [{
-                            label: 'Strategy A Revenue (Cumulative)',
+                            label: 'Strategy A Revenue (Linear)',
                             data: dataA,
                             borderColor: 'rgba(249, 115, 22, 0.8)',
                             backgroundColor: 'rgba(249, 115, 22, 0.1)',
                             fill: true,
-                            tension: 0.4
+                            tension: 0.1
                         }, {
-                            label: 'Strategy B Revenue (Cumulative)',
+                            label: 'Strategy B Revenue (Compounding)',
                             data: dataB,
                             borderColor: 'rgba(37, 99, 235, 0.8)',
                             backgroundColor: 'rgba(37, 99, 235, 0.1)',
@@ -454,9 +425,7 @@
                                 callbacks: {
                                     label: function(context) {
                                         let label = context.dataset.label || '';
-                                        if (label) {
-                                            label += ': ';
-                                        }
+                                        if (label) { label += ': '; }
                                         if (context.parsed.y !== null) {
                                             label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
                                         }
@@ -469,7 +438,7 @@
                             y: {
                                 beginAtZero: true,
                                 ticks: {
-                                    callback: function(value, index, values) {
+                                    callback: function(value) {
                                         return '$' + value.toLocaleString();
                                     }
                                 }
@@ -499,3 +468,4 @@
     </script>
 </body>
 </html>
+

@@ -150,6 +150,36 @@
             color: #ef4444;
         }
 
+        .details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .strategy-details {
+            background: #fff;
+            padding: 1rem;
+            border-radius: 15px;
+        }
+
+        .strategy-details h3 {
+            margin-top: 0;
+            font-size: 1.1rem;
+        }
+        
+        .strategy-details p {
+            font-size: 0.95rem;
+        }
+        
+        .strategy-title {
+            font-weight: bold;
+            color: var(--partipost-primary);
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+
         .key-insights {
             margin-top: 2rem;
             background: var(--partipost-cream);
@@ -190,7 +220,7 @@
             left: 50%;
             transform: translateX(-50%);
             bottom: 125%;
-            width: 240px;
+            width: 220px;
             background-color: var(--partipost-dark);
             color: #fff;
             text-align: center;
@@ -241,41 +271,33 @@
 
                 <h3>Strategy A: Traditional Ads <span class="label-note">(Renting Space)</span></h3>
                 <div class="input-group">
-                    <label for="tradAdConversionRate">Ad Conversion Rate (%) <span class="label-note">(~2.5% Avg.)</span>
-                        <span class="tooltip" data-tooltip="Based on 2024/2025 benchmarks, the average conversion rate for e-commerce and B2C brands typically falls between 2-3% for paid ads targeting new customers.">&#9432;</span>
-                    </label>
+                    <label for="tradAdConversionRate">Ad Conversion Rate (%)</label>
                     <input type="number" id="tradAdConversionRate" value="2.5" step="0.1">
                 </div>
                 <div class="input-group">
-                    <label for="tradAdCpc">Cost Per Click ($) <span class="label-note">(~ $1.75 Avg.)</span>
-                        <span class="tooltip" data-tooltip="This is a blended 2024 average from sources like WordStream, considering both Google Search (higher cost) and Paid Social (lower cost) to represent a typical B2C ad spend.">&#9432;</span>
-                    </label>
+                    <label for="tradAdCpc">Cost Per Click ($)</label>
                     <input type="number" id="tradAdCpc" value="1.75" step="0.01">
                 </div>
 
                 <h3>Strategy B: Partipost Content Engine <span class="label-note">(Owning Assets)</span></h3>
                 <div class="input-group">
-                    <label for="costPerAsset">Avg. Cost per Content Asset ($) <span class="label-note">(~ $50 Avg.)</span>
-                        <span class="tooltip" data-tooltip="Based on 2025 data from Afluencer, nano-influencers (1k-10k followers) typically charge between $25-$100 per post, making $50 a strong working average for one content asset.">&#9432;</span>
+                    <label for="costPerAsset">Avg. Cost per Content Asset ($)
+                        <span class="tooltip" data-tooltip="The cost to activate one nano creator to produce one piece of unique, licensed content for your brand.">&#9432;</span>
                     </label>
                     <input type="number" id="costPerAsset" value="50">
                 </div>
                 <div class="input-group">
-                    <label for="contentAmplification">Content Amplification Factor (%) <span class="label-note">(~ 5% Boost)</span>
-                        <span class="tooltip" data-tooltip="Research from inBeat (2025) shows UGC-based ads can achieve 4x higher CTRs. This 5% boost per 10 assets is a conservative model of how social proof from your content library improves ad performance.">&#9432;</span>
+                    <label for="contentAmplification">Content Amplification Factor (%)
+                        <span class="tooltip" data-tooltip="The % boost your retargeting ads get for every 10 content assets you own. Models the power of social proof.">&#9432;</span>
                     </label>
                     <input type="number" id="contentAmplification" value="5" step="0.5">
                 </div>
                 <div class="input-group">
-                    <label for="retargetingConversionRate">Base Retargeting Conv. Rate (%) <span class="label-note">(~ 4.5% Avg.)</span>
-                         <span class="tooltip" data-tooltip="Industry data shows retargeting can increase conversion rates by up to 150% compared to standard ads. A 4.5% rate is a typical benchmark for reaching an already-engaged audience.">&#9432;</span>
-                    </label>
+                    <label for="retargetingConversionRate">Base Retargeting Conversion Rate (%)</label>
                     <input type="number" id="retargetingConversionRate" value="4.5" step="0.1">
                 </div>
                 <div class="input-group">
-                    <label for="retargetingCpc">Retargeting Cost Per Click ($) <span class="label-note">(~ $0.85 Avg.)</span>
-                        <span class="tooltip" data-tooltip="Retargeting ads target a warmer audience. 2024/2025 benchmarks consistently show this results in a CPC that is 40-50% lower than standard ads for 'cold' traffic.">&#9432;</span>
-                    </label>
+                    <label for="retargetingCpc">Retargeting Cost Per Click ($)</label>
                     <input type="number" id="retargetingCpc" value="0.85" step="0.01">
                 </div>
             </div>
@@ -356,8 +378,10 @@
                     if (month % 2 !== 0) { // Content Creation Months (1, 3, 5)
                         const newAssets = costPerAsset > 0 ? totalBudget / costPerAsset : 0;
                         contentLibrarySize += newAssets;
-                        // No direct revenue, goal is asset creation
-                    } else { // Performance Months (2, 4, 6)
+                        // Assume minimal direct revenue, as the goal is asset creation
+                        cumulativeRevenueB += 0; 
+                    } else { // Retargeting Months (2, 4, 6)
+                        // Calculate the boost from the content library
                         const performanceBoost = 1 + (contentAmplification * (contentLibrarySize / 10));
                         const boostedConvRate = baseRetargetingConvRate * performanceBoost;
                         
@@ -372,10 +396,10 @@
                 const totalProfitB = totalRevenueB - totalCost;
                 const totalRoiB = totalCost > 0 ? (totalProfitB / totalCost) * 100 : 0;
 
-                updateDisplay(totalRoiA, totalRoiB, monthlyCumulativeRevenueA, monthlyCumulativeRevenueB, contentLibrarySize);
+                updateDisplay(totalRoiA, totalRoiB, totalCost, monthlyCumulativeRevenueA, monthlyCumulativeRevenueB, contentLibrarySize);
             }
 
-            function updateDisplay(roiA, roiB, dataA, dataB, assetsOwned) {
+            function updateDisplay(roiA, roiB, totalCost, dataA, dataB, assetsOwned) {
                 const roiAEl = document.getElementById('roiA');
                 const roiBEl = document.getElementById('roiB');
 
