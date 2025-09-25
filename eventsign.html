@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partipost – A4 Event Door Sign</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --orange:#F97316;        /* Partipost primary */
+      --orange-2:#FF8A5C;      /* secondary orange */
+      --blue:#2563EB;          /* accent */
+      --charcoal:#1E293B;      /* text */
+      --cream:#FFF5F0;         /* background */
+    }
+
+    /* PRINT SIZING */
+    @page{ size: A4; margin: 0; }
+    html, body{ height:100%; }
+
+    body{
+      margin:0;
+      font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--cream);
+      color: var(--charcoal);
+    }
+
+    .sheet{
+      position: relative;
+      width: 210mm;  /* A4 width */
+      height: 297mm; /* A4 height */
+      margin: 0 auto;
+      box-sizing: border-box;
+      padding: 12mm 16mm 14mm; /* safe margin */
+      display: flex;
+      flex-direction: column;
+      color: #fff;
+      background: #0f2350;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .top-bar{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      margin-bottom: 10mm;
+      padding: 6mm 8mm;
+      background: rgba(255,255,255,0.05);
+      border-radius: 5mm;
+    }
+
+    /* Layout */
+    .header{
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 5mm;
+    }
+    .footer{
+      margin-top: auto;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 10mm;
+      align-items: stretch;
+    }
+
+    /* Header */
+    .logo{
+      display:inline-flex; align-items:center; gap:6px; font-weight:800; letter-spacing:0.2px; font-size: 9mm; color: #fff;
+    }
+    .logo-mark{ width:9mm; height:9mm; border-radius: 2mm; background: linear-gradient(135deg, var(--orange), var(--orange-2)); display:inline-block; }
+    .header-title{
+      font-size: 14mm; line-height: 1.08; font-weight: 800; margin: 0; max-width: 150mm;
+    }
+    .header-title strong{ color: var(--orange-2); font-weight: 800; }
+    .subtitle{ margin: 0; font-size: 5mm; font-weight: 600; max-width: 150mm; }
+
+    /* Footer */
+    .bullets{ background: white; border: 1px solid rgba(30,41,59,0.12); border-radius: 6mm; padding: 7mm; color: var(--charcoal); }
+    .bullets h5{ margin:0 0 4mm 0; font-size: 5mm; }
+    .bullets ul{ margin:0; padding-left: 6mm; }
+    .bullets li{ font-size: 4.2mm; margin: 2.5mm 0; }
+
+    .details{ background: rgba(255,255,255,0.92); border: 1px solid rgba(37,99,235,0.25); border-radius: 6mm; padding: 7mm; display:flex; flex-direction:column; justify-content:space-between; color: var(--charcoal); }
+    .event-meta{ font-size: 4.2mm; line-height: 1.5; }
+
+    .cta{
+      margin-top: 6mm; display: grid; grid-template-columns: 1fr auto; align-items:center; gap: 4mm; background: white; border: 1px dashed var(--orange); border-radius: 5mm; padding: 5mm 6mm;
+    }
+    .cta .cta-text{ font-size: 6mm; font-weight: 800; }
+    .cta .cta-text span{ color: var(--orange); }
+    .cta .cta-arrow{ width: 22mm; height: 22mm; }
+
+    /* Helper badges */
+    .badge{
+      display:inline-block; padding: 2mm 3.5mm; border-radius: 4mm; font-size: 3.6mm; font-weight: 700; letter-spacing: 0.2px; background: rgba(249,115,22,0.12); color: var(--orange); border: 1px solid rgba(249,115,22,0.25);
+    }
+    .top-bar .badge{
+      background: rgba(255,255,255,0.16);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+
+    /* Screen preview helper */
+    @media screen{
+      body{ display:flex; align-items:center; justify-content:center; padding: 16px; }
+      .sheet{ box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <section class="sheet" role="document" aria-label="A4 Door Sign">
+
+    <div class="top-bar">
+      <div class="logo" aria-label="Partipost">
+        <span class="logo-mark" aria-hidden="true"></span>
+        Partipost
+      </div>
+      <span class="badge">Exclusive SME Workshop</span>
+    </div>
+
+    <!-- HEADER (hero area) -->
+    <div class="header">
+      <h1 class="header-title">
+        Turn <strong>Trust</strong> Into <strong>Transactions</strong> with the Power of Influencers
+      </h1>
+      <div class="subtitle">SME Brand Workshop: Stop Renting Attention, Start Building Assets</div>
+    </div>
+
+    <!-- FOOTER (bottom third) -->
+    <div class="footer">
+      <div class="bullets">
+        <h5>What you'll get</h5>
+        <ul>
+          <li>Discover the <strong>7-11-4</strong> rule breaking traditional marketing</li>
+          <li>Learn why customer-created content outperforms ads by <strong>4×</strong></li>
+          <li>Build marketing assets that work <strong>24/7</strong> without ongoing ad spend</li>
+          <li><strong>Live platform demo:</strong> Create your first campaign in 15 minutes</li>
+        </ul>
+      </div>
+
+      <div class="details">
+        <div class="event-meta">
+          <div><strong>Duration:</strong> 1.5 hours</div>
+          <div><strong>Format:</strong> Interactive strategy session + platform walkthrough</div>
+          <div style="margin-top: 3mm;"><span class="badge">Workshop in Progress</span></div>
+        </div>
+
+        <div class="cta" aria-label="Entry call to action">
+          <div class="cta-text">Workshop participants <span>enter here</span> →</div>
+          <svg class="cta-arrow" viewBox="0 0 64 64" aria-hidden="true">
+            <defs>
+              <linearGradient id="g2" x1="0" x2="1">
+                <stop offset="0%" stop-color="var(--orange)"/>
+                <stop offset="100%" stop-color="var(--orange-2)"/>
+              </linearGradient>
+            </defs>
+            <circle cx="32" cy="32" r="30" fill="url(#g2)" opacity="0.12"/>
+            <path d="M12 32 H46" stroke="url(#g2)" stroke-width="6" stroke-linecap="round"/>
+            <path d="M36 22 L52 32 L36 42" fill="none" stroke="url(#g2)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</body>
+</html>

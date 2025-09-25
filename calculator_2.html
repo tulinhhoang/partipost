@@ -1,501 +1,120 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Partipost Marketing Campaign ROI Calculator</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
+# Prompt: Build an Interactive ROI Calculator for Partipost Marketing Campaign Comparison
 
-        :root {
-            --partipost-primary: #F97316;
-            --partipost-secondary: #FF8A5C;
-            --partipost-accent: #2563EB;
-            --partipost-dark: #1E293B;
-            --partipost-light: #F8FAFC;
-            --partipost-cream: #FFF5F0;
-            --partipost-gray: #64748B;
-            --partipost-success: #10B981;
-            --partipost-warning: #F59E0B;
-        }
+Create an interactive HTML calculator that compares the ROI between two marketing strategies with the same total monthly budget:
 
-        body {
-            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-            background: linear-gradient(135deg, var(--partipost-cream) 0%, #FFEDE6 100%);
-            color: var(--partipost-dark);
-            line-height: 1.6;
-            margin: 0;
-            padding: 2rem;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
+## Strategy A: Traditional Monthly Advertising
+- Runs traditional ads every month
+- Consistent monthly spend
+- Direct conversion tracking
 
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            background: #fff;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(30, 41, 59, 0.1);
-        }
+## Strategy B: Nano Creator + Retargeting Campaign
+- Runs nano creator campaigns every other month (bi-monthly)
+- Uses remaining budget for retargeting ads in off-months
+- Leverages creator-generated content for retargeting
 
-        header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
+## Required Calculator Features:
 
-        header h1 {
-            color: var(--partipost-primary);
-            font-size: 2.5rem;
-        }
+### Input Fields with Research-Backed Default Values:
+1. **Total Monthly Marketing Budget** ($1,000 - $50,000)
+2. **Traditional Ad Conversion Rate** (1.5% - default based on industry average)
+3. **Traditional Ad Cost Per Click** ($1.50 - industry average)
+4. **Average Order Value** ($75 - e-commerce average)
+5. **Nano Creator Campaign Cost** ($150 per campaign - based on $10-100/post for 1-2 posts)
+6. **Nano Creator Engagement Rate** (4% - research shows nano influencers achieve 4% vs 1.3% for macro)
+7. **Nano Creator Conversion Rate** (3.2% - research shows higher conversion due to authentic engagement)
+8. **Retargeting Ad Conversion Rate** (2.8% - higher than cold traffic due to prior exposure)
+9. **Retargeting Cost Per Click** ($0.75 - typically 50% lower than cold traffic)
+10. **Content Amplification Factor** (2.5x - creator content performs 2.5x better in retargeting)
+11. **Brand Awareness Boost** (15% - measured uplift from creator partnerships)
+12. **Creator Content Lifespan** (30 days - how long creator content remains effective for retargeting)
 
-        .calculator {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 2rem;
-        }
+### Research Sources for Default Values:
+- **Nano Influencer Engagement**: 4% vs 1.3% for macro influencers (Popular Pays 2025)
+- **Nano Influencer ROI**: 3x higher return on influencer spend vs macro influencers (AMA Research 2024)
+- **Cost Efficiency**: Nano influencers cost 18x less than macro influencers while delivering higher engagement
+- **Conversion Rates**: Small influencers show significantly higher sales conversion rates (MIT Sloan)
+- **Industry Benchmarks**: Traditional ads average 1.5% conversion, retargeting achieves 2-3x higher rates
 
-        .inputs, .outputs {
-            background: var(--partipost-light);
-            padding: 1.5rem;
-            border-radius: 15px;
-        }
+### Calculations to Display:
+- **6-Month ROI Comparison**
+- **Monthly breakdown for each strategy**
+- **Cost per acquisition for each method**
+- **Total conversions over 6 months**
+- **Revenue generated from each strategy**
+- **Break-even analysis**
 
-        h2, h3 {
-            color: var(--partipost-dark);
-            border-bottom: 2px solid var(--partipost-primary);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-        }
+### Visual Elements:
+- Side-by-side comparison charts
+- Monthly timeline visualization
+- ROI percentage displays with color coding (green for positive, red for negative)
+- Interactive sliders for key variables
+- Summary cards showing key metrics
 
-        .input-group {
-            margin-bottom: 1.25rem;
-        }
+### Advanced Features:
+- **Budget Allocation Slider**: Show how budget splits between creator campaigns and retargeting
+- **Sensitivity Analysis**: How 10%/20% changes in key variables affect ROI
+- **Break-even Timeline**: When each strategy reaches profitability
+- **Creator Content Performance Decay**: Model how creator content effectiveness decreases over time
+- **Audience Quality Score**: Factor in that nano influencers typically have more engaged, authentic audiences
+- **Geographic/Demographic Targeting**: Adjust conversion rates based on market specificity
+- **Seasonal Campaign Modeling**: Account for peak shopping periods where creator authenticity matters more
+- **Export/Share Results**: Generate branded reports with Partipost styling
 
-        .input-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-        }
+### Assumptions to Build In:
+- Strategy A: Consistent monthly performance
+- Strategy B: Higher engagement in creator months, sustained performance in retargeting months
+- Creator content has longer shelf life and better engagement rates
+- Retargeting campaigns benefit from creator-generated social proof
 
-        .label-note {
-            font-weight: 400;
-            color: var(--partipost-gray);
-            font-size: 0.8rem;
-            margin-left: 8px;
-        }
+### Design Requirements - Partipost Brand Styling:
+- **Primary Colors**: 
+  - Primary Orange: `#F97316` (main CTAs, headers, primary buttons)
+  - Secondary Orange: `#FF8A5C` (gradients, hover states)
+- **Accent Colors**: 
+  - Blue Accent: `#2563EB` (secondary elements, borders)
+  - Success Green: `#10B981` (positive ROI indicators)
+  - Warning Orange: `#F59E0B` (neutral/warning states)
+- **Background Colors**:
+  - Light Background: `#F8FAFC` (main backgrounds)
+  - Cream Background: `#FFF5F0` (section backgrounds)
+  - Gradient: `linear-gradient(135deg, #FFF5F0 0%, #FFEDE6 100%)`
+- **Text Colors**:
+  - Dark Text: `#1E293B` (primary text)
+  - Gray Text: `#64748B` (secondary text)
+- **Card Styling**: 
+  - White cards with `border-radius: 15px-20px`
+  - Subtle shadows: `box-shadow: 0 20px 40px rgba(30, 41, 59, 0.1)`
+  - Orange gradient buttons: `linear-gradient(135deg, #F97316 0%, #FF8A5C 100%)`
+  - Hover animations with `translateY(-2px)` and enhanced shadows
+- **Typography**: Segoe UI, modern sans-serif stack
+- **Interactive Elements**: Smooth transitions (0.3s ease), hover effects, gradient shine animations
 
-        .input-group input[type="number"], 
-        .input-group input[type="range"] {
-            width: 100%;
-            padding: 0.5rem;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-        }
+### Technical Specifications:
+- **CSS Custom Properties**: Use the exact Partipost color variables:
+  ```css
+  :root {
+      --partipost-primary: #F97316;
+      --partipost-secondary: #FF8A5C;
+      --partipost-accent: #2563EB;
+      --partipost-dark: #1E293B;
+      --partipost-light: #F8FAFC;
+      --partipost-cream: #FFF5F0;
+      --partipost-gray: #64748B;
+      --partipost-success: #10B981;
+      --partipost-warning: #F59E0B;
+  }
+  ```
+- **Animation System**: Include fade-in animations (`@keyframes fadeIn`), shine effects for cards, and smooth hover transitions
+- **Responsive Design**: Mobile-first approach with grid layouts that adapt to different screen sizes
+- **Form Validation**: Real-time validation with visual feedback using Partipost orange for focus states
+- **Interactive Elements**: Gradient buttons with hover effects, animated cards, and smooth scrolling
+- **Container Structure**: Central container with white background, rounded corners (20px), and the signature Partipost gradient background
 
-        .input-group input[type="number"]:focus,
-        .input-group input[type="range"]:focus {
-            outline: none;
-            border-color: var(--partipost-primary);
-            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
-        }
+### Key Research Insights to Highlight:
+- **Nano Advantage**: Display prominently that nano influencers achieve 3x higher ROIS despite lower absolute revenue
+- **Engagement Premium**: Show the 4% vs 1.3% engagement rate difference visually
+- **Authenticity Factor**: Include tooltips explaining why smaller influencers convert better (trust, authenticity)
+- **Cost Efficiency**: Highlight that nano campaigns cost 18x less while maintaining higher performance
+- **Long-term Value**: Creator content continues working in retargeting campaigns beyond initial post
 
-        .summary-cards {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .card {
-            background: #fff;
-            padding: 1rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(30, 41, 59, 0.05);
-            text-align: center;
-            flex-grow: 1;
-            transition: all 0.3s ease;
-        }
-        .card:hover{
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(30, 41, 59, 0.1);
-        }
-
-        .card h3 {
-            margin-top: 0;
-            font-size: 1rem;
-            color: var(--partipost-gray);
-        }
-
-        .card p {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0;
-        }
-
-        .roi-positive {
-            color: var(--partipost-success);
-        }
-
-        .roi-negative {
-            color: #ef4444;
-        }
-
-        .details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .strategy-details {
-            background: #fff;
-            padding: 1rem;
-            border-radius: 15px;
-        }
-
-        .strategy-details h3 {
-            margin-top: 0;
-            font-size: 1.1rem;
-        }
-        
-        .strategy-details p {
-            font-size: 0.95rem;
-        }
-
-        .key-insights {
-            margin-top: 2rem;
-        }
-        .key-insights ul{
-            padding-left: 20px;
-        }
-        .key-insights .highlight {
-            color: var(--partipost-primary);
-            font-weight: bold;
-        }
-
-        .tooltip {
-            cursor: help;
-            position: relative;
-            display: inline-block;
-            background: var(--partipost-accent);
-            color: white;
-            border-radius: 50%;
-            width: 16px;
-            height: 16px;
-            font-size: 12px;
-            text-align: center;
-            line-height: 16px;
-        }
-        
-        .tooltip::after {
-            content: attr(data-tooltip);
-            visibility: hidden;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 125%;
-            width: 220px;
-            background-color: var(--partipost-dark);
-            color: #fff;
-            text-align: center;
-            padding: 8px;
-            border-radius: 6px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 1;
-            font-size: 0.8rem;
-            font-weight: normal;
-        }
-
-        .tooltip:hover::after {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .calculator {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Interactive ROI Calculator</h1>
-            <p>Compare Traditional Advertising vs. Partipost's Nano Creator + Retargeting Strategy</p>
-        </header>
-
-        <div class="calculator">
-            <div class="inputs">
-                <h2>Campaign Inputs</h2>
-                <div class="input-group">
-                    <label for="totalBudget">Total Monthly Marketing Budget ($)
-                        <span class="label-note">(Adjustable)</span>
-                    </label>
-                    <input type="number" id="totalBudget" value="5000" min="1000" max="10000">
-                    <input type="range" id="totalBudgetSlider" value="5000" min="1000" max="10000">
-                </div>
-                <div class="input-group">
-                    <label for="avgOrderValue">Average Order Value ($)
-                        <span class="label-note">(~ $85 Avg.)</span>
-                    </label>
-                    <input type="number" id="avgOrderValue" value="85">
-                </div>
-
-                <h3>Strategy A: Traditional Advertising</h3>
-                <div class="input-group">
-                    <label for="tradAdConversionRate">Traditional Ad Conversion Rate (%)
-                         <span class="label-note">(~ 2.5% Avg.)</span>
-                    </label>
-                    <input type="number" id="tradAdConversionRate" value="2.5" step="0.1">
-                </div>
-                <div class="input-group">
-                    <label for="tradAdCpc">Traditional Ad Cost Per Click ($)
-                         <span class="label-note">(~ $1.75 Avg.)</span>
-                    </label>
-                    <input type="number" id="tradAdCpc" value="1.75" step="0.01">
-                </div>
-
-                <h3>Strategy B: Nano Creator + Retargeting</h3>
-                <div class="input-group">
-                    <label for="nanoCampaignCost">Avg. Cost per Nano Creator ($)
-                         <span class="label-note">(~ $50 Avg.)</span>
-                    </label>
-                    <input type="number" id="nanoCampaignCost" value="50">
-                </div>
-                <div class="input-group">
-                    <label for="nanoConversionRate">Nano Creator Conversion Rate (%)
-                         <span class="label-note">(~ 3.2% Avg.)</span>
-                        <span class="tooltip" data-tooltip="Smaller influencers show significantly higher sales conversion rates due to authentic engagement. (MIT Sloan)">&#9432;</span>
-                    </label>
-                    <input type="number" id="nanoConversionRate" value="3.2" step="0.1">
-                </div>
-                <div class="input-group">
-                    <label for="retargetingConversionRate">Retargeting Ad Conversion Rate (%)
-                         <span class="label-note">(~ 4.5% Avg.)</span>
-                    </label>
-                    <input type="number" id="retargetingConversionRate" value="4.5" step="0.1">
-                </div>
-                <div class="input-group">
-                    <label for="retargetingCpc">Retargeting Cost Per Click ($)
-                         <span class="label-note">(~ $0.85 Avg.)</span>
-                    </label>
-                    <input type="number" id="retargetingCpc" value="0.85" step="0.01">
-                </div>
-            </div>
-
-            <div class="outputs">
-                <h2>6-Month ROI Comparison</h2>
-                <div class="summary-cards">
-                    <div class="card">
-                        <h3>Strategy A ROI</h3>
-                        <p id="roiA" class="roi-positive">0%</p>
-                    </div>
-                    <div class="card">
-                        <h3>Strategy B ROI</h3>
-                        <p id="roiB" class="roi-positive">0%</p>
-                    </div>
-                </div>
-
-                <div class="comparison-chart">
-                    <canvas id="roiChart"></canvas>
-                </div>
-
-                <div class="details">
-                    <div class="strategy-details">
-                        <h3>Strategy A: Traditional Ads</h3>
-                        <p>Total Conversions: <span id="conversionsA">0</span></p>
-                        <p>Total Revenue: <span id="revenueA">$0</span></p>
-                        <p>Cost Per Acquisition: <span id="cpaA">$0</span></p>
-                    </div>
-                    <div class="strategy-details">
-                        <h3>Strategy B: Nano Creator + Retargeting</h3>
-                        <p>Total Conversions: <span id="conversionsB">0</span></p>
-                        <p>Total Revenue: <span id="revenueB">$0</span></p>
-                        <p>Cost Per Acquisition: <span id="cpaB">$0</span></p>
-                    </div>
-                </div>
-                 <div class="key-insights">
-                    <h3>Key Research Insights</h3>
-                    <ul>
-                        <li><span class="highlight">Nano Advantage:</span> Nano influencers can achieve 3x higher ROI. <span class="tooltip" data-tooltip="AMA Research 2024">&#9432;</span></li>
-                        <li><span class="highlight">Engagement Premium:</span> Nanos achieve ~4% engagement vs. 1.3% for macro. <span class="tooltip" data-tooltip="Popular Pays 2025">&#9432;</span></li>
-                        <li><span class="highlight">Cost Efficiency:</span> Nano campaigns can be 18x less expensive than macro. <span class="tooltip" data-tooltip="Industry Research">&#9432;</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const inputs = document.querySelectorAll('input');
-            const budgetInput = document.getElementById('totalBudget');
-            const budgetSlider = document.getElementById('totalBudgetSlider');
-
-            let roiChart;
-
-            function calculateROI() {
-                const totalBudget = parseFloat(document.getElementById('totalBudget').value);
-                const avgOrderValue = parseFloat(document.getElementById('avgOrderValue').value);
-
-                // --- Strategy A ---
-                const tradAdConversionRate = parseFloat(document.getElementById('tradAdConversionRate').value) / 100;
-                const tradAdCpc = parseFloat(document.getElementById('tradAdCpc').value);
-                
-                const clicksA = tradAdCpc > 0 ? totalBudget / tradAdCpc : 0;
-                const conversionsA_monthly = clicksA * tradAdConversionRate;
-                const revenueA_monthly = conversionsA_monthly * avgOrderValue;
-
-                const totalConversionsA = conversionsA_monthly * 6;
-                const totalRevenueA = revenueA_monthly * 6;
-                const totalCostA = totalBudget * 6;
-                const totalProfitA = totalRevenueA - totalCostA;
-                const totalRoiA = totalCostA > 0 ? (totalProfitA / totalCostA) * 100 : 0;
-                const cpaA = conversionsA_monthly > 0 ? totalBudget / conversionsA_monthly : 0;
-
-                // --- Strategy B ---
-                const nanoCampaignCost = parseFloat(document.getElementById('nanoCampaignCost').value);
-                const nanoConversionRate = parseFloat(document.getElementById('nanoConversionRate').value) / 100;
-                const retargetingConversionRate = parseFloat(document.getElementById('retargetingConversionRate').value) / 100;
-                const retargetingCpc = parseFloat(document.getElementById('retargetingCpc').value);
-
-                let totalConversionsB = 0;
-                let totalRevenueB = 0;
-                const totalCostB = totalBudget * 6;
-                let monthlyDataA = [];
-                let monthlyDataB = [];
-                let cumulativeRevenueB = 0;
-
-                for (let month = 1; month <= 6; month++) {
-                    monthlyDataA.push(revenueA_monthly * month);
-                    
-                    if (month % 2 !== 0) { // Nano creator months (1, 3, 5)
-                        const creatorsHired = nanoCampaignCost > 0 ? totalBudget / nanoCampaignCost : 0;
-                        const conversionsFromCreators = creatorsHired * nanoConversionRate * 100; // Simplified assumption
-                        totalConversionsB += conversionsFromCreators;
-                        cumulativeRevenueB += conversionsFromCreators * avgOrderValue;
-                    } else { // Retargeting months (2, 4, 6)
-                        const retargetingClicks = retargetingCpc > 0 ? totalBudget / retargetingCpc : 0;
-                        const conversionsFromRetargeting = retargetingClicks * retargetingConversionRate;
-                        totalConversionsB += conversionsFromRetargeting;
-                        cumulativeRevenueB += conversionsFromRetargeting * avgOrderValue;
-                    }
-                    monthlyDataB.push(cumulativeRevenueB);
-                }
-                
-                totalRevenueB = cumulativeRevenueB;
-                const totalProfitB = totalRevenueB - totalCostB;
-                const totalRoiB = totalCostB > 0 ? (totalProfitB / totalCostB) * 100 : 0;
-                const cpaB = totalConversionsB > 0 ? totalCostB / totalConversionsB : 0;
-
-                updateDisplay(totalRoiA, totalRoiB, totalConversionsA, totalRevenueA, cpaA, totalConversionsB, totalRevenueB, cpaB, monthlyDataA, monthlyDataB);
-            }
-
-            function updateDisplay(roiA, roiB, conversionsA, revenueA, cpaA, conversionsB, revenueB, cpaB, monthlyDataA, monthlyDataB) {
-                const roiAEl = document.getElementById('roiA');
-                const roiBEl = document.getElementById('roiB');
-
-                roiAEl.textContent = `${roiA.toFixed(1)}%`;
-                roiBEl.textContent = `${roiB.toFixed(1)}%`;
-                
-                roiAEl.className = roiA >= 0 ? 'roi-positive' : 'roi-negative';
-                roiBEl.className = roiB >= 0 ? 'roi-positive' : 'roi-negative';
-
-                document.getElementById('conversionsA').textContent = Math.round(conversionsA).toLocaleString();
-                document.getElementById('revenueA').textContent = `$${Math.round(revenueA).toLocaleString()}`;
-                document.getElementById('cpaA').textContent = `$${cpaA.toFixed(2)}`;
-
-                document.getElementById('conversionsB').textContent = Math.round(conversionsB).toLocaleString();
-                document.getElementById('revenueB').textContent = `$${Math.round(revenueB).toLocaleString()}`;
-                document.getElementById('cpaB').textContent = `$${cpaB.toFixed(2)}`;
-
-                updateChart(monthlyDataA, monthlyDataB);
-            }
-
-            function updateChart(dataA, dataB) {
-                const ctx = document.getElementById('roiChart').getContext('2d');
-                const labels = ['Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6'];
-                
-                if (roiChart) {
-                    roiChart.destroy();
-                }
-
-                roiChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            label: 'Strategy A Revenue (Cumulative)',
-                            data: dataA,
-                            borderColor: 'rgba(249, 115, 22, 0.8)',
-                            backgroundColor: 'rgba(249, 115, 22, 0.1)',
-                            fill: true,
-                            tension: 0.4
-                        }, {
-                            label: 'Strategy B Revenue (Cumulative)',
-                            data: dataB,
-                            borderColor: 'rgba(37, 99, 235, 0.8)',
-                            backgroundColor: 'rgba(37, 99, 235, 0.1)',
-                            fill: true,
-                            tension: 0.4
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        let label = context.dataset.label || '';
-                                        if (label) {
-                                            label += ': ';
-                                        }
-                                        if (context.parsed.y !== null) {
-                                            label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
-                                        }
-                                        return label;
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    callback: function(value, index, values) {
-                                        return '$' + value.toLocaleString();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-
-            inputs.forEach(input => input.addEventListener('input', calculateROI));
-            
-            budgetSlider.addEventListener('input', (e) => {
-                budgetInput.value = e.target.value;
-                calculateROI();
-            });
-            budgetInput.addEventListener('input', (e) => {
-                const val = parseInt(e.target.value);
-                const max = parseInt(e.target.max);
-                if (val <= max) {
-                   budgetSlider.value = val;
-                }
-                calculateROI();
-            });
-
-            calculateROI(); // Initial calculation
-        });
-    </script>
-</body>
-</html>
+The calculator should position Partipost's nano influencer approach as the data-driven choice for ROI-focused marketers, backed by concrete research showing superior performance metrics compared to traditional advertising approaches.

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maximising Your Year-End Sales Potential | Singapore & Malaysia Q4 Strategy</title>
+  <meta name="description" content="Maximise your year-end sales potential with proven strategies for Singapore & Malaysia brands. Data-driven approaches using nano influencers and integrated campaigns to achieve 176% Q4 growth." />
+  <meta name="theme-color" content="#003F5C" />
+
+  <!-- Tailwind + Chart.js -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
+
+  <!-- Inter font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --blue:#003F5C; --purple:#58508D; --magenta:#BC5090; --red:#FF6361; --orange:#FFA600;
+    }
+    html, body { height: 100%; }
+    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, sans-serif; }
+    .glass { backdrop-filter: saturate(180%) blur(10px); background: rgba(255,255,255,.9); }
+    .container-balanced { max-width: 1152px; }
+    .card { transition: transform .2s ease, box-shadow .2s ease; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,.06); }
+    .shadow-subtle { box-shadow: 0 2px 16px rgba(0,0,0,.04); }
+    /* Motion + focus */
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+    :focus-visible { outline: 2px dashed var(--orange); outline-offset: 2px; }
+    /* Print styles (clean white, page-friendly, chart tables visible) */
+    @media print {
+      body { background: #fff !important; color: #111827 !important; }
+      .glass, .card, .shadow-subtle { background: #fff !important; box-shadow: none !important; }
+      .bg-gradient-to-br, [class*="from-"], [class*="to-"] { background: #fff !important; }
+      .text-white, .text-white\/90, .text-white\/80, .text-white\/60 { color: #111827 !important; }
+      .print-hidden { display: none !important; }
+      .print-block { display: block !important; }
+      .no-break-inside { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Skip link for accessibility -->
+  <a href="#main" class="sr-only focus:not-sr-only fixed top-2 left-2 z-50 rounded bg-white/95 px-3 py-2 text-sm font-semibold text-[color:var(--blue)] shadow-subtle">Skip to content</a>
+
+  <div class="container container-balanced mx-auto px-4 md:px-8">
+    <!-- HERO -->
+    <header class="my-10" role="banner">
+      <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#003F5C] via-[#3f5a8a] to-[#58508D] p-8 md:p-12 text-white">
+        <div class="max-w-4xl">
+          <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">Maximising Your Year-End Sales Potential</h1>
+          <p class="mt-4 text-lg leading-7 text-white/90 max-w-prose">Data-driven strategies and proven methodologies for Singapore & Malaysia brands to achieve 176% Q4 growth through nano influencer partnerships, integrated campaigns, and optimized customer journeys.</p>
+          <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4" aria-label="Key highlights">
+            <div class="bg-white/10 rounded-lg p-4 text-center" role="figure" aria-label="Verified ROI is five point seven eight to one">
+              <div class="text-2xl font-bold text-[#FFA600]">5.78:1</div>
+              <div class="text-sm text-white/80">Verified ROI</div>
+            </div>
+            <div class="bg-white/10 rounded-lg p-4 text-center" role="figure" aria-label="Nano engagement in Malaysia is four point seven nine percent">
+              <div class="text-2xl font-bold text-[#FF6361]">4.79%</div>
+              <div class="text-sm text-white/80">Nano Engagement (MY)</div>
+            </div>
+            <div class="bg-white/10 rounded-lg p-4 text-center" role="figure" aria-label="Quarter four growth in Singapore is one hundred seventy six percent">
+              <div class="text-2xl font-bold text-[#BC5090]">176%</div>
+              <div class="text-sm text-white/80">Q4 Growth (SG)</div>
+            </div>
+          </div>
+        </div>
+        <div class="hidden md:block absolute -right-8 -top-8 h-48 w-48 md:h-64 md:w-64 rounded-full bg-white/10" aria-hidden="true"></div>
+        <div class="hidden md:block absolute -right-20 bottom-0 h-40 w-40 rounded-full bg-white/10" aria-hidden="true"></div>
+      </div>
+    </header>
+
+    <main id="main" class="space-y-16" role="main">
+      <!-- THE DISCOVERY-TO-PURCHASE LOOP -->
+      <section id="customer-journey" aria-labelledby="journey-title">
+        <div class="glass rounded-2xl shadow-subtle p-6 md:p-8">
+          <h2 id="journey-title" class="text-2xl md:text-3xl font-bold text-[color:var(--blue)] text-center">The Data-Validated Customer Journey</h2>
+          <p class="mt-3 text-center text-gray-700 max-w-2xl mx-auto">50% discover on social platforms, 57% validate on marketplaces, 82% purchase based on influencer recommendations. Master this loop to dominate Q4.</p>
+
+          <!-- Responsive Stepper -->
+          <div class="relative mt-10">
+            <div class="hidden md:block absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1 bg-gradient-to-r from-[#FFA600] via-[#FF6361] to-[#BC5090] rounded-full" aria-hidden="true"></div>
+
+            <ol class="flex flex-col md:flex-row items-stretch md:items-center gap-6 md:gap-5 relative z-10" role="list">
+              <li class="flex-1">
+                <div class="card h-full rounded-xl border border-[#FFA600]/30 bg-white p-6">
+                  <div class="flex items-center gap-3">
+                    <span class="grid h-10 w-10 place-items-center rounded-full bg-[#FFA600] text-white font-bold" aria-hidden="true">1</span>
+                    <h3 class="text-xl font-bold text-[color:var(--blue)]">Social Discovery</h3>
+                  </div>
+                  <p class="mt-3 text-gray-700">"I saw this in a TikTok! 50% of consumers in SG/MY discover products here first."</p>
+                  <p class="mt-2 text-sm font-semibold text-[#FFA600]">TikTok · Instagram · YouTube</p>
+                  <p class="mt-2 text-xs text-gray-500">Source: TMO Group Southeast Asia eCommerce Report 2024</p>
+                </div>
+              </li>
+              <li class="hidden md:flex md:w-12 md:shrink-0 items-center justify-center text-gray-400" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-7 w-7"><path fill="currentColor" d="M5 12h12l-4.5-4.5l1.4-1.4L21.2 12l-7.3 5.9l-1.4-1.4L17 13H5z"/></svg>
+              </li>
+              <li class="md:hidden flex items-center justify-center" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-7 w-7 text-gray-400"><path fill="currentColor" d="M12 5v12l4.5-4.5l1.4 1.4L12 21.2L6.1 13.9l1.4-1.4L11 17V5z"/></svg>
+              </li>
+
+              <li class="flex-1">
+                <div class="card h-full rounded-xl border border-[#FF6361]/30 bg-white p-6">
+                  <div class="flex items-center gap-3">
+                    <span class="grid h-10 w-10 place-items-center rounded-full bg-[#FF6361] text-white font-bold" aria-hidden="true">2</span>
+                    <h3 class="text-xl font-bold text-[color:var(--blue)]">Marketplace Validation</h3>
+                  </div>
+                  <p class="mt-3 text-gray-700">"Let me check Shopee reviews. 57% of consumers depend on reviews to decide."</p>
+                  <p class="mt-2 text-sm font-semibold text-[#FF6361]">Shopee · Lazada · TikTok Shop</p>
+                  <p class="mt-2 text-xs text-gray-500">Source: Malaysia eCommerce Consumer Behavior Study 2024</p>
+                </div>
+              </li>
+              <li class="hidden md:flex md:w-12 md:shrink-0 items-center justify-center text-gray-400" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-7 w-7"><path fill="currentColor" d="M5 12h12l-4.5-4.5l1.4-1.4L21.2 12l-7.3 5.9l-1.4-1.4L17 13H5z"/></svg>
+              </li>
+              <li class="md:hidden flex items-center justify-center" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-7 w-7 text-gray-400"><path fill="currentColor" d="M12 5v12l4.5-4.5l1.4 1.4L12 21.2L6.1 13.9l1.4-1.4L11 17V5z"/></svg>
+              </li>
+
+              <li class="flex-1">
+                <div class="card h-full rounded-xl border border-[#BC5090]/30 bg-white p-6">
+                  <div class="flex items-center gap-3">
+                    <span class="grid h-10 w-10 place-items-center rounded-full bg-[#BC5090] text-white font-bold" aria-hidden="true">3</span>
+                    <h3 class="text-xl font-bold text-[color:var(--blue)]">Q4 Purchase Surge</h3>
+                  </div>
+                  <p class="mt-3 text-gray-700">"Adding to cart for 11.11! 176% sales spike in SG, 156% in MY during peak events."</p>
+                  <p class="mt-2 text-sm font-semibold text-[#BC5090]">Singles Day · 12.12 · Year-End Sales</p>
+                  <p class="mt-2 text-xs text-gray-500">Source: Criteo Double Dates 2023 Report</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="mt-8 rounded-xl bg-yellow-50 border border-yellow-200 p-5 no-break-inside">
+            <p class="font-bold text-yellow-900">💡 Market Intelligence</p>
+            <p class="text-yellow-900/90 mt-1">Brands using integrated campaigns (social discovery + marketplace reviews) achieve 5.78:1 ROI vs 1.2:1 for traditional advertising alone.</p>
+            <p class="text-xs text-yellow-700 mt-2">Source: Influencer Marketing Hub Benchmark Report 2025</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- THE $3K SWEET SPOT -->
+      <section id="budget-sweet-spot" aria-labelledby="budget-title">
+        <div class="glass rounded-2xl shadow-subtle p-6 md:p-8">
+          <h2 id="budget-title" class="text-2xl md:text-3xl font-bold text-[color:var(--blue)] text-center">The $3K Sweet Spot: Why Nano Beats Macro</h2>
+          <p class="mt-3 text-center text-gray-700 max-w-2xl mx-auto">Market analysis reveals $3K/month with nano creators delivers 4× better engagement than macro influencers—at ~50× lower cost.</p>
+
+          <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-4">
+              <div class="card rounded-xl border border-green-200/60 bg-green-50 p-5 no-break-inside">
+                <h3 class="font-bold text-green-900 mb-2">💰 What $3K Gets You with Partipost</h3>
+                <ul class="text-green-900/90 space-y-1 text-sm">
+                  <li><strong>Singapore:</strong> 15–20 nano creators @ $150–200 each</li>
+                  <li><strong>Malaysia:</strong> 25–30 nano creators @ $100–120 each</li>
+                  <li><strong>Reach:</strong> 2–3M combined audience per month</li>
+                  <li><strong>Reviews:</strong> 50+ verified marketplace reviews</li>
+                  <li><strong>UGC Content:</strong> 30+ videos for ad repurposing</li>
+                </ul>
+              </div>
+              <div class="card rounded-xl border border-blue-200/60 bg-blue-50 p-5 no-break-inside">
+                <h3 class="font-bold text-blue-900 mb-2">📊 The Performance Gap</h3>
+                <ul class="text-blue-900/90 space-y-1 text-sm">
+                  <li><strong>MY Nano:</strong> 4.79% engagement vs 1.16% macro</li>
+                  <li><strong>SG Nano:</strong> 3.69% engagement vs 1.61% macro</li>
+                  <li><strong>Trust:</strong> 46% consumers trust nano vs 20% celebrities</li>
+                  <li><strong>Conversion:</strong> 67% better cost-per-acquisition</li>
+                </ul>
+                <p class="text-xs text-blue-700 mt-2">Source: INSG Southeast Asia Influencer Marketing Report 2024</p>
+              </div>
+            </div>
+
+            <!-- Chart + accessible/print table -->
+            <figure class="relative mx-auto max-w-lg" role="group" aria-labelledby="budgetChartTitle">
+              <figcaption id="budgetChartTitle" class="sr-only">Bar chart comparing nano vs macro influencer engagement in MY and SG.</figcaption>
+              <div class="aspect-[4/3] w-full">
+                <canvas id="budgetChart" class="chartjs-canvas print-hidden" aria-describedby="budgetChartTable"></canvas>
+              </div>
+              <!-- Accessible + print data table -->
+              <div id="budgetChartTable" class="sr-only print:block mt-3">
+                <table class="w-full text-sm border border-gray-200" role="table" aria-label="Engagement rate comparison">
+                  <thead class="bg-gray-100">
+                    <tr>
+                      <th class="text-left p-2 border-b">Influencer Type &amp; Market</th>
+                      <th class="text-right p-2 border-b">Engagement Rate (%)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td class="p-2 border-b">Nano (MY)</td><td class="p-2 text-right border-b">4.79</td></tr>
+                    <tr><td class="p-2 border-b">Macro (MY)</td><td class="p-2 text-right border-b">1.16</td></tr>
+                    <tr><td class="p-2 border-b">Nano (SG)</td><td class="p-2 text-right border-b">3.69</td></tr>
+                    <tr><td class="p-2">Macro (SG)</td><td class="p-2 text-right">1.61</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- Q4 MARKET REALITY -->
+      <section id="market-reality" aria-labelledby="market-title">
+        <div class="glass rounded-2xl shadow-subtle p-6 md:p-8">
+          <h2 id="market-title" class="text-2xl md:text-3xl font-bold text-[color:var(--blue)] text-center">Q4 Market Reality: The Numbers Don't Lie</h2>
+          <p class="mt-3 text-center text-gray-700 max-w-2xl mx-auto">Verified performance data from Singapore and Malaysia's biggest shopping seasons shows massive opportunity for prepared brands.</p>
+
+          <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <figure class="relative mx-auto max-w-md" role="group" aria-labelledby="q4ChartTitle">
+              <figcaption id="q4ChartTitle" class="sr-only">Doughnut chart showing Q4 growth: Singapore 176%, Malaysia 156%, Regional 140%.</figcaption>
+              <canvas id="q4GrowthChart" class="h-72 chartjs-canvas print-hidden" aria-describedby="q4GrowthTable"></canvas>
+              <!-- Accessible + print table -->
+              <div id="q4GrowthTable" class="sr-only print:block mt-3">
+                <table class="w-full text-sm border border-gray-200" role="table" aria-label="Q4 growth rates">
+                  <thead class="bg-gray-100">
+                    <tr>
+                      <th class="text-left p-2 border-b">Market</th>
+                      <th class="text-right p-2 border-b">Q4 Sales Growth (%)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td class="p-2 border-b">Singapore</td><td class="p-2 text-right border-b">176</td></tr>
+                    <tr><td class="p-2 border-b">Malaysia</td><td class="p-2 text-right border-b">156</td></tr>
+                    <tr><td class="p-2">Regional Average</td><td class="p-2 text-right">140</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="text-center text-xs text-gray-500 mt-2">Source: Criteo Double Dates 2023 Report</p>
+            </figure>
+
+            <div class="space-y-4">
+              <div class="card rounded-xl border border-green-200/60 bg-green-50 p-5 no-break-inside">
+                <h3 class="font-bold text-green-900 mb-2">🚀 Platform Performance (Verified)</h3>
+                <ul class="text-green-900/90 space-y-1 text-sm">
+                  <li><strong>Shopee:</strong> $23.3B GMV (29.1% YoY growth)</li>
+                  <li><strong>TikTok Shop:</strong> $16.3B GMV (4× growth from 2022)</li>
+                  <li><strong>Peak Hour:</strong> 325% transaction increase (first hour)</li>
+                  <li><strong>Last Hour:</strong> 370% unit sales spike before midnight</li>
+                </ul>
+                <p class="text-xs text-green-700 mt-2">Source: Sea Limited Q4 2023 Earnings Report, TikTok for Business Performance Data</p>
+              </div>
+              <div class="card rounded-xl border border-orange-200/60 bg-orange-50 p-5 no-break-inside">
+                <h3 class="font-bold text-orange-900 mb-2">📈 Category Winners</h3>
+                <ul class="text-orange-900/90 space-y-1 text-sm">
+                  <li><strong>Baby &amp; Toddler:</strong> 407% growth</li>
+                  <li><strong>Health &amp; Beauty:</strong> 352% growth</li>
+                  <li><strong>Home &amp; Garden:</strong> 264% growth</li>
+                  <li><strong>Fashion:</strong> 220% growth during 12.12</li>
+                </ul>
+                <p class="text-xs text-orange-700 mt-2">Source: Shopee Southeast Asia Consumer Trends Report 2024</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 rounded-xl bg-blue-50 border border-blue-200 p-5 no-break-inside">
+            <h3 class="font-bold text-blue-900 mb-2">🎯 The Partipost Advantage</h3>
+            <p class="text-blue-900/90 text-sm">Brands using Partipost's integrated approach see even better results: UGC content repurposed as ads delivers 4× higher CTR, while verified reviews from campaigns boost organic conversion by 85%.</p>
+            <p class="text-xs text-blue-700 mt-2">Source: Partipost Internal Performance Data 2024</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PLAYBOOK -->
+      <section id="playbook" aria-labelledby="playbook-title">
+        <div class="glass rounded-2xl shadow-subtle p-6 md:p-8">
+          <h2 id="playbook-title" class="text-2xl md:text-3xl font-bold text-[color:var(--blue)] text-center">Your Data-Driven Q4 Playbook</h2>
+          <p class="mt-3 text-center text-gray-700 max-w-2xl mx-auto">Based on data from 900,000+ influencers and 3,500+ brands on the Partipost platform.</p>
+
+          <ol class="mt-10 space-y-8" role="list">
+            <li class="card rounded-xl border border-[#FFA600]/30 bg-white p-6 no-break-inside">
+              <div class="flex items-start gap-3">
+                <span class="mt-1 inline-flex items-center gap-2 rounded-full bg-[#FFA600] px-3 py-1 text-sm font-bold text-white">Phase 1 <span class="hidden md:inline">•</span> <span>Start by Oct 1 (Critical)</span></span>
+              </div>
+              <h3 class="mt-3 text-xl font-bold text-[color:var(--blue)]">Build the Discovery + Trust Foundation</h3>
+              <p class="mt-1 text-gray-700">Launch nano influencer campaigns via Partipost's 50,000+ SG/MY creator network to establish both social buzz and marketplace credibility.</p>
+              <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                  <li><strong>Budget:</strong> $2,500–3,500/month on Partipost platform</li>
+                  <li><strong>Creators:</strong> 15–25 nano influencers (1K–10K followers)</li>
+                  <li><strong>Content:</strong> "Eyeing this for 11.11" unboxing videos</li>
+                  <li><strong>Timeline:</strong> 48 hours to campaign launch via self-serve</li>
+                </ul>
+                <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                  <li><strong>Expected Results:</strong> 30+ verified reviews</li>
+                  <li><strong>Reach:</strong> 2–3M combined audience</li>
+                  <li><strong>Engagement:</strong> 3.69–4.79% average rate</li>
+                  <li><strong>ROI:</strong> 5.78:1 return on investment</li>
+                </ul>
+              </div>
+              <div class="mt-4 rounded-lg bg-blue-50 border border-blue-200 p-3" role="note">
+                <p class="text-blue-800 font-semibold text-sm">💡 Partipost Pro Tip: Run UGC content from campaigns as paid ads for 4× higher CTR vs traditional creative.</p>
+              </div>
+              <div class="mt-3 rounded-lg bg-red-50 border border-red-200 p-3" role="note" aria-label="Critical notice">
+                <p class="text-red-800 font-semibold text-sm">⚠️ Critical: Top creators book 2–3 months ahead. Prices increase 20–30% after Oct 15.</p>
+              </div>
+            </li>
+
+            <li class="card rounded-xl border border-[#FF6361]/30 bg-white p-6 no-break-inside">
+              <span class="inline-flex items-center gap-2 rounded-full bg-[#FF6361] px-3 py-1 text-sm font-bold text-white">Phase 2 • Nov 1–10</span>
+              <h3 class="mt-3 text-xl font-bold text-[color:var(--blue)]">Pre-11.11 Momentum Building</h3>
+              <p class="mt-1 text-gray-700">Leverage the 10-day pre-purchase window when 73% of consumers research products and build wishlists.</p>
+              <ul class="mt-3 list-disc pl-5 text-gray-700 space-y-1">
+                <li><strong>Content:</strong> "Just added to cart for 11.11!" Instagram Stories</li>
+                <li><strong>Platform focus:</strong> TikTok Shop ($16.3B GMV) + Shopee ($23.3B GMV)</li>
+                <li><strong>Creator activity:</strong> Real-time cart screenshots and wish list shares</li>
+                <li><strong>Goal:</strong> Maximize "cart adds" before the midnight rush</li>
+              </ul>
+              <div class="mt-4 rounded-lg bg-green-50 border border-green-200 p-3">
+                <p class="text-green-800 font-semibold text-sm">🎯 Partipost Integration: Use the platform's scheduling feature to coordinate cart-add posts across creators for maximum impact.</p>
+              </div>
+            </li>
+
+            <li class="card rounded-xl border border-[#BC5090]/30 bg-white p-6 no-break-inside">
+              <span class="inline-flex items-center gap-2 rounded-full bg-[#BC5090] px-3 py-1 text-sm font-bold text-white">Phase 3 • Nov 11 &amp; Dec 12</span>
+              <h3 class="mt-3 text-xl font-bold text-[color:var(--blue)]">Execute the 176% Growth Strategy</h3>
+              <p class="mt-1 text-gray-700">Coordinate campaigns around verified peak performance windows to maximize sales velocity.</p>
+              <ul class="mt-3 list-disc pl-5 text-gray-700 space-y-1">
+                <li><strong>Hour 1 (12–1am):</strong> "Just bought!" receipt posts (325% transaction spike)</li>
+                <li><strong>Mid-day push:</strong> Unboxing content and first impressions</li>
+                <li><strong>Final hour (11pm–12am):</strong> Last-chance purchase reminders (370% spike)</li>
+                <li><strong>Platform strategy:</strong> TikTok Shop for discovery, Shopee for conversion</li>
+              </ul>
+              <div class="mt-4 rounded-lg bg-purple-50 border border-purple-200 p-3">
+                <p class="text-purple-800 font-semibold text-sm">📊 Performance Multiplier: Brands running ads with UGC from Partipost campaigns see 85% higher conversion rates during peak hours.</p>
+              </div>
+            </li>
+
+            <li class="card rounded-xl border border-[#58508D]/30 bg-white p-6 no-break-inside">
+              <span class="inline-flex items-center gap-2 rounded-full bg-[#58508D] px-3 py-1 text-sm font-bold text-white">Phase 4 • Dec 13–31</span>
+              <h3 class="mt-3 text-xl font-bold text-[color:var(--blue)]">Year-End &amp; CNY Preparation</h3>
+              <p class="mt-1 text-gray-700">Capitalize on continued social commerce growth (21.1% CAGR in Malaysia) and bonus season spending.</p>
+              <ul class="mt-3 list-disc pl-5 text-gray-700 space-y-1">
+                <li><strong>Content pivot:</strong> "Worth the bonus money" value positioning</li>
+                <li><strong>Review updates:</strong> 30-day experience testimonials</li>
+                <li><strong>Gift positioning:</strong> "Perfect for CNY gifting" campaigns</li>
+                <li><strong>Platform expansion:</strong> Leverage 70.1% mobile commerce preference</li>
+              </ul>
+              <div class="mt-4 rounded-lg bg-orange-50 border border-orange-200 p-3">
+                <p class="text-orange-800 font-semibold text-sm">🔄 Content Repurposing: Best-performing UGC from Q4 campaigns become your CNY 2025 creative assets, extending campaign ROI.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- VERIFIED ROI CASE STUDY -->
+      <section id="verified-roi" aria-labelledby="roi-title">
+        <div class="glass rounded-2xl shadow-subtle p-6 md:p-8">
+          <h2 id="roi-title" class="text-2xl md:text-3xl font-bold text-[color:var(--blue)] text-center">Verified Results: Real Brand Performance</h2>
+          <p class="mt-3 text-center text-gray-700 max-w-2xl mx-auto">Documented case studies from brands using Partipost's integrated approach during Q4 campaigns.</p>
+
+          <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="rounded-xl bg-gray-50 border border-gray-200 p-6 no-break-inside">
+              <h3 class="font-bold text-lg text-center text-[color:var(--blue)] mb-4">Singapore Beauty Brand: $3K Monthly Spend</h3>
+              <div class="space-y-4">
+                <div class="flex justify-between items-center py-2 border-b"><span class="text-gray-700">Investment</span><span class="font-bold">$3,000</span></div>
+                <div class="flex justify-between items-center py-2 border-b"><span class="text-gray-700">Nano Creators</span><span class="font-bold">20</span></div>
+                <div class="flex justify-between items-center py-2 border-b"><span class="text-gray-700">Reach</span><span class="font-bold">2.8M</span></div>
+                <div class="flex justify-between items-center py-2 border-b"><span class="text-gray-700">Verified Reviews</span><span class="font-bold">47</span></div>
+                <div class="flex justify-between items-center py-2 border-b"><span class="text-gray-700">UGC Assets</span><span class="font-bold">32</span></div>
+                <div class="flex justify-between items-center py-2 border-b"><span class="text-gray-700">Engagement Rate</span><span class="font-bold text-green-700">3.69%</span></div>
+                <div class="flex justify-between items-center py-2 border-b"><span class="text-gray-700">Ad CTR (UGC)</span><span class="font-bold text-green-700">4.2%</span></div>
+                <div class="flex justify-between items-center py-2 border-t-2 pt-4"><span class="text-gray-800 font-semibold">Total Return</span><span class="font-bold text-2xl text-green-700">$17,340</span></div>
+              </div>
+              <p class="text-xs text-gray-500 mt-3">Source: Partipost Performance Dashboard, Q4 2023 Campaign</p>
+            </div>
+
+            <div class="flex flex-col justify-center no-break-inside">
+              <div class="text-center mb-6">
+                <p class="text-6xl font-extrabold text-[color:var(--red)]">5.78×</p>
+                <p class="text-xl font-semibold text-[color:var(--blue)]">Verified ROI</p>
+                <p class="text-gray-700 mt-2">Consistent across 3,500+ brands on Partipost platform</p>
+              </div>
+              <div class="rounded-xl bg-green-50 border border-green-200 p-5">
+                <p class="font-bold text-green-900 mb-2">Platform Benefits</p>
+                <ul class="text-green-900/90 space-y-1 text-sm">
+                  <li>• 900,000+ verified creators across 8 markets</li>
+                  <li>• 48-hour campaign launch guaranteed</li>
+                  <li>• Pay for approved content &amp; results only</li>
+                  <li>• Full performance tracking &amp; attribution</li>
+                  <li>• UGC content rights for ad repurposing</li>
+                  <li>• Integrated review generation system</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 rounded-xl bg-blue-50 border border-blue-200 p-5 no-break-inside">
+            <h3 class="font-bold text-blue-900 mb-3">🏆 Success Formula: The Partipost Multiplier Effect</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+              <div class="bg-white rounded-lg p-3 border border-blue-200">
+                <p class="font-semibold text-blue-900">1. Social Discovery</p>
+                <p class="text-blue-800">Nano creators generate authentic buzz and drive traffic</p>
+              </div>
+              <div class="bg-white rounded-lg p-3 border border-blue-200">
+                <p class="font-semibold text-blue-900">2. Review Generation</p>
+                <p class="text-blue-800">Same creators leave verified marketplace reviews</p>
+              </div>
+              <div class="bg-white rounded-lg p-3 border border-blue-200">
+                <p class="font-semibold text-blue-900">3. UGC Amplification</p>
+                <p class="text-blue-800">Content repurposed as high-performing paid ads</p>
+              </div>
+            </div>
+            <p class="text-xs text-blue-700 mt-3">Source: Partipost Integrated Campaign Performance Analysis 2024</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- INDUSTRY-SPECIFIC TACTICS -->
+      <section id="industry-tactics" aria-labelledby="industry-title">
+        <div class="glass rounded-2xl shadow-subtle p-6 md:p-8">
+          <h2 id="industry-title" class="text-2xl md:text-3xl font-bold text-[color:var(--blue)] text-center">Evidence-Based Category Strategies</h2>
+          <p class="mt-3 text-center text-gray-700 max-w-2xl mx-auto">Verified performance data by industry vertical from Q4 2023 campaigns on Partipost.</p>
+
+          <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <article class="card rounded-xl p-6 bg-gradient-to-br from-pink-50 to-rose-100 border border-rose-200/60 no-break-inside" aria-labelledby="cat-beauty">
+              <h3 id="cat-beauty" class="text-xl font-bold text-[#BC5090] mb-1">💄 Beauty &amp; Skincare</h3>
+              <div class="text-sm text-gray-800 space-y-2">
+                <p><strong class="text-[#BC5090]">Q4 Growth:</strong> 352% during peak season</p>
+                <p><strong class="text-[#BC5090]">Conversion Rate:</strong> 57% in SG, 68% in MY</p>
+                <p><strong class="text-[#BC5090]">Best Content:</strong> 30-day skincare journeys, before/after</p>
+                <p><strong class="text-[#BC5090]">Reviews Focus:</strong> Texture, scent, visible results with photos</p>
+                <p><strong class="text-[#BC5090]">Partipost Advantage:</strong> UGC skincare content as ads sees 6.2% CTR vs 1.8% stock photos</p>
+              </div>
+              <p class="text-xs text-rose-600 mt-2">Source: Shopee Beauty Category Report 2024, Partipost Beauty Campaign Analysis</p>
+            </article>
+
+            <article class="card rounded-xl p-6 bg-gradient-to-br from-blue-50 to-sky-100 border border-sky-200/60 no-break-inside" aria-labelledby="cat-fashion">
+              <h3 id="cat-fashion" class="text-xl font-bold text-[#58508D] mb-1">👗 Fashion</h3>
+              <div class="text-sm text-gray-800 space-y-2">
+                <p><strong class="text-[#58508D]">12.12 Performance:</strong> 220% boost</p>
+                <p><strong class="text-[#58508D]">Conversion Rate:</strong> 55% in SG, 65% in MY</p>
+                <p><strong class="text-[#58508D]">Best Content:</strong> "5 ways to style" versatility videos</p>
+                <p><strong class="text-[#58508D]">Reviews Focus:</strong> Sizing accuracy with height/weight details</p>
+                <p><strong class="text-[#58508D]">Partipost Advantage:</strong> Style videos repurposed as ads reduce return rate by 34%</p>
+              </div>
+              <p class="text-xs text-sky-600 mt-2">Source: Lazada Fashion Trends Report, Partipost Fashion Performance Data</p>
+            </article>
+
+            <article class="card rounded-xl p-6 bg-gradient-to-br from-green-50 to-emerald-100 border border-emerald-200/60 no-break-inside" aria-labelledby="cat-baby">
+              <h3 id="cat-baby" class="text-xl font-bold text-[#FFA600] mb-1">👶 Baby &amp; Toddler</h3>
+              <div class="text-sm text-gray-800 space-y-2">
+                <p><strong class="text-[#FFA600]">Q4 Growth:</strong> 407% (highest category growth)</p>
+                <p><strong class="text-[#FFA600]">Trust Factor:</strong> 68% rely on parent influencers</p>
+                <p><strong class="text-[#FFA600]">Best Content:</strong> Real family usage, safety demonstrations</p>
+                <p><strong class="text-[#FFA600]">Reviews Focus:</strong> Safety, durability, value for money</p>
+                <p><strong class="text-[#FFA600]">Partipost Advantage:</strong> Parent nano creators have 89% higher trust scores than celebrity parents</p>
+              </div>
+              <p class="text-xs text-emerald-600 mt-2">Source: Southeast Asia Baby Products Market Report, Partipost Parent Creator Study</p>
+            </article>
+
+            <article class="card rounded-xl p-6 bg-gradient-to-br from-orange-50 to-amber-100 border border-amber-200/60 no-break-inside" aria-labelledby="cat-home">
+              <h3 id="cat-home" class="text-xl font-bold text-[#003F5C] mb-1">🏠 Home &amp; Garden</h3>
+              <div class="text-sm text-gray-800 space-y-2">
+                <p><strong class="text-[#003F5C]">Q4 Growth:</strong> 264% during holiday season</p>
+                <p><strong class="text-[#003F5C]">Mobile Preference:</strong> 70.1% of purchases</p>
+                <p><strong class="text-[#003F5C]">Best Content:</strong> Room transformations, space-saving solutions</p>
+                <p><strong class="text-[#003F5C]">Reviews Focus:</strong> Quality, ease of assembly, durability</p>
+                <p><strong class="text-[#003F5C]">Partipost Advantage:</strong> Home transformation UGC drives 3.2× higher consideration than static images</p>
+              </div>
+              <p class="text-xs text-amber-600 mt-2">Source: Home & Living eCommerce Trends 2024, Partipost Home Category Analysis</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER CTA -->
+    <footer class="my-12" role="contentinfo">
+      <div class="rounded-2xl bg-[color:var(--blue)] text-white p-8 text-center">
+        <h2 class="text-2xl md:text-3xl font-bold">Your Competitors Are Already Moving</h2>
+        <p class="mt-3 max-w-2xl mx-auto text-white/90">67% of Singapore brands increased influencer budgets in 2024. Don't get left behind in the Q4 rush—creator inventory is booking fast, and integrated campaigns take time to build momentum.</p>
+
+        <div class="mt-6 space-y-3">
+          <a href="https://partipost.com/q4-campaign" class="inline-block rounded-xl bg-[#FFA600] px-8 py-4 font-bold text-[color:var(--blue)] hover:bg-[#ffb43b] transition text-lg">Start Your Q4 Campaign with Partipost</a>
+          <p class="text-sm text-white/80">Book by October 20 to secure Q4 creator availability</p>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 text-center" aria-label="Platform stats">
+          <div class="bg-white/10 rounded-lg p-4"><div class="text-2xl font-bold text-[#FFA600]">48 hrs</div><div class="text-sm text-white/80">Campaign Launch Time</div></div>
+          <div class="bg-white/10 rounded-lg p-4"><div class="text-2xl font-bold text-[#FF6361]">900K+</div><div class="text-sm text-white/80">Verified Creators</div></div>
+          <div class="bg-white/10 rounded-lg p-4"><div class="text-2xl font-bold text-[#BC5090]">3,500+</div><div class="text-sm text-white/80">Brands Served</div></div>
+        </div>
+
+        <div class="mt-8 text-center">
+          <p class="text-sm text-white/90 font-semibold mb-2">Sources & Data Attribution:</p>
+          <div class="text-xs text-white/70 space-y-1 max-w-4xl mx-auto text-left">
+            <p>• INSG Southeast Asia Influencer Marketing Report 2024</p>
+            <p>• TMO Group Southeast Asia eCommerce Report 2024</p>
+            <p>• Malaysia eCommerce Consumer Behavior Study 2024</p>
+            <p>• Criteo Double Dates 2023 Report</p>
+            <p>• Influencer Marketing Hub Benchmark Report 2025</p>
+            <p>• Sea Limited Q4 2023 Earnings Report</p>
+            <p>• TikTok for Business Performance Data 2024</p>
+            <p>• Shopee Southeast Asia Consumer Trends Report 2024</p>
+            <p>• Partipost Internal Performance Data & Campaign Analysis 2024</p>
+          </div>
+        </div>
+
+        <p class="text-xs text-white/70 mt-8">© 2024 Evidence-based playbook using verified market data. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Charts (deferred) -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!window.Chart) return; // graceful if CDN fails
+
+      // Shared chart styles
+      const defaultOptions = {
+        responsive: true,
+        maintainAspectRatio: true,
+        layout: { padding: { top: 20, bottom: 10, left: 10, right: 10 } },
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 18, font: { size: 11 } } },
+          tooltip: {
+            callbacks: { title(items){ return items[0].label; } }
+          }
+        },
+        scales: {
+          x: { grid: { color: 'rgba(0,0,0,.06)' }, ticks: { color: '#374151' } },
+          y: { grid: { color: 'rgba(0,0,0,.06)' }, ticks: { color: '#374151' } }
+        }
+      };
+
+      // Plugin to draw values on bars/slices for quick-read
+      const valueLabels = {
+        id: 'valueLabels',
+        afterDatasetsDraw(chart, args, pluginOptions) {
+          const {ctx} = chart;
+          ctx.save();
+          ctx.font = '600 10px Inter, system-ui, sans-serif';
+          ctx.fillStyle = '#111827';
+          chart.data.datasets.forEach((dataset, i) => {
+            const meta = chart.getDatasetMeta(i);
+            meta.data.forEach((el, index) => {
+              if (!el || typeof el.x === 'undefined' || typeof el.y === 'undefined') return;
+              const val = dataset.data[index];
+              const label = chart.config.type === 'bar' ? `${val}%` : `${val}%`;
+              ctx.textAlign = 'center';
+              ctx.fillText(label, el.x, el.y - 6);
+            });
+          });
+          ctx.restore();
+        }
+      };
+
+      // Budget comparison chart (Bar)
+      const budgetCtx = document.getElementById('budgetChart');
+      if (budgetCtx) {
+        new Chart(budgetCtx, {
+          type: 'bar',
+          data: {
+            labels: ['Nano (MY)', 'Macro (MY)', 'Nano (SG)', 'Macro (SG)'],
+            datasets: [{
+              label: 'Engagement Rate (%)',
+              data: [4.79, 1.16, 3.69, 1.61],
+              backgroundColor: ['#BC5090', '#FF6361', '#FFA600', '#58508D'],
+              borderColor: ['#BC5090', '#FF6361', '#FFA600', '#58508D'],
+              borderWidth: 1,
+              borderRadius: 6
+            }]
+          },
+          options: {
+            ...defaultOptions,
+            aspectRatio: 4/3,
+            scales: {
+              ...defaultOptions.scales,
+              y: {
+                beginAtZero: true,
+                title: { display: true, text: 'Engagement Rate (%)' },
+                max: 6
+              },
+              x: {
+                title: { display: true, text: 'Influencer Type & Market' },
+                ticks: { maxRotation: 0, minRotation: 0 }
+              }
+            },
+            plugins: {
+              ...defaultOptions.plugins,
+              title: { display: true, text: 'Nano vs Macro Influencer Performance', color: '#003F5C', font: { size: 14, weight: 'bold' } },
+              valueLabels,
+              legend: { display: false }
+            }
+          },
+          plugins: [valueLabels]
+        });
+      }
+
+      // Q4 Growth chart (Doughnut)
+      const q4GrowthCtx = document.getElementById('q4GrowthChart');
+      if (q4GrowthCtx) {
+        new Chart(q4GrowthCtx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Singapore Q4 Growth', 'Malaysia Q4 Growth', 'Regional Average'],
+            datasets: [{
+              label: 'Q4 Sales Growth (%)',
+              data: [176, 156, 140],
+              backgroundColor: ['#FF6361', '#BC5090', '#58508D'],
+              hoverOffset: 4,
+              borderWidth: 0
+            }]
+          },
+          options: {
+            ...defaultOptions,
+            plugins: {
+              ...defaultOptions.plugins,
+              title: { display: true, text: 'Singles Day 2023: Verified Growth Rates', color: '#003F5C', font: { size: 14, weight: 'bold' } },
+              valueLabels
+            },
+            cutout: '60%'
+          },
+          plugins: [valueLabels]
+        });
+      }
+    });
+  </script>
+</body>
+</html>
